@@ -2,7 +2,7 @@
 
 LINE BOT writen in Haskell
 
-This code is under developping
+This code is under developing
 
 ## Build
 

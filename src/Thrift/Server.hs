@@ -54,13 +54,14 @@ runBasicServer :: h
                -> PortNumber
                -> IO a
 runBasicServer hand proc_ port = runThreadedServer binaryAccept hand proc_ (PortNumber port)
-  where binaryAccept s = do
+    where
+        binaryAccept s = do
             (h, _, _) <- accept s
             return (BinaryProtocol h, BinaryProtocol h)
 
 acceptLoop :: IO t -> (t -> IO Bool) -> IO a
-acceptLoop accepter proc_ = forever $
-    do ps <- accepter
-       forkIO $ handle (\(_ :: SomeException) -> return ())
-                  (loop $ proc_ ps)
-  where loop m = do { continue <- m; when continue (loop m) }
+acceptLoop accepter proc_ = forever $ do
+    ps <- accepter
+    forkIO $ handle (\(_ :: SomeException) -> return ()) (loop $ proc_ ps)
+        where
+            loop m = do { continue <- m; when continue (loop m) }

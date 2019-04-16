@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SpotService_Client(lookupByPhoneNumber,lookupNearby) where
+module LineApi.SpotService_Client(lookupByPhoneNumber,lookupNearby) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import SpotService
+import LineApi.Line_Types
+import LineApi.SpotService
 seqid = R.newIORef 0
 lookupByPhoneNumber (ip,op) arg_countryAreaCode arg_phoneNumber = do
   send_lookupByPhoneNumber op arg_countryAreaCode arg_phoneNumber

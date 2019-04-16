@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BuddyManagementService_Client(addBuddyMember,addBuddyMembers,blockBuddyMember,commitSendMessagesToAll,commitSendMessagesToMids,containsBuddyMember,downloadMessageContent,downloadMessageContentPreview,downloadProfileImage,downloadProfileImagePreview,getActiveMemberCountByBuddyMid,getActiveMemberMidsByBuddyMid,getAllBuddyMembers,getBlockedBuddyMembers,getBlockerCountByBuddyMid,getBuddyDetailByMid,getBuddyProfile,getContactTicket,getMemberCountByBuddyMid,getSendBuddyMessageResult,getSetBuddyOnAirResult,getUpdateBuddyProfileResult,isBuddyOnAirByMid,linkAndSendBuddyContentMessageToAllAsync,linkAndSendBuddyContentMessageToMids,notifyBuddyBlocked,notifyBuddyUnblocked,registerBuddy,registerBuddyAdmin,reissueContactTicket,removeBuddyMember,removeBuddyMembers,sendBuddyContentMessageToAll,sendBuddyContentMessageToAllAsync,sendBuddyContentMessageToMids,sendBuddyContentMessageToMidsAsync,sendBuddyMessageToAll,sendBuddyMessageToAllAsync,sendBuddyMessageToMids,sendBuddyMessageToMidsAsync,sendIndividualEventToAllAsync,setBuddyOnAir,setBuddyOnAirAsync,storeMessage,unblockBuddyMember,unregisterBuddy,unregisterBuddyAdmin,updateBuddyAdminProfileAttribute,updateBuddyAdminProfileImage,updateBuddyProfileAttributes,updateBuddyProfileAttributesAsync,updateBuddyProfileImage,updateBuddyProfileImageAsync,updateBuddySearchId,updateBuddySettings,uploadBuddyContent) where
+module LineApi.BuddyManagementService_Client(addBuddyMember,addBuddyMembers,blockBuddyMember,commitSendMessagesToAll,commitSendMessagesToMids,containsBuddyMember,downloadMessageContent,downloadMessageContentPreview,downloadProfileImage,downloadProfileImagePreview,getActiveMemberCountByBuddyMid,getActiveMemberMidsByBuddyMid,getAllBuddyMembers,getBlockedBuddyMembers,getBlockerCountByBuddyMid,getBuddyDetailByMid,getBuddyProfile,getContactTicket,getMemberCountByBuddyMid,getSendBuddyMessageResult,getSetBuddyOnAirResult,getUpdateBuddyProfileResult,isBuddyOnAirByMid,linkAndSendBuddyContentMessageToAllAsync,linkAndSendBuddyContentMessageToMids,notifyBuddyBlocked,notifyBuddyUnblocked,registerBuddy,registerBuddyAdmin,reissueContactTicket,removeBuddyMember,removeBuddyMembers,sendBuddyContentMessageToAll,sendBuddyContentMessageToAllAsync,sendBuddyContentMessageToMids,sendBuddyContentMessageToMidsAsync,sendBuddyMessageToAll,sendBuddyMessageToAllAsync,sendBuddyMessageToMids,sendBuddyMessageToMidsAsync,sendIndividualEventToAllAsync,setBuddyOnAir,setBuddyOnAirAsync,storeMessage,unblockBuddyMember,unregisterBuddy,unregisterBuddyAdmin,updateBuddyAdminProfileAttribute,updateBuddyAdminProfileImage,updateBuddyProfileAttributes,updateBuddyProfileAttributesAsync,updateBuddyProfileImage,updateBuddyProfileImageAsync,updateBuddySearchId,updateBuddySettings,uploadBuddyContent) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import BuddyManagementService
+import LineApi.Line_Types
+import LineApi.BuddyManagementService
 seqid = R.newIORef 0
 addBuddyMember (ip,op) arg_requestId arg_userMid = do
   send_addBuddyMember op arg_requestId arg_userMid

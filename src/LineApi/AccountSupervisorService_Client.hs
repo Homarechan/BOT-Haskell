@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AccountSupervisorService_Client(getRSAKey,notifyEmailConfirmationResult,registerVirtualAccount,requestVirtualAccountPasswordChange,requestVirtualAccountPasswordSet,unregisterVirtualAccount) where
+module LineApi.AccountSupervisorService_Client(getRSAKey,notifyEmailConfirmationResult,registerVirtualAccount,requestVirtualAccountPasswordChange,requestVirtualAccountPasswordSet,unregisterVirtualAccount) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import AccountSupervisorService
+import LineApi.Line_Types
+import LineApi.AccountSupervisorService
 seqid = R.newIORef 0
 getRSAKey (ip,op) = do
   send_getRSAKey op

@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module Line_Consts where
+module LineApi.Line_Consts where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,4 +38,4 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
+import LineApi.Line_Types

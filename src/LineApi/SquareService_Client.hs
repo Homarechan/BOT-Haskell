@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SquareService_Client(getSquareChatAnnouncements,deleteSquareChatAnnouncement,createSquareChatAnnouncement,getNoteStatus,getSquareStatus,reportSquareMember,reportSquareMessage,reportSquareChat,reportSquare,updateSquareMemberRelation,updateSquareAuthority,updateSquareChatMember,updateSquareChat,refreshSubscriptions,removeSubscriptions,rejectSquareMembers,updateSquareMembers,updateSquareMember,updateSquareFeatureSet,getSquareFeatureSet,searchSquares,updateSquare,getCategories,searchSquareMembers,fetchSquareChatEvents,fetchMyEvents,markAsRead,getSquareAuthority,sendMessage,leaveSquare,leaveSquareChat,joinSquareChat,joinSquare,inviteToSquare,inviteToSquareChat,getSquareMember,getSquareMembers,getSquareMemberRelation,getSquareMemberRelations,getSquareChatMembers,getSquareChatStatus,getSquareChat,getSquare,getJoinedSquares,getJoinedSquareChats,approveSquareMembers,createSquareChat,createSquare,deleteSquareChat,deleteSquare,destroyMessage,getJoinableSquareChats,getInvitationTicketUrl,findSquareByInvitationTicket) where
+module LineApi.SquareService_Client(getSquareChatAnnouncements,deleteSquareChatAnnouncement,createSquareChatAnnouncement,getNoteStatus,getSquareStatus,reportSquareMember,reportSquareMessage,reportSquareChat,reportSquare,updateSquareMemberRelation,updateSquareAuthority,updateSquareChatMember,updateSquareChat,refreshSubscriptions,removeSubscriptions,rejectSquareMembers,updateSquareMembers,updateSquareMember,updateSquareFeatureSet,getSquareFeatureSet,searchSquares,updateSquare,getCategories,searchSquareMembers,fetchSquareChatEvents,fetchMyEvents,markAsRead,getSquareAuthority,sendMessage,leaveSquare,leaveSquareChat,joinSquareChat,joinSquare,inviteToSquare,inviteToSquareChat,getSquareMember,getSquareMembers,getSquareMemberRelation,getSquareMemberRelations,getSquareChatMembers,getSquareChatStatus,getSquareChat,getSquare,getJoinedSquares,getJoinedSquareChats,approveSquareMembers,createSquareChat,createSquare,deleteSquareChat,deleteSquare,destroyMessage,getJoinableSquareChats,getInvitationTicketUrl,findSquareByInvitationTicket) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import SquareService
+import LineApi.Line_Types
+import LineApi.SquareService
 seqid = R.newIORef 0
 getSquareChatAnnouncements (ip,op) arg_request = do
   send_getSquareChatAnnouncements op arg_request

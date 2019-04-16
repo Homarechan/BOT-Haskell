@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BuddyManagementService where
+module LineApi.BuddyManagementService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,16 +38,16 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified BuddyManagementService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.BuddyManagementService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data AddBuddyMember_args = AddBuddyMember_args  { addBuddyMember_args_requestId :: LT.Text
   , addBuddyMember_args_userMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMember_args_requestId record   `H.hashWithSalt` addBuddyMember_args_userMid record  
-instance QC.Arbitrary AddBuddyMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMember_args_requestId record   `H.hashWithSalt` addBuddyMember_args_userMid record
+instance QC.Arbitrary AddBuddyMember_args where
   arbitrary = M.liftM AddBuddyMember_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_AddBuddyMember_args = []
@@ -83,15 +83,15 @@ default_AddBuddyMember_args = AddBuddyMember_args{
 data AddBuddyMember_result = AddBuddyMember_result  { addBuddyMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMember_result_e record  
-instance QC.Arbitrary AddBuddyMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMember_result_e record
+instance QC.Arbitrary AddBuddyMember_result where
   arbitrary = M.liftM AddBuddyMember_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AddBuddyMember_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_AddBuddyMember_result{addBuddyMember_result_e = addBuddyMember_result_e obj} then P.Nothing else P.Just $ default_AddBuddyMember_result{addBuddyMember_result_e = addBuddyMember_result_e obj}
     ]
 from_AddBuddyMember_result :: AddBuddyMember_result -> T.ThriftVal
-from_AddBuddyMember_result record = T.TStruct $ Map.fromList 
+from_AddBuddyMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4195 -> (1, ("e",from_TalkException _v4195))) <$> addBuddyMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4195 -> (1, ("e",from_TalkException _v4195))) <$> addBuddyMember_result_e record
@@ -119,8 +119,8 @@ data AddBuddyMembers_args = AddBuddyMembers_args  { addBuddyMembers_args_request
   , addBuddyMembers_args_userMids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMembers_args_requestId record   `H.hashWithSalt` addBuddyMembers_args_userMids record  
-instance QC.Arbitrary AddBuddyMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMembers_args_requestId record   `H.hashWithSalt` addBuddyMembers_args_userMids record
+instance QC.Arbitrary AddBuddyMembers_args where
   arbitrary = M.liftM AddBuddyMembers_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_AddBuddyMembers_args = []
@@ -156,15 +156,15 @@ default_AddBuddyMembers_args = AddBuddyMembers_args{
 data AddBuddyMembers_result = AddBuddyMembers_result  { addBuddyMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMembers_result_e record  
-instance QC.Arbitrary AddBuddyMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyMembers_result_e record
+instance QC.Arbitrary AddBuddyMembers_result where
   arbitrary = M.liftM AddBuddyMembers_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AddBuddyMembers_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_AddBuddyMembers_result{addBuddyMembers_result_e = addBuddyMembers_result_e obj} then P.Nothing else P.Just $ default_AddBuddyMembers_result{addBuddyMembers_result_e = addBuddyMembers_result_e obj}
     ]
 from_AddBuddyMembers_result :: AddBuddyMembers_result -> T.ThriftVal
-from_AddBuddyMembers_result record = T.TStruct $ Map.fromList 
+from_AddBuddyMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4212 -> (1, ("e",from_TalkException _v4212))) <$> addBuddyMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4212 -> (1, ("e",from_TalkException _v4212))) <$> addBuddyMembers_result_e record
@@ -192,8 +192,8 @@ data BlockBuddyMember_args = BlockBuddyMember_args  { blockBuddyMember_args_requ
   , blockBuddyMember_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BlockBuddyMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` blockBuddyMember_args_requestId record   `H.hashWithSalt` blockBuddyMember_args_mid record  
-instance QC.Arbitrary BlockBuddyMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` blockBuddyMember_args_requestId record   `H.hashWithSalt` blockBuddyMember_args_mid record
+instance QC.Arbitrary BlockBuddyMember_args where
   arbitrary = M.liftM BlockBuddyMember_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_BlockBuddyMember_args = []
@@ -229,15 +229,15 @@ default_BlockBuddyMember_args = BlockBuddyMember_args{
 data BlockBuddyMember_result = BlockBuddyMember_result  { blockBuddyMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BlockBuddyMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` blockBuddyMember_result_e record  
-instance QC.Arbitrary BlockBuddyMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` blockBuddyMember_result_e record
+instance QC.Arbitrary BlockBuddyMember_result where
   arbitrary = M.liftM BlockBuddyMember_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_BlockBuddyMember_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_BlockBuddyMember_result{blockBuddyMember_result_e = blockBuddyMember_result_e obj} then P.Nothing else P.Just $ default_BlockBuddyMember_result{blockBuddyMember_result_e = blockBuddyMember_result_e obj}
     ]
 from_BlockBuddyMember_result :: BlockBuddyMember_result -> T.ThriftVal
-from_BlockBuddyMember_result record = T.TStruct $ Map.fromList 
+from_BlockBuddyMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4225 -> (1, ("e",from_TalkException _v4225))) <$> blockBuddyMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4225 -> (1, ("e",from_TalkException _v4225))) <$> blockBuddyMember_result_e record
@@ -264,8 +264,8 @@ default_BlockBuddyMember_result = BlockBuddyMember_result{
 data CommitSendMessagesToAll_args = CommitSendMessagesToAll_args  { commitSendMessagesToAll_args_requestIdList :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CommitSendMessagesToAll_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToAll_args_requestIdList record  
-instance QC.Arbitrary CommitSendMessagesToAll_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToAll_args_requestIdList record
+instance QC.Arbitrary CommitSendMessagesToAll_args where
   arbitrary = M.liftM CommitSendMessagesToAll_args (QC.arbitrary)
   shrink obj | obj == default_CommitSendMessagesToAll_args = []
              | P.otherwise = M.catMaybes
@@ -297,8 +297,8 @@ data CommitSendMessagesToAll_result = CommitSendMessagesToAll_result  { commitSe
   , commitSendMessagesToAll_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CommitSendMessagesToAll_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToAll_result_success record   `H.hashWithSalt` commitSendMessagesToAll_result_e record  
-instance QC.Arbitrary CommitSendMessagesToAll_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToAll_result_success record   `H.hashWithSalt` commitSendMessagesToAll_result_e record
+instance QC.Arbitrary CommitSendMessagesToAll_result where
   arbitrary = M.liftM CommitSendMessagesToAll_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CommitSendMessagesToAll_result = []
@@ -307,7 +307,7 @@ instance QC.Arbitrary CommitSendMessagesToAll_result where
     , if obj == default_CommitSendMessagesToAll_result{commitSendMessagesToAll_result_e = commitSendMessagesToAll_result_e obj} then P.Nothing else P.Just $ default_CommitSendMessagesToAll_result{commitSendMessagesToAll_result_e = commitSendMessagesToAll_result_e obj}
     ]
 from_CommitSendMessagesToAll_result :: CommitSendMessagesToAll_result -> T.ThriftVal
-from_CommitSendMessagesToAll_result record = T.TStruct $ Map.fromList 
+from_CommitSendMessagesToAll_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4241 -> (1, ("e",from_TalkException _v4241))) <$> commitSendMessagesToAll_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4241 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SendBuddyMessageResult) $ P.map (\_v4243 -> from_SendBuddyMessageResult _v4243) $ Vector.toList _v4241))) $ commitSendMessagesToAll_result_success record
@@ -338,8 +338,8 @@ data CommitSendMessagesToMids_args = CommitSendMessagesToMids_args  { commitSend
   , commitSendMessagesToMids_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CommitSendMessagesToMids_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToMids_args_requestIdList record   `H.hashWithSalt` commitSendMessagesToMids_args_mids record  
-instance QC.Arbitrary CommitSendMessagesToMids_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToMids_args_requestIdList record   `H.hashWithSalt` commitSendMessagesToMids_args_mids record
+instance QC.Arbitrary CommitSendMessagesToMids_args where
   arbitrary = M.liftM CommitSendMessagesToMids_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_CommitSendMessagesToMids_args = []
@@ -376,8 +376,8 @@ data CommitSendMessagesToMids_result = CommitSendMessagesToMids_result  { commit
   , commitSendMessagesToMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CommitSendMessagesToMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToMids_result_success record   `H.hashWithSalt` commitSendMessagesToMids_result_e record  
-instance QC.Arbitrary CommitSendMessagesToMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` commitSendMessagesToMids_result_success record   `H.hashWithSalt` commitSendMessagesToMids_result_e record
+instance QC.Arbitrary CommitSendMessagesToMids_result where
   arbitrary = M.liftM CommitSendMessagesToMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CommitSendMessagesToMids_result = []
@@ -386,7 +386,7 @@ instance QC.Arbitrary CommitSendMessagesToMids_result where
     , if obj == default_CommitSendMessagesToMids_result{commitSendMessagesToMids_result_e = commitSendMessagesToMids_result_e obj} then P.Nothing else P.Just $ default_CommitSendMessagesToMids_result{commitSendMessagesToMids_result_e = commitSendMessagesToMids_result_e obj}
     ]
 from_CommitSendMessagesToMids_result :: CommitSendMessagesToMids_result -> T.ThriftVal
-from_CommitSendMessagesToMids_result record = T.TStruct $ Map.fromList 
+from_CommitSendMessagesToMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4267 -> (1, ("e",from_TalkException _v4267))) <$> commitSendMessagesToMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4267 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SendBuddyMessageResult) $ P.map (\_v4269 -> from_SendBuddyMessageResult _v4269) $ Vector.toList _v4267))) $ commitSendMessagesToMids_result_success record
@@ -417,8 +417,8 @@ data ContainsBuddyMember_args = ContainsBuddyMember_args  { containsBuddyMember_
   , containsBuddyMember_args_userMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ContainsBuddyMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` containsBuddyMember_args_requestId record   `H.hashWithSalt` containsBuddyMember_args_userMid record  
-instance QC.Arbitrary ContainsBuddyMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` containsBuddyMember_args_requestId record   `H.hashWithSalt` containsBuddyMember_args_userMid record
+instance QC.Arbitrary ContainsBuddyMember_args where
   arbitrary = M.liftM ContainsBuddyMember_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_ContainsBuddyMember_args = []
@@ -455,8 +455,8 @@ data ContainsBuddyMember_result = ContainsBuddyMember_result  { containsBuddyMem
   , containsBuddyMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ContainsBuddyMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` containsBuddyMember_result_success record   `H.hashWithSalt` containsBuddyMember_result_e record  
-instance QC.Arbitrary ContainsBuddyMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` containsBuddyMember_result_success record   `H.hashWithSalt` containsBuddyMember_result_e record
+instance QC.Arbitrary ContainsBuddyMember_result where
   arbitrary = M.liftM ContainsBuddyMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ContainsBuddyMember_result = []
@@ -465,7 +465,7 @@ instance QC.Arbitrary ContainsBuddyMember_result where
     , if obj == default_ContainsBuddyMember_result{containsBuddyMember_result_e = containsBuddyMember_result_e obj} then P.Nothing else P.Just $ default_ContainsBuddyMember_result{containsBuddyMember_result_e = containsBuddyMember_result_e obj}
     ]
 from_ContainsBuddyMember_result :: ContainsBuddyMember_result -> T.ThriftVal
-from_ContainsBuddyMember_result record = T.TStruct $ Map.fromList 
+from_ContainsBuddyMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4285 -> (1, ("e",from_TalkException _v4285))) <$> containsBuddyMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4285 -> P.Just (0, ("success",T.TBool _v4285))) $ containsBuddyMember_result_success record
@@ -496,8 +496,8 @@ data DownloadMessageContent_args = DownloadMessageContent_args  { downloadMessag
   , downloadMessageContent_args_messageId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadMessageContent_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContent_args_requestId record   `H.hashWithSalt` downloadMessageContent_args_messageId record  
-instance QC.Arbitrary DownloadMessageContent_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContent_args_requestId record   `H.hashWithSalt` downloadMessageContent_args_messageId record
+instance QC.Arbitrary DownloadMessageContent_args where
   arbitrary = M.liftM DownloadMessageContent_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_DownloadMessageContent_args = []
@@ -534,8 +534,8 @@ data DownloadMessageContent_result = DownloadMessageContent_result  { downloadMe
   , downloadMessageContent_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadMessageContent_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContent_result_success record   `H.hashWithSalt` downloadMessageContent_result_e record  
-instance QC.Arbitrary DownloadMessageContent_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContent_result_success record   `H.hashWithSalt` downloadMessageContent_result_e record
+instance QC.Arbitrary DownloadMessageContent_result where
   arbitrary = M.liftM DownloadMessageContent_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DownloadMessageContent_result = []
@@ -544,7 +544,7 @@ instance QC.Arbitrary DownloadMessageContent_result where
     , if obj == default_DownloadMessageContent_result{downloadMessageContent_result_e = downloadMessageContent_result_e obj} then P.Nothing else P.Just $ default_DownloadMessageContent_result{downloadMessageContent_result_e = downloadMessageContent_result_e obj}
     ]
 from_DownloadMessageContent_result :: DownloadMessageContent_result -> T.ThriftVal
-from_DownloadMessageContent_result record = T.TStruct $ Map.fromList 
+from_DownloadMessageContent_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4299 -> (1, ("e",from_TalkException _v4299))) <$> downloadMessageContent_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4299 -> P.Just (0, ("success",T.TBinary _v4299))) $ downloadMessageContent_result_success record
@@ -575,8 +575,8 @@ data DownloadMessageContentPreview_args = DownloadMessageContentPreview_args  { 
   , downloadMessageContentPreview_args_messageId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadMessageContentPreview_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContentPreview_args_requestId record   `H.hashWithSalt` downloadMessageContentPreview_args_messageId record  
-instance QC.Arbitrary DownloadMessageContentPreview_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContentPreview_args_requestId record   `H.hashWithSalt` downloadMessageContentPreview_args_messageId record
+instance QC.Arbitrary DownloadMessageContentPreview_args where
   arbitrary = M.liftM DownloadMessageContentPreview_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_DownloadMessageContentPreview_args = []
@@ -613,8 +613,8 @@ data DownloadMessageContentPreview_result = DownloadMessageContentPreview_result
   , downloadMessageContentPreview_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadMessageContentPreview_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContentPreview_result_success record   `H.hashWithSalt` downloadMessageContentPreview_result_e record  
-instance QC.Arbitrary DownloadMessageContentPreview_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadMessageContentPreview_result_success record   `H.hashWithSalt` downloadMessageContentPreview_result_e record
+instance QC.Arbitrary DownloadMessageContentPreview_result where
   arbitrary = M.liftM DownloadMessageContentPreview_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DownloadMessageContentPreview_result = []
@@ -623,7 +623,7 @@ instance QC.Arbitrary DownloadMessageContentPreview_result where
     , if obj == default_DownloadMessageContentPreview_result{downloadMessageContentPreview_result_e = downloadMessageContentPreview_result_e obj} then P.Nothing else P.Just $ default_DownloadMessageContentPreview_result{downloadMessageContentPreview_result_e = downloadMessageContentPreview_result_e obj}
     ]
 from_DownloadMessageContentPreview_result :: DownloadMessageContentPreview_result -> T.ThriftVal
-from_DownloadMessageContentPreview_result record = T.TStruct $ Map.fromList 
+from_DownloadMessageContentPreview_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4313 -> (1, ("e",from_TalkException _v4313))) <$> downloadMessageContentPreview_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4313 -> P.Just (0, ("success",T.TBinary _v4313))) $ downloadMessageContentPreview_result_success record
@@ -653,8 +653,8 @@ default_DownloadMessageContentPreview_result = DownloadMessageContentPreview_res
 data DownloadProfileImage_args = DownloadProfileImage_args  { downloadProfileImage_args_requestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadProfileImage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImage_args_requestId record  
-instance QC.Arbitrary DownloadProfileImage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImage_args_requestId record
+instance QC.Arbitrary DownloadProfileImage_args where
   arbitrary = M.liftM DownloadProfileImage_args (QC.arbitrary)
   shrink obj | obj == default_DownloadProfileImage_args = []
              | P.otherwise = M.catMaybes
@@ -686,8 +686,8 @@ data DownloadProfileImage_result = DownloadProfileImage_result  { downloadProfil
   , downloadProfileImage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadProfileImage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImage_result_success record   `H.hashWithSalt` downloadProfileImage_result_e record  
-instance QC.Arbitrary DownloadProfileImage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImage_result_success record   `H.hashWithSalt` downloadProfileImage_result_e record
+instance QC.Arbitrary DownloadProfileImage_result where
   arbitrary = M.liftM DownloadProfileImage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DownloadProfileImage_result = []
@@ -696,7 +696,7 @@ instance QC.Arbitrary DownloadProfileImage_result where
     , if obj == default_DownloadProfileImage_result{downloadProfileImage_result_e = downloadProfileImage_result_e obj} then P.Nothing else P.Just $ default_DownloadProfileImage_result{downloadProfileImage_result_e = downloadProfileImage_result_e obj}
     ]
 from_DownloadProfileImage_result :: DownloadProfileImage_result -> T.ThriftVal
-from_DownloadProfileImage_result record = T.TStruct $ Map.fromList 
+from_DownloadProfileImage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4326 -> (1, ("e",from_TalkException _v4326))) <$> downloadProfileImage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4326 -> P.Just (0, ("success",T.TBinary _v4326))) $ downloadProfileImage_result_success record
@@ -726,8 +726,8 @@ default_DownloadProfileImage_result = DownloadProfileImage_result{
 data DownloadProfileImagePreview_args = DownloadProfileImagePreview_args  { downloadProfileImagePreview_args_requestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadProfileImagePreview_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImagePreview_args_requestId record  
-instance QC.Arbitrary DownloadProfileImagePreview_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImagePreview_args_requestId record
+instance QC.Arbitrary DownloadProfileImagePreview_args where
   arbitrary = M.liftM DownloadProfileImagePreview_args (QC.arbitrary)
   shrink obj | obj == default_DownloadProfileImagePreview_args = []
              | P.otherwise = M.catMaybes
@@ -759,8 +759,8 @@ data DownloadProfileImagePreview_result = DownloadProfileImagePreview_result  { 
   , downloadProfileImagePreview_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DownloadProfileImagePreview_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImagePreview_result_success record   `H.hashWithSalt` downloadProfileImagePreview_result_e record  
-instance QC.Arbitrary DownloadProfileImagePreview_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` downloadProfileImagePreview_result_success record   `H.hashWithSalt` downloadProfileImagePreview_result_e record
+instance QC.Arbitrary DownloadProfileImagePreview_result where
   arbitrary = M.liftM DownloadProfileImagePreview_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DownloadProfileImagePreview_result = []
@@ -769,7 +769,7 @@ instance QC.Arbitrary DownloadProfileImagePreview_result where
     , if obj == default_DownloadProfileImagePreview_result{downloadProfileImagePreview_result_e = downloadProfileImagePreview_result_e obj} then P.Nothing else P.Just $ default_DownloadProfileImagePreview_result{downloadProfileImagePreview_result_e = downloadProfileImagePreview_result_e obj}
     ]
 from_DownloadProfileImagePreview_result :: DownloadProfileImagePreview_result -> T.ThriftVal
-from_DownloadProfileImagePreview_result record = T.TStruct $ Map.fromList 
+from_DownloadProfileImagePreview_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4339 -> (1, ("e",from_TalkException _v4339))) <$> downloadProfileImagePreview_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4339 -> P.Just (0, ("success",T.TBinary _v4339))) $ downloadProfileImagePreview_result_success record
@@ -799,8 +799,8 @@ default_DownloadProfileImagePreview_result = DownloadProfileImagePreview_result{
 data GetActiveMemberCountByBuddyMid_args = GetActiveMemberCountByBuddyMid_args  { getActiveMemberCountByBuddyMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActiveMemberCountByBuddyMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberCountByBuddyMid_args_buddyMid record  
-instance QC.Arbitrary GetActiveMemberCountByBuddyMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberCountByBuddyMid_args_buddyMid record
+instance QC.Arbitrary GetActiveMemberCountByBuddyMid_args where
   arbitrary = M.liftM GetActiveMemberCountByBuddyMid_args (QC.arbitrary)
   shrink obj | obj == default_GetActiveMemberCountByBuddyMid_args = []
              | P.otherwise = M.catMaybes
@@ -832,8 +832,8 @@ data GetActiveMemberCountByBuddyMid_result = GetActiveMemberCountByBuddyMid_resu
   , getActiveMemberCountByBuddyMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActiveMemberCountByBuddyMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberCountByBuddyMid_result_success record   `H.hashWithSalt` getActiveMemberCountByBuddyMid_result_e record  
-instance QC.Arbitrary GetActiveMemberCountByBuddyMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberCountByBuddyMid_result_success record   `H.hashWithSalt` getActiveMemberCountByBuddyMid_result_e record
+instance QC.Arbitrary GetActiveMemberCountByBuddyMid_result where
   arbitrary = M.liftM GetActiveMemberCountByBuddyMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetActiveMemberCountByBuddyMid_result = []
@@ -842,7 +842,7 @@ instance QC.Arbitrary GetActiveMemberCountByBuddyMid_result where
     , if obj == default_GetActiveMemberCountByBuddyMid_result{getActiveMemberCountByBuddyMid_result_e = getActiveMemberCountByBuddyMid_result_e obj} then P.Nothing else P.Just $ default_GetActiveMemberCountByBuddyMid_result{getActiveMemberCountByBuddyMid_result_e = getActiveMemberCountByBuddyMid_result_e obj}
     ]
 from_GetActiveMemberCountByBuddyMid_result :: GetActiveMemberCountByBuddyMid_result -> T.ThriftVal
-from_GetActiveMemberCountByBuddyMid_result record = T.TStruct $ Map.fromList 
+from_GetActiveMemberCountByBuddyMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4352 -> (1, ("e",from_TalkException _v4352))) <$> getActiveMemberCountByBuddyMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4352 -> P.Just (0, ("success",T.TI64 _v4352))) $ getActiveMemberCountByBuddyMid_result_success record
@@ -872,8 +872,8 @@ default_GetActiveMemberCountByBuddyMid_result = GetActiveMemberCountByBuddyMid_r
 data GetActiveMemberMidsByBuddyMid_args = GetActiveMemberMidsByBuddyMid_args  { getActiveMemberMidsByBuddyMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActiveMemberMidsByBuddyMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_args_buddyMid record  
-instance QC.Arbitrary GetActiveMemberMidsByBuddyMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_args_buddyMid record
+instance QC.Arbitrary GetActiveMemberMidsByBuddyMid_args where
   arbitrary = M.liftM GetActiveMemberMidsByBuddyMid_args (QC.arbitrary)
   shrink obj | obj == default_GetActiveMemberMidsByBuddyMid_args = []
              | P.otherwise = M.catMaybes
@@ -905,8 +905,8 @@ data GetActiveMemberMidsByBuddyMid_result = GetActiveMemberMidsByBuddyMid_result
   , getActiveMemberMidsByBuddyMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActiveMemberMidsByBuddyMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_result_success record   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_result_e record  
-instance QC.Arbitrary GetActiveMemberMidsByBuddyMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_result_success record   `H.hashWithSalt` getActiveMemberMidsByBuddyMid_result_e record
+instance QC.Arbitrary GetActiveMemberMidsByBuddyMid_result where
   arbitrary = M.liftM GetActiveMemberMidsByBuddyMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetActiveMemberMidsByBuddyMid_result = []
@@ -915,7 +915,7 @@ instance QC.Arbitrary GetActiveMemberMidsByBuddyMid_result where
     , if obj == default_GetActiveMemberMidsByBuddyMid_result{getActiveMemberMidsByBuddyMid_result_e = getActiveMemberMidsByBuddyMid_result_e obj} then P.Nothing else P.Just $ default_GetActiveMemberMidsByBuddyMid_result{getActiveMemberMidsByBuddyMid_result_e = getActiveMemberMidsByBuddyMid_result_e obj}
     ]
 from_GetActiveMemberMidsByBuddyMid_result :: GetActiveMemberMidsByBuddyMid_result -> T.ThriftVal
-from_GetActiveMemberMidsByBuddyMid_result record = T.TStruct $ Map.fromList 
+from_GetActiveMemberMidsByBuddyMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4365 -> (1, ("e",from_TalkException _v4365))) <$> getActiveMemberMidsByBuddyMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4365 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v4367 -> T.TString $ E.encodeUtf8 _v4367) $ Vector.toList _v4365))) $ getActiveMemberMidsByBuddyMid_result_success record
@@ -944,8 +944,8 @@ default_GetActiveMemberMidsByBuddyMid_result = GetActiveMemberMidsByBuddyMid_res
   getActiveMemberMidsByBuddyMid_result_e = P.Nothing}
 data GetAllBuddyMembers_args = GetAllBuddyMembers_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllBuddyMembers_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetAllBuddyMembers_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetAllBuddyMembers_args where
   arbitrary = QC.elements [GetAllBuddyMembers_args]
 from_GetAllBuddyMembers_args :: GetAllBuddyMembers_args -> T.ThriftVal
 from_GetAllBuddyMembers_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -972,8 +972,8 @@ data GetAllBuddyMembers_result = GetAllBuddyMembers_result  { getAllBuddyMembers
   , getAllBuddyMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllBuddyMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAllBuddyMembers_result_success record   `H.hashWithSalt` getAllBuddyMembers_result_e record  
-instance QC.Arbitrary GetAllBuddyMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAllBuddyMembers_result_success record   `H.hashWithSalt` getAllBuddyMembers_result_e record
+instance QC.Arbitrary GetAllBuddyMembers_result where
   arbitrary = M.liftM GetAllBuddyMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetAllBuddyMembers_result = []
@@ -982,7 +982,7 @@ instance QC.Arbitrary GetAllBuddyMembers_result where
     , if obj == default_GetAllBuddyMembers_result{getAllBuddyMembers_result_e = getAllBuddyMembers_result_e obj} then P.Nothing else P.Just $ default_GetAllBuddyMembers_result{getAllBuddyMembers_result_e = getAllBuddyMembers_result_e obj}
     ]
 from_GetAllBuddyMembers_result :: GetAllBuddyMembers_result -> T.ThriftVal
-from_GetAllBuddyMembers_result record = T.TStruct $ Map.fromList 
+from_GetAllBuddyMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4381 -> (1, ("e",from_TalkException _v4381))) <$> getAllBuddyMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4381 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v4383 -> T.TString $ E.encodeUtf8 _v4383) $ Vector.toList _v4381))) $ getAllBuddyMembers_result_success record
@@ -1011,8 +1011,8 @@ default_GetAllBuddyMembers_result = GetAllBuddyMembers_result{
   getAllBuddyMembers_result_e = P.Nothing}
 data GetBlockedBuddyMembers_args = GetBlockedBuddyMembers_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBlockedBuddyMembers_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetBlockedBuddyMembers_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetBlockedBuddyMembers_args where
   arbitrary = QC.elements [GetBlockedBuddyMembers_args]
 from_GetBlockedBuddyMembers_args :: GetBlockedBuddyMembers_args -> T.ThriftVal
 from_GetBlockedBuddyMembers_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1039,8 +1039,8 @@ data GetBlockedBuddyMembers_result = GetBlockedBuddyMembers_result  { getBlocked
   , getBlockedBuddyMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBlockedBuddyMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockedBuddyMembers_result_success record   `H.hashWithSalt` getBlockedBuddyMembers_result_e record  
-instance QC.Arbitrary GetBlockedBuddyMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockedBuddyMembers_result_success record   `H.hashWithSalt` getBlockedBuddyMembers_result_e record
+instance QC.Arbitrary GetBlockedBuddyMembers_result where
   arbitrary = M.liftM GetBlockedBuddyMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetBlockedBuddyMembers_result = []
@@ -1049,7 +1049,7 @@ instance QC.Arbitrary GetBlockedBuddyMembers_result where
     , if obj == default_GetBlockedBuddyMembers_result{getBlockedBuddyMembers_result_e = getBlockedBuddyMembers_result_e obj} then P.Nothing else P.Just $ default_GetBlockedBuddyMembers_result{getBlockedBuddyMembers_result_e = getBlockedBuddyMembers_result_e obj}
     ]
 from_GetBlockedBuddyMembers_result :: GetBlockedBuddyMembers_result -> T.ThriftVal
-from_GetBlockedBuddyMembers_result record = T.TStruct $ Map.fromList 
+from_GetBlockedBuddyMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4397 -> (1, ("e",from_TalkException _v4397))) <$> getBlockedBuddyMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4397 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v4399 -> T.TString $ E.encodeUtf8 _v4399) $ Vector.toList _v4397))) $ getBlockedBuddyMembers_result_success record
@@ -1079,8 +1079,8 @@ default_GetBlockedBuddyMembers_result = GetBlockedBuddyMembers_result{
 data GetBlockerCountByBuddyMid_args = GetBlockerCountByBuddyMid_args  { getBlockerCountByBuddyMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBlockerCountByBuddyMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockerCountByBuddyMid_args_buddyMid record  
-instance QC.Arbitrary GetBlockerCountByBuddyMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockerCountByBuddyMid_args_buddyMid record
+instance QC.Arbitrary GetBlockerCountByBuddyMid_args where
   arbitrary = M.liftM GetBlockerCountByBuddyMid_args (QC.arbitrary)
   shrink obj | obj == default_GetBlockerCountByBuddyMid_args = []
              | P.otherwise = M.catMaybes
@@ -1112,8 +1112,8 @@ data GetBlockerCountByBuddyMid_result = GetBlockerCountByBuddyMid_result  { getB
   , getBlockerCountByBuddyMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBlockerCountByBuddyMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockerCountByBuddyMid_result_success record   `H.hashWithSalt` getBlockerCountByBuddyMid_result_e record  
-instance QC.Arbitrary GetBlockerCountByBuddyMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBlockerCountByBuddyMid_result_success record   `H.hashWithSalt` getBlockerCountByBuddyMid_result_e record
+instance QC.Arbitrary GetBlockerCountByBuddyMid_result where
   arbitrary = M.liftM GetBlockerCountByBuddyMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetBlockerCountByBuddyMid_result = []
@@ -1122,7 +1122,7 @@ instance QC.Arbitrary GetBlockerCountByBuddyMid_result where
     , if obj == default_GetBlockerCountByBuddyMid_result{getBlockerCountByBuddyMid_result_e = getBlockerCountByBuddyMid_result_e obj} then P.Nothing else P.Just $ default_GetBlockerCountByBuddyMid_result{getBlockerCountByBuddyMid_result_e = getBlockerCountByBuddyMid_result_e obj}
     ]
 from_GetBlockerCountByBuddyMid_result :: GetBlockerCountByBuddyMid_result -> T.ThriftVal
-from_GetBlockerCountByBuddyMid_result record = T.TStruct $ Map.fromList 
+from_GetBlockerCountByBuddyMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4414 -> (1, ("e",from_TalkException _v4414))) <$> getBlockerCountByBuddyMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4414 -> P.Just (0, ("success",T.TI64 _v4414))) $ getBlockerCountByBuddyMid_result_success record
@@ -1152,8 +1152,8 @@ default_GetBlockerCountByBuddyMid_result = GetBlockerCountByBuddyMid_result{
 data GetBuddyDetailByMid_args = GetBuddyDetailByMid_args  { getBuddyDetailByMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBuddyDetailByMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyDetailByMid_args_buddyMid record  
-instance QC.Arbitrary GetBuddyDetailByMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyDetailByMid_args_buddyMid record
+instance QC.Arbitrary GetBuddyDetailByMid_args where
   arbitrary = M.liftM GetBuddyDetailByMid_args (QC.arbitrary)
   shrink obj | obj == default_GetBuddyDetailByMid_args = []
              | P.otherwise = M.catMaybes
@@ -1185,8 +1185,8 @@ data GetBuddyDetailByMid_result = GetBuddyDetailByMid_result  { getBuddyDetailBy
   , getBuddyDetailByMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBuddyDetailByMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyDetailByMid_result_success record   `H.hashWithSalt` getBuddyDetailByMid_result_e record  
-instance QC.Arbitrary GetBuddyDetailByMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyDetailByMid_result_success record   `H.hashWithSalt` getBuddyDetailByMid_result_e record
+instance QC.Arbitrary GetBuddyDetailByMid_result where
   arbitrary = M.liftM GetBuddyDetailByMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetBuddyDetailByMid_result = []
@@ -1195,7 +1195,7 @@ instance QC.Arbitrary GetBuddyDetailByMid_result where
     , if obj == default_GetBuddyDetailByMid_result{getBuddyDetailByMid_result_e = getBuddyDetailByMid_result_e obj} then P.Nothing else P.Just $ default_GetBuddyDetailByMid_result{getBuddyDetailByMid_result_e = getBuddyDetailByMid_result_e obj}
     ]
 from_GetBuddyDetailByMid_result :: GetBuddyDetailByMid_result -> T.ThriftVal
-from_GetBuddyDetailByMid_result record = T.TStruct $ Map.fromList 
+from_GetBuddyDetailByMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4427 -> (1, ("e",from_TalkException _v4427))) <$> getBuddyDetailByMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4427 -> P.Just (0, ("success",from_BuddyDetail _v4427))) $ getBuddyDetailByMid_result_success record
@@ -1224,8 +1224,8 @@ default_GetBuddyDetailByMid_result = GetBuddyDetailByMid_result{
   getBuddyDetailByMid_result_e = P.Nothing}
 data GetBuddyProfile_args = GetBuddyProfile_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBuddyProfile_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetBuddyProfile_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetBuddyProfile_args where
   arbitrary = QC.elements [GetBuddyProfile_args]
 from_GetBuddyProfile_args :: GetBuddyProfile_args -> T.ThriftVal
 from_GetBuddyProfile_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1252,8 +1252,8 @@ data GetBuddyProfile_result = GetBuddyProfile_result  { getBuddyProfile_result_s
   , getBuddyProfile_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBuddyProfile_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyProfile_result_success record   `H.hashWithSalt` getBuddyProfile_result_e record  
-instance QC.Arbitrary GetBuddyProfile_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBuddyProfile_result_success record   `H.hashWithSalt` getBuddyProfile_result_e record
+instance QC.Arbitrary GetBuddyProfile_result where
   arbitrary = M.liftM GetBuddyProfile_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetBuddyProfile_result = []
@@ -1262,7 +1262,7 @@ instance QC.Arbitrary GetBuddyProfile_result where
     , if obj == default_GetBuddyProfile_result{getBuddyProfile_result_e = getBuddyProfile_result_e obj} then P.Nothing else P.Just $ default_GetBuddyProfile_result{getBuddyProfile_result_e = getBuddyProfile_result_e obj}
     ]
 from_GetBuddyProfile_result :: GetBuddyProfile_result -> T.ThriftVal
-from_GetBuddyProfile_result record = T.TStruct $ Map.fromList 
+from_GetBuddyProfile_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4439 -> (1, ("e",from_TalkException _v4439))) <$> getBuddyProfile_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4439 -> P.Just (0, ("success",from_BuddyProfile _v4439))) $ getBuddyProfile_result_success record
@@ -1291,8 +1291,8 @@ default_GetBuddyProfile_result = GetBuddyProfile_result{
   getBuddyProfile_result_e = P.Nothing}
 data GetContactTicket_args = GetContactTicket_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetContactTicket_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetContactTicket_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetContactTicket_args where
   arbitrary = QC.elements [GetContactTicket_args]
 from_GetContactTicket_args :: GetContactTicket_args -> T.ThriftVal
 from_GetContactTicket_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1319,8 +1319,8 @@ data GetContactTicket_result = GetContactTicket_result  { getContactTicket_resul
   , getContactTicket_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetContactTicket_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getContactTicket_result_success record   `H.hashWithSalt` getContactTicket_result_e record  
-instance QC.Arbitrary GetContactTicket_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getContactTicket_result_success record   `H.hashWithSalt` getContactTicket_result_e record
+instance QC.Arbitrary GetContactTicket_result where
   arbitrary = M.liftM GetContactTicket_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetContactTicket_result = []
@@ -1329,7 +1329,7 @@ instance QC.Arbitrary GetContactTicket_result where
     , if obj == default_GetContactTicket_result{getContactTicket_result_e = getContactTicket_result_e obj} then P.Nothing else P.Just $ default_GetContactTicket_result{getContactTicket_result_e = getContactTicket_result_e obj}
     ]
 from_GetContactTicket_result :: GetContactTicket_result -> T.ThriftVal
-from_GetContactTicket_result record = T.TStruct $ Map.fromList 
+from_GetContactTicket_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4451 -> (1, ("e",from_TalkException _v4451))) <$> getContactTicket_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4451 -> P.Just (0, ("success",from_Ticket _v4451))) $ getContactTicket_result_success record
@@ -1359,8 +1359,8 @@ default_GetContactTicket_result = GetContactTicket_result{
 data GetMemberCountByBuddyMid_args = GetMemberCountByBuddyMid_args  { getMemberCountByBuddyMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMemberCountByBuddyMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getMemberCountByBuddyMid_args_buddyMid record  
-instance QC.Arbitrary GetMemberCountByBuddyMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getMemberCountByBuddyMid_args_buddyMid record
+instance QC.Arbitrary GetMemberCountByBuddyMid_args where
   arbitrary = M.liftM GetMemberCountByBuddyMid_args (QC.arbitrary)
   shrink obj | obj == default_GetMemberCountByBuddyMid_args = []
              | P.otherwise = M.catMaybes
@@ -1392,8 +1392,8 @@ data GetMemberCountByBuddyMid_result = GetMemberCountByBuddyMid_result  { getMem
   , getMemberCountByBuddyMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMemberCountByBuddyMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getMemberCountByBuddyMid_result_success record   `H.hashWithSalt` getMemberCountByBuddyMid_result_e record  
-instance QC.Arbitrary GetMemberCountByBuddyMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getMemberCountByBuddyMid_result_success record   `H.hashWithSalt` getMemberCountByBuddyMid_result_e record
+instance QC.Arbitrary GetMemberCountByBuddyMid_result where
   arbitrary = M.liftM GetMemberCountByBuddyMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetMemberCountByBuddyMid_result = []
@@ -1402,7 +1402,7 @@ instance QC.Arbitrary GetMemberCountByBuddyMid_result where
     , if obj == default_GetMemberCountByBuddyMid_result{getMemberCountByBuddyMid_result_e = getMemberCountByBuddyMid_result_e obj} then P.Nothing else P.Just $ default_GetMemberCountByBuddyMid_result{getMemberCountByBuddyMid_result_e = getMemberCountByBuddyMid_result_e obj}
     ]
 from_GetMemberCountByBuddyMid_result :: GetMemberCountByBuddyMid_result -> T.ThriftVal
-from_GetMemberCountByBuddyMid_result record = T.TStruct $ Map.fromList 
+from_GetMemberCountByBuddyMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4464 -> (1, ("e",from_TalkException _v4464))) <$> getMemberCountByBuddyMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4464 -> P.Just (0, ("success",T.TI64 _v4464))) $ getMemberCountByBuddyMid_result_success record
@@ -1432,8 +1432,8 @@ default_GetMemberCountByBuddyMid_result = GetMemberCountByBuddyMid_result{
 data GetSendBuddyMessageResult_args = GetSendBuddyMessageResult_args  { getSendBuddyMessageResult_args_sendBuddyMessageRequestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSendBuddyMessageResult_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSendBuddyMessageResult_args_sendBuddyMessageRequestId record  
-instance QC.Arbitrary GetSendBuddyMessageResult_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSendBuddyMessageResult_args_sendBuddyMessageRequestId record
+instance QC.Arbitrary GetSendBuddyMessageResult_args where
   arbitrary = M.liftM GetSendBuddyMessageResult_args (QC.arbitrary)
   shrink obj | obj == default_GetSendBuddyMessageResult_args = []
              | P.otherwise = M.catMaybes
@@ -1465,8 +1465,8 @@ data GetSendBuddyMessageResult_result = GetSendBuddyMessageResult_result  { getS
   , getSendBuddyMessageResult_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSendBuddyMessageResult_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSendBuddyMessageResult_result_success record   `H.hashWithSalt` getSendBuddyMessageResult_result_e record  
-instance QC.Arbitrary GetSendBuddyMessageResult_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSendBuddyMessageResult_result_success record   `H.hashWithSalt` getSendBuddyMessageResult_result_e record
+instance QC.Arbitrary GetSendBuddyMessageResult_result where
   arbitrary = M.liftM GetSendBuddyMessageResult_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSendBuddyMessageResult_result = []
@@ -1475,7 +1475,7 @@ instance QC.Arbitrary GetSendBuddyMessageResult_result where
     , if obj == default_GetSendBuddyMessageResult_result{getSendBuddyMessageResult_result_e = getSendBuddyMessageResult_result_e obj} then P.Nothing else P.Just $ default_GetSendBuddyMessageResult_result{getSendBuddyMessageResult_result_e = getSendBuddyMessageResult_result_e obj}
     ]
 from_GetSendBuddyMessageResult_result :: GetSendBuddyMessageResult_result -> T.ThriftVal
-from_GetSendBuddyMessageResult_result record = T.TStruct $ Map.fromList 
+from_GetSendBuddyMessageResult_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4477 -> (1, ("e",from_TalkException _v4477))) <$> getSendBuddyMessageResult_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4477 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4477))) $ getSendBuddyMessageResult_result_success record
@@ -1505,8 +1505,8 @@ default_GetSendBuddyMessageResult_result = GetSendBuddyMessageResult_result{
 data GetSetBuddyOnAirResult_args = GetSetBuddyOnAirResult_args  { getSetBuddyOnAirResult_args_setBuddyOnAirRequestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSetBuddyOnAirResult_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSetBuddyOnAirResult_args_setBuddyOnAirRequestId record  
-instance QC.Arbitrary GetSetBuddyOnAirResult_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSetBuddyOnAirResult_args_setBuddyOnAirRequestId record
+instance QC.Arbitrary GetSetBuddyOnAirResult_args where
   arbitrary = M.liftM GetSetBuddyOnAirResult_args (QC.arbitrary)
   shrink obj | obj == default_GetSetBuddyOnAirResult_args = []
              | P.otherwise = M.catMaybes
@@ -1538,8 +1538,8 @@ data GetSetBuddyOnAirResult_result = GetSetBuddyOnAirResult_result  { getSetBudd
   , getSetBuddyOnAirResult_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSetBuddyOnAirResult_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSetBuddyOnAirResult_result_success record   `H.hashWithSalt` getSetBuddyOnAirResult_result_e record  
-instance QC.Arbitrary GetSetBuddyOnAirResult_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSetBuddyOnAirResult_result_success record   `H.hashWithSalt` getSetBuddyOnAirResult_result_e record
+instance QC.Arbitrary GetSetBuddyOnAirResult_result where
   arbitrary = M.liftM GetSetBuddyOnAirResult_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSetBuddyOnAirResult_result = []
@@ -1548,7 +1548,7 @@ instance QC.Arbitrary GetSetBuddyOnAirResult_result where
     , if obj == default_GetSetBuddyOnAirResult_result{getSetBuddyOnAirResult_result_e = getSetBuddyOnAirResult_result_e obj} then P.Nothing else P.Just $ default_GetSetBuddyOnAirResult_result{getSetBuddyOnAirResult_result_e = getSetBuddyOnAirResult_result_e obj}
     ]
 from_GetSetBuddyOnAirResult_result :: GetSetBuddyOnAirResult_result -> T.ThriftVal
-from_GetSetBuddyOnAirResult_result record = T.TStruct $ Map.fromList 
+from_GetSetBuddyOnAirResult_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4490 -> (1, ("e",from_TalkException _v4490))) <$> getSetBuddyOnAirResult_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4490 -> P.Just (0, ("success",from_SetBuddyOnAirResult _v4490))) $ getSetBuddyOnAirResult_result_success record
@@ -1578,8 +1578,8 @@ default_GetSetBuddyOnAirResult_result = GetSetBuddyOnAirResult_result{
 data GetUpdateBuddyProfileResult_args = GetUpdateBuddyProfileResult_args  { getUpdateBuddyProfileResult_args_updateBuddyProfileRequestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUpdateBuddyProfileResult_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdateBuddyProfileResult_args_updateBuddyProfileRequestId record  
-instance QC.Arbitrary GetUpdateBuddyProfileResult_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdateBuddyProfileResult_args_updateBuddyProfileRequestId record
+instance QC.Arbitrary GetUpdateBuddyProfileResult_args where
   arbitrary = M.liftM GetUpdateBuddyProfileResult_args (QC.arbitrary)
   shrink obj | obj == default_GetUpdateBuddyProfileResult_args = []
              | P.otherwise = M.catMaybes
@@ -1611,8 +1611,8 @@ data GetUpdateBuddyProfileResult_result = GetUpdateBuddyProfileResult_result  { 
   , getUpdateBuddyProfileResult_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUpdateBuddyProfileResult_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdateBuddyProfileResult_result_success record   `H.hashWithSalt` getUpdateBuddyProfileResult_result_e record  
-instance QC.Arbitrary GetUpdateBuddyProfileResult_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdateBuddyProfileResult_result_success record   `H.hashWithSalt` getUpdateBuddyProfileResult_result_e record
+instance QC.Arbitrary GetUpdateBuddyProfileResult_result where
   arbitrary = M.liftM GetUpdateBuddyProfileResult_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUpdateBuddyProfileResult_result = []
@@ -1621,7 +1621,7 @@ instance QC.Arbitrary GetUpdateBuddyProfileResult_result where
     , if obj == default_GetUpdateBuddyProfileResult_result{getUpdateBuddyProfileResult_result_e = getUpdateBuddyProfileResult_result_e obj} then P.Nothing else P.Just $ default_GetUpdateBuddyProfileResult_result{getUpdateBuddyProfileResult_result_e = getUpdateBuddyProfileResult_result_e obj}
     ]
 from_GetUpdateBuddyProfileResult_result :: GetUpdateBuddyProfileResult_result -> T.ThriftVal
-from_GetUpdateBuddyProfileResult_result record = T.TStruct $ Map.fromList 
+from_GetUpdateBuddyProfileResult_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4503 -> (1, ("e",from_TalkException _v4503))) <$> getUpdateBuddyProfileResult_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4503 -> P.Just (0, ("success",from_UpdateBuddyProfileResult _v4503))) $ getUpdateBuddyProfileResult_result_success record
@@ -1651,8 +1651,8 @@ default_GetUpdateBuddyProfileResult_result = GetUpdateBuddyProfileResult_result{
 data IsBuddyOnAirByMid_args = IsBuddyOnAirByMid_args  { isBuddyOnAirByMid_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsBuddyOnAirByMid_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isBuddyOnAirByMid_args_buddyMid record  
-instance QC.Arbitrary IsBuddyOnAirByMid_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isBuddyOnAirByMid_args_buddyMid record
+instance QC.Arbitrary IsBuddyOnAirByMid_args where
   arbitrary = M.liftM IsBuddyOnAirByMid_args (QC.arbitrary)
   shrink obj | obj == default_IsBuddyOnAirByMid_args = []
              | P.otherwise = M.catMaybes
@@ -1684,8 +1684,8 @@ data IsBuddyOnAirByMid_result = IsBuddyOnAirByMid_result  { isBuddyOnAirByMid_re
   , isBuddyOnAirByMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsBuddyOnAirByMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isBuddyOnAirByMid_result_success record   `H.hashWithSalt` isBuddyOnAirByMid_result_e record  
-instance QC.Arbitrary IsBuddyOnAirByMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isBuddyOnAirByMid_result_success record   `H.hashWithSalt` isBuddyOnAirByMid_result_e record
+instance QC.Arbitrary IsBuddyOnAirByMid_result where
   arbitrary = M.liftM IsBuddyOnAirByMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IsBuddyOnAirByMid_result = []
@@ -1694,7 +1694,7 @@ instance QC.Arbitrary IsBuddyOnAirByMid_result where
     , if obj == default_IsBuddyOnAirByMid_result{isBuddyOnAirByMid_result_e = isBuddyOnAirByMid_result_e obj} then P.Nothing else P.Just $ default_IsBuddyOnAirByMid_result{isBuddyOnAirByMid_result_e = isBuddyOnAirByMid_result_e obj}
     ]
 from_IsBuddyOnAirByMid_result :: IsBuddyOnAirByMid_result -> T.ThriftVal
-from_IsBuddyOnAirByMid_result record = T.TStruct $ Map.fromList 
+from_IsBuddyOnAirByMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4516 -> (1, ("e",from_TalkException _v4516))) <$> isBuddyOnAirByMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4516 -> P.Just (0, ("success",T.TBool _v4516))) $ isBuddyOnAirByMid_result_success record
@@ -1726,8 +1726,8 @@ data LinkAndSendBuddyContentMessageToAllAsync_args = LinkAndSendBuddyContentMess
   , linkAndSendBuddyContentMessageToAllAsync_args_sourceContentId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LinkAndSendBuddyContentMessageToAllAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_requestId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_msg record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_sourceContentId record  
-instance QC.Arbitrary LinkAndSendBuddyContentMessageToAllAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_requestId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_msg record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_args_sourceContentId record
+instance QC.Arbitrary LinkAndSendBuddyContentMessageToAllAsync_args where
   arbitrary = M.liftM LinkAndSendBuddyContentMessageToAllAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1769,8 +1769,8 @@ data LinkAndSendBuddyContentMessageToAllAsync_result = LinkAndSendBuddyContentMe
   , linkAndSendBuddyContentMessageToAllAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LinkAndSendBuddyContentMessageToAllAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_result_success record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_result_e record  
-instance QC.Arbitrary LinkAndSendBuddyContentMessageToAllAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_result_success record   `H.hashWithSalt` linkAndSendBuddyContentMessageToAllAsync_result_e record
+instance QC.Arbitrary LinkAndSendBuddyContentMessageToAllAsync_result where
   arbitrary = M.liftM LinkAndSendBuddyContentMessageToAllAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LinkAndSendBuddyContentMessageToAllAsync_result = []
@@ -1779,7 +1779,7 @@ instance QC.Arbitrary LinkAndSendBuddyContentMessageToAllAsync_result where
     , if obj == default_LinkAndSendBuddyContentMessageToAllAsync_result{linkAndSendBuddyContentMessageToAllAsync_result_e = linkAndSendBuddyContentMessageToAllAsync_result_e obj} then P.Nothing else P.Just $ default_LinkAndSendBuddyContentMessageToAllAsync_result{linkAndSendBuddyContentMessageToAllAsync_result_e = linkAndSendBuddyContentMessageToAllAsync_result_e obj}
     ]
 from_LinkAndSendBuddyContentMessageToAllAsync_result :: LinkAndSendBuddyContentMessageToAllAsync_result -> T.ThriftVal
-from_LinkAndSendBuddyContentMessageToAllAsync_result record = T.TStruct $ Map.fromList 
+from_LinkAndSendBuddyContentMessageToAllAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4531 -> (1, ("e",from_TalkException _v4531))) <$> linkAndSendBuddyContentMessageToAllAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4531 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4531))) $ linkAndSendBuddyContentMessageToAllAsync_result_success record
@@ -1812,8 +1812,8 @@ data LinkAndSendBuddyContentMessageToMids_args = LinkAndSendBuddyContentMessageT
   , linkAndSendBuddyContentMessageToMids_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LinkAndSendBuddyContentMessageToMids_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_requestId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_msg record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_sourceContentId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_mids record  
-instance QC.Arbitrary LinkAndSendBuddyContentMessageToMids_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_requestId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_msg record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_sourceContentId record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_args_mids record
+instance QC.Arbitrary LinkAndSendBuddyContentMessageToMids_args where
   arbitrary = M.liftM LinkAndSendBuddyContentMessageToMids_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1860,8 +1860,8 @@ data LinkAndSendBuddyContentMessageToMids_result = LinkAndSendBuddyContentMessag
   , linkAndSendBuddyContentMessageToMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LinkAndSendBuddyContentMessageToMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_result_success record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_result_e record  
-instance QC.Arbitrary LinkAndSendBuddyContentMessageToMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_result_success record   `H.hashWithSalt` linkAndSendBuddyContentMessageToMids_result_e record
+instance QC.Arbitrary LinkAndSendBuddyContentMessageToMids_result where
   arbitrary = M.liftM LinkAndSendBuddyContentMessageToMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LinkAndSendBuddyContentMessageToMids_result = []
@@ -1870,7 +1870,7 @@ instance QC.Arbitrary LinkAndSendBuddyContentMessageToMids_result where
     , if obj == default_LinkAndSendBuddyContentMessageToMids_result{linkAndSendBuddyContentMessageToMids_result_e = linkAndSendBuddyContentMessageToMids_result_e obj} then P.Nothing else P.Just $ default_LinkAndSendBuddyContentMessageToMids_result{linkAndSendBuddyContentMessageToMids_result_e = linkAndSendBuddyContentMessageToMids_result_e obj}
     ]
 from_LinkAndSendBuddyContentMessageToMids_result :: LinkAndSendBuddyContentMessageToMids_result -> T.ThriftVal
-from_LinkAndSendBuddyContentMessageToMids_result record = T.TStruct $ Map.fromList 
+from_LinkAndSendBuddyContentMessageToMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4551 -> (1, ("e",from_TalkException _v4551))) <$> linkAndSendBuddyContentMessageToMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4551 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4551))) $ linkAndSendBuddyContentMessageToMids_result_success record
@@ -1901,8 +1901,8 @@ data NotifyBuddyBlocked_args = NotifyBuddyBlocked_args  { notifyBuddyBlocked_arg
   , notifyBuddyBlocked_args_blockerMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyBuddyBlocked_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyBlocked_args_buddyMid record   `H.hashWithSalt` notifyBuddyBlocked_args_blockerMid record  
-instance QC.Arbitrary NotifyBuddyBlocked_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyBlocked_args_buddyMid record   `H.hashWithSalt` notifyBuddyBlocked_args_blockerMid record
+instance QC.Arbitrary NotifyBuddyBlocked_args where
   arbitrary = M.liftM NotifyBuddyBlocked_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_NotifyBuddyBlocked_args = []
@@ -1938,15 +1938,15 @@ default_NotifyBuddyBlocked_args = NotifyBuddyBlocked_args{
 data NotifyBuddyBlocked_result = NotifyBuddyBlocked_result  { notifyBuddyBlocked_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyBuddyBlocked_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyBlocked_result_e record  
-instance QC.Arbitrary NotifyBuddyBlocked_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyBlocked_result_e record
+instance QC.Arbitrary NotifyBuddyBlocked_result where
   arbitrary = M.liftM NotifyBuddyBlocked_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyBuddyBlocked_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyBuddyBlocked_result{notifyBuddyBlocked_result_e = notifyBuddyBlocked_result_e obj} then P.Nothing else P.Just $ default_NotifyBuddyBlocked_result{notifyBuddyBlocked_result_e = notifyBuddyBlocked_result_e obj}
     ]
 from_NotifyBuddyBlocked_result :: NotifyBuddyBlocked_result -> T.ThriftVal
-from_NotifyBuddyBlocked_result record = T.TStruct $ Map.fromList 
+from_NotifyBuddyBlocked_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4565 -> (1, ("e",from_TalkException _v4565))) <$> notifyBuddyBlocked_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4565 -> (1, ("e",from_TalkException _v4565))) <$> notifyBuddyBlocked_result_e record
@@ -1974,8 +1974,8 @@ data NotifyBuddyUnblocked_args = NotifyBuddyUnblocked_args  { notifyBuddyUnblock
   , notifyBuddyUnblocked_args_blockerMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyBuddyUnblocked_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyUnblocked_args_buddyMid record   `H.hashWithSalt` notifyBuddyUnblocked_args_blockerMid record  
-instance QC.Arbitrary NotifyBuddyUnblocked_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyUnblocked_args_buddyMid record   `H.hashWithSalt` notifyBuddyUnblocked_args_blockerMid record
+instance QC.Arbitrary NotifyBuddyUnblocked_args where
   arbitrary = M.liftM NotifyBuddyUnblocked_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_NotifyBuddyUnblocked_args = []
@@ -2011,15 +2011,15 @@ default_NotifyBuddyUnblocked_args = NotifyBuddyUnblocked_args{
 data NotifyBuddyUnblocked_result = NotifyBuddyUnblocked_result  { notifyBuddyUnblocked_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyBuddyUnblocked_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyUnblocked_result_e record  
-instance QC.Arbitrary NotifyBuddyUnblocked_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyBuddyUnblocked_result_e record
+instance QC.Arbitrary NotifyBuddyUnblocked_result where
   arbitrary = M.liftM NotifyBuddyUnblocked_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyBuddyUnblocked_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyBuddyUnblocked_result{notifyBuddyUnblocked_result_e = notifyBuddyUnblocked_result_e obj} then P.Nothing else P.Just $ default_NotifyBuddyUnblocked_result{notifyBuddyUnblocked_result_e = notifyBuddyUnblocked_result_e obj}
     ]
 from_NotifyBuddyUnblocked_result :: NotifyBuddyUnblocked_result -> T.ThriftVal
-from_NotifyBuddyUnblocked_result record = T.TStruct $ Map.fromList 
+from_NotifyBuddyUnblocked_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4578 -> (1, ("e",from_TalkException _v4578))) <$> notifyBuddyUnblocked_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4578 -> (1, ("e",from_TalkException _v4578))) <$> notifyBuddyUnblocked_result_e record
@@ -2051,8 +2051,8 @@ data RegisterBuddy_args = RegisterBuddy_args  { registerBuddy_args_buddyId :: LT
   , registerBuddy_args_settings :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterBuddy_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddy_args_buddyId record   `H.hashWithSalt` registerBuddy_args_searchId record   `H.hashWithSalt` registerBuddy_args_displayName record   `H.hashWithSalt` registerBuddy_args_statusMeessage record   `H.hashWithSalt` registerBuddy_args_picture record   `H.hashWithSalt` registerBuddy_args_settings record  
-instance QC.Arbitrary RegisterBuddy_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddy_args_buddyId record   `H.hashWithSalt` registerBuddy_args_searchId record   `H.hashWithSalt` registerBuddy_args_displayName record   `H.hashWithSalt` registerBuddy_args_statusMeessage record   `H.hashWithSalt` registerBuddy_args_picture record   `H.hashWithSalt` registerBuddy_args_settings record
+instance QC.Arbitrary RegisterBuddy_args where
   arbitrary = M.liftM RegisterBuddy_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2109,8 +2109,8 @@ data RegisterBuddy_result = RegisterBuddy_result  { registerBuddy_result_success
   , registerBuddy_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterBuddy_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddy_result_success record   `H.hashWithSalt` registerBuddy_result_e record  
-instance QC.Arbitrary RegisterBuddy_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddy_result_success record   `H.hashWithSalt` registerBuddy_result_e record
+instance QC.Arbitrary RegisterBuddy_result where
   arbitrary = M.liftM RegisterBuddy_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RegisterBuddy_result = []
@@ -2119,7 +2119,7 @@ instance QC.Arbitrary RegisterBuddy_result where
     , if obj == default_RegisterBuddy_result{registerBuddy_result_e = registerBuddy_result_e obj} then P.Nothing else P.Just $ default_RegisterBuddy_result{registerBuddy_result_e = registerBuddy_result_e obj}
     ]
 from_RegisterBuddy_result :: RegisterBuddy_result -> T.ThriftVal
-from_RegisterBuddy_result record = T.TStruct $ Map.fromList 
+from_RegisterBuddy_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4601 -> (1, ("e",from_TalkException _v4601))) <$> registerBuddy_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4601 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4601))) $ registerBuddy_result_success record
@@ -2153,8 +2153,8 @@ data RegisterBuddyAdmin_args = RegisterBuddyAdmin_args  { registerBuddyAdmin_arg
   , registerBuddyAdmin_args_picture :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterBuddyAdmin_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddyAdmin_args_buddyId record   `H.hashWithSalt` registerBuddyAdmin_args_searchId record   `H.hashWithSalt` registerBuddyAdmin_args_displayName record   `H.hashWithSalt` registerBuddyAdmin_args_statusMessage record   `H.hashWithSalt` registerBuddyAdmin_args_picture record  
-instance QC.Arbitrary RegisterBuddyAdmin_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddyAdmin_args_buddyId record   `H.hashWithSalt` registerBuddyAdmin_args_searchId record   `H.hashWithSalt` registerBuddyAdmin_args_displayName record   `H.hashWithSalt` registerBuddyAdmin_args_statusMessage record   `H.hashWithSalt` registerBuddyAdmin_args_picture record
+instance QC.Arbitrary RegisterBuddyAdmin_args where
   arbitrary = M.liftM RegisterBuddyAdmin_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2206,8 +2206,8 @@ data RegisterBuddyAdmin_result = RegisterBuddyAdmin_result  { registerBuddyAdmin
   , registerBuddyAdmin_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterBuddyAdmin_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddyAdmin_result_success record   `H.hashWithSalt` registerBuddyAdmin_result_e record  
-instance QC.Arbitrary RegisterBuddyAdmin_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerBuddyAdmin_result_success record   `H.hashWithSalt` registerBuddyAdmin_result_e record
+instance QC.Arbitrary RegisterBuddyAdmin_result where
   arbitrary = M.liftM RegisterBuddyAdmin_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RegisterBuddyAdmin_result = []
@@ -2216,7 +2216,7 @@ instance QC.Arbitrary RegisterBuddyAdmin_result where
     , if obj == default_RegisterBuddyAdmin_result{registerBuddyAdmin_result_e = registerBuddyAdmin_result_e obj} then P.Nothing else P.Just $ default_RegisterBuddyAdmin_result{registerBuddyAdmin_result_e = registerBuddyAdmin_result_e obj}
     ]
 from_RegisterBuddyAdmin_result :: RegisterBuddyAdmin_result -> T.ThriftVal
-from_RegisterBuddyAdmin_result record = T.TStruct $ Map.fromList 
+from_RegisterBuddyAdmin_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4618 -> (1, ("e",from_TalkException _v4618))) <$> registerBuddyAdmin_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4618 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4618))) $ registerBuddyAdmin_result_success record
@@ -2247,8 +2247,8 @@ data ReissueContactTicket_args = ReissueContactTicket_args  { reissueContactTick
   , reissueContactTicket_args_maxUseCount :: I.Int32
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReissueContactTicket_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reissueContactTicket_args_expirationTime record   `H.hashWithSalt` reissueContactTicket_args_maxUseCount record  
-instance QC.Arbitrary ReissueContactTicket_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reissueContactTicket_args_expirationTime record   `H.hashWithSalt` reissueContactTicket_args_maxUseCount record
+instance QC.Arbitrary ReissueContactTicket_args where
   arbitrary = M.liftM ReissueContactTicket_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_ReissueContactTicket_args = []
@@ -2285,8 +2285,8 @@ data ReissueContactTicket_result = ReissueContactTicket_result  { reissueContact
   , reissueContactTicket_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReissueContactTicket_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reissueContactTicket_result_success record   `H.hashWithSalt` reissueContactTicket_result_e record  
-instance QC.Arbitrary ReissueContactTicket_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reissueContactTicket_result_success record   `H.hashWithSalt` reissueContactTicket_result_e record
+instance QC.Arbitrary ReissueContactTicket_result where
   arbitrary = M.liftM ReissueContactTicket_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReissueContactTicket_result = []
@@ -2295,7 +2295,7 @@ instance QC.Arbitrary ReissueContactTicket_result where
     , if obj == default_ReissueContactTicket_result{reissueContactTicket_result_e = reissueContactTicket_result_e obj} then P.Nothing else P.Just $ default_ReissueContactTicket_result{reissueContactTicket_result_e = reissueContactTicket_result_e obj}
     ]
 from_ReissueContactTicket_result :: ReissueContactTicket_result -> T.ThriftVal
-from_ReissueContactTicket_result record = T.TStruct $ Map.fromList 
+from_ReissueContactTicket_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4632 -> (1, ("e",from_TalkException _v4632))) <$> reissueContactTicket_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4632 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4632))) $ reissueContactTicket_result_success record
@@ -2326,8 +2326,8 @@ data RemoveBuddyMember_args = RemoveBuddyMember_args  { removeBuddyMember_args_r
   , removeBuddyMember_args_userMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveBuddyMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMember_args_requestId record   `H.hashWithSalt` removeBuddyMember_args_userMid record  
-instance QC.Arbitrary RemoveBuddyMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMember_args_requestId record   `H.hashWithSalt` removeBuddyMember_args_userMid record
+instance QC.Arbitrary RemoveBuddyMember_args where
   arbitrary = M.liftM RemoveBuddyMember_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_RemoveBuddyMember_args = []
@@ -2363,15 +2363,15 @@ default_RemoveBuddyMember_args = RemoveBuddyMember_args{
 data RemoveBuddyMember_result = RemoveBuddyMember_result  { removeBuddyMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveBuddyMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMember_result_e record  
-instance QC.Arbitrary RemoveBuddyMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMember_result_e record
+instance QC.Arbitrary RemoveBuddyMember_result where
   arbitrary = M.liftM RemoveBuddyMember_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RemoveBuddyMember_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RemoveBuddyMember_result{removeBuddyMember_result_e = removeBuddyMember_result_e obj} then P.Nothing else P.Just $ default_RemoveBuddyMember_result{removeBuddyMember_result_e = removeBuddyMember_result_e obj}
     ]
 from_RemoveBuddyMember_result :: RemoveBuddyMember_result -> T.ThriftVal
-from_RemoveBuddyMember_result record = T.TStruct $ Map.fromList 
+from_RemoveBuddyMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4646 -> (1, ("e",from_TalkException _v4646))) <$> removeBuddyMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4646 -> (1, ("e",from_TalkException _v4646))) <$> removeBuddyMember_result_e record
@@ -2399,8 +2399,8 @@ data RemoveBuddyMembers_args = RemoveBuddyMembers_args  { removeBuddyMembers_arg
   , removeBuddyMembers_args_userMids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveBuddyMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMembers_args_requestId record   `H.hashWithSalt` removeBuddyMembers_args_userMids record  
-instance QC.Arbitrary RemoveBuddyMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMembers_args_requestId record   `H.hashWithSalt` removeBuddyMembers_args_userMids record
+instance QC.Arbitrary RemoveBuddyMembers_args where
   arbitrary = M.liftM RemoveBuddyMembers_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_RemoveBuddyMembers_args = []
@@ -2436,15 +2436,15 @@ default_RemoveBuddyMembers_args = RemoveBuddyMembers_args{
 data RemoveBuddyMembers_result = RemoveBuddyMembers_result  { removeBuddyMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveBuddyMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMembers_result_e record  
-instance QC.Arbitrary RemoveBuddyMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeBuddyMembers_result_e record
+instance QC.Arbitrary RemoveBuddyMembers_result where
   arbitrary = M.liftM RemoveBuddyMembers_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RemoveBuddyMembers_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RemoveBuddyMembers_result{removeBuddyMembers_result_e = removeBuddyMembers_result_e obj} then P.Nothing else P.Just $ default_RemoveBuddyMembers_result{removeBuddyMembers_result_e = removeBuddyMembers_result_e obj}
     ]
 from_RemoveBuddyMembers_result :: RemoveBuddyMembers_result -> T.ThriftVal
-from_RemoveBuddyMembers_result record = T.TStruct $ Map.fromList 
+from_RemoveBuddyMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4663 -> (1, ("e",from_TalkException _v4663))) <$> removeBuddyMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4663 -> (1, ("e",from_TalkException _v4663))) <$> removeBuddyMembers_result_e record
@@ -2473,8 +2473,8 @@ data SendBuddyContentMessageToAll_args = SendBuddyContentMessageToAll_args  { se
   , sendBuddyContentMessageToAll_args_content :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToAll_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAll_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToAll_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToAll_args_content record  
-instance QC.Arbitrary SendBuddyContentMessageToAll_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAll_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToAll_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToAll_args_content record
+instance QC.Arbitrary SendBuddyContentMessageToAll_args where
   arbitrary = M.liftM SendBuddyContentMessageToAll_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2516,8 +2516,8 @@ data SendBuddyContentMessageToAll_result = SendBuddyContentMessageToAll_result  
   , sendBuddyContentMessageToAll_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToAll_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAll_result_success record   `H.hashWithSalt` sendBuddyContentMessageToAll_result_e record  
-instance QC.Arbitrary SendBuddyContentMessageToAll_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAll_result_success record   `H.hashWithSalt` sendBuddyContentMessageToAll_result_e record
+instance QC.Arbitrary SendBuddyContentMessageToAll_result where
   arbitrary = M.liftM SendBuddyContentMessageToAll_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyContentMessageToAll_result = []
@@ -2526,7 +2526,7 @@ instance QC.Arbitrary SendBuddyContentMessageToAll_result where
     , if obj == default_SendBuddyContentMessageToAll_result{sendBuddyContentMessageToAll_result_e = sendBuddyContentMessageToAll_result_e obj} then P.Nothing else P.Just $ default_SendBuddyContentMessageToAll_result{sendBuddyContentMessageToAll_result_e = sendBuddyContentMessageToAll_result_e obj}
     ]
 from_SendBuddyContentMessageToAll_result :: SendBuddyContentMessageToAll_result -> T.ThriftVal
-from_SendBuddyContentMessageToAll_result record = T.TStruct $ Map.fromList 
+from_SendBuddyContentMessageToAll_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4677 -> (1, ("e",from_TalkException _v4677))) <$> sendBuddyContentMessageToAll_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4677 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4677))) $ sendBuddyContentMessageToAll_result_success record
@@ -2558,8 +2558,8 @@ data SendBuddyContentMessageToAllAsync_args = SendBuddyContentMessageToAllAsync_
   , sendBuddyContentMessageToAllAsync_args_content :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToAllAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_content record  
-instance QC.Arbitrary SendBuddyContentMessageToAllAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_args_content record
+instance QC.Arbitrary SendBuddyContentMessageToAllAsync_args where
   arbitrary = M.liftM SendBuddyContentMessageToAllAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2601,8 +2601,8 @@ data SendBuddyContentMessageToAllAsync_result = SendBuddyContentMessageToAllAsyn
   , sendBuddyContentMessageToAllAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToAllAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_result_success record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_result_e record  
-instance QC.Arbitrary SendBuddyContentMessageToAllAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_result_success record   `H.hashWithSalt` sendBuddyContentMessageToAllAsync_result_e record
+instance QC.Arbitrary SendBuddyContentMessageToAllAsync_result where
   arbitrary = M.liftM SendBuddyContentMessageToAllAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyContentMessageToAllAsync_result = []
@@ -2611,7 +2611,7 @@ instance QC.Arbitrary SendBuddyContentMessageToAllAsync_result where
     , if obj == default_SendBuddyContentMessageToAllAsync_result{sendBuddyContentMessageToAllAsync_result_e = sendBuddyContentMessageToAllAsync_result_e obj} then P.Nothing else P.Just $ default_SendBuddyContentMessageToAllAsync_result{sendBuddyContentMessageToAllAsync_result_e = sendBuddyContentMessageToAllAsync_result_e obj}
     ]
 from_SendBuddyContentMessageToAllAsync_result :: SendBuddyContentMessageToAllAsync_result -> T.ThriftVal
-from_SendBuddyContentMessageToAllAsync_result record = T.TStruct $ Map.fromList 
+from_SendBuddyContentMessageToAllAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4692 -> (1, ("e",from_TalkException _v4692))) <$> sendBuddyContentMessageToAllAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4692 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4692))) $ sendBuddyContentMessageToAllAsync_result_success record
@@ -2644,8 +2644,8 @@ data SendBuddyContentMessageToMids_args = SendBuddyContentMessageToMids_args  { 
   , sendBuddyContentMessageToMids_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToMids_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMids_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_content record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_mids record  
-instance QC.Arbitrary SendBuddyContentMessageToMids_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMids_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_content record   `H.hashWithSalt` sendBuddyContentMessageToMids_args_mids record
+instance QC.Arbitrary SendBuddyContentMessageToMids_args where
   arbitrary = M.liftM SendBuddyContentMessageToMids_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2692,8 +2692,8 @@ data SendBuddyContentMessageToMids_result = SendBuddyContentMessageToMids_result
   , sendBuddyContentMessageToMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMids_result_success record   `H.hashWithSalt` sendBuddyContentMessageToMids_result_e record  
-instance QC.Arbitrary SendBuddyContentMessageToMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMids_result_success record   `H.hashWithSalt` sendBuddyContentMessageToMids_result_e record
+instance QC.Arbitrary SendBuddyContentMessageToMids_result where
   arbitrary = M.liftM SendBuddyContentMessageToMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyContentMessageToMids_result = []
@@ -2702,7 +2702,7 @@ instance QC.Arbitrary SendBuddyContentMessageToMids_result where
     , if obj == default_SendBuddyContentMessageToMids_result{sendBuddyContentMessageToMids_result_e = sendBuddyContentMessageToMids_result_e obj} then P.Nothing else P.Just $ default_SendBuddyContentMessageToMids_result{sendBuddyContentMessageToMids_result_e = sendBuddyContentMessageToMids_result_e obj}
     ]
 from_SendBuddyContentMessageToMids_result :: SendBuddyContentMessageToMids_result -> T.ThriftVal
-from_SendBuddyContentMessageToMids_result record = T.TStruct $ Map.fromList 
+from_SendBuddyContentMessageToMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4712 -> (1, ("e",from_TalkException _v4712))) <$> sendBuddyContentMessageToMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4712 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4712))) $ sendBuddyContentMessageToMids_result_success record
@@ -2735,8 +2735,8 @@ data SendBuddyContentMessageToMidsAsync_args = SendBuddyContentMessageToMidsAsyn
   , sendBuddyContentMessageToMidsAsync_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToMidsAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_content record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_mids record  
-instance QC.Arbitrary SendBuddyContentMessageToMidsAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_requestId record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_msg record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_content record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_args_mids record
+instance QC.Arbitrary SendBuddyContentMessageToMidsAsync_args where
   arbitrary = M.liftM SendBuddyContentMessageToMidsAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2783,8 +2783,8 @@ data SendBuddyContentMessageToMidsAsync_result = SendBuddyContentMessageToMidsAs
   , sendBuddyContentMessageToMidsAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyContentMessageToMidsAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_result_success record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_result_e record  
-instance QC.Arbitrary SendBuddyContentMessageToMidsAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_result_success record   `H.hashWithSalt` sendBuddyContentMessageToMidsAsync_result_e record
+instance QC.Arbitrary SendBuddyContentMessageToMidsAsync_result where
   arbitrary = M.liftM SendBuddyContentMessageToMidsAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyContentMessageToMidsAsync_result = []
@@ -2793,7 +2793,7 @@ instance QC.Arbitrary SendBuddyContentMessageToMidsAsync_result where
     , if obj == default_SendBuddyContentMessageToMidsAsync_result{sendBuddyContentMessageToMidsAsync_result_e = sendBuddyContentMessageToMidsAsync_result_e obj} then P.Nothing else P.Just $ default_SendBuddyContentMessageToMidsAsync_result{sendBuddyContentMessageToMidsAsync_result_e = sendBuddyContentMessageToMidsAsync_result_e obj}
     ]
 from_SendBuddyContentMessageToMidsAsync_result :: SendBuddyContentMessageToMidsAsync_result -> T.ThriftVal
-from_SendBuddyContentMessageToMidsAsync_result record = T.TStruct $ Map.fromList 
+from_SendBuddyContentMessageToMidsAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4732 -> (1, ("e",from_TalkException _v4732))) <$> sendBuddyContentMessageToMidsAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4732 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4732))) $ sendBuddyContentMessageToMidsAsync_result_success record
@@ -2824,8 +2824,8 @@ data SendBuddyMessageToAll_args = SendBuddyMessageToAll_args  { sendBuddyMessage
   , sendBuddyMessageToAll_args_msg :: Message
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToAll_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAll_args_requestId record   `H.hashWithSalt` sendBuddyMessageToAll_args_msg record  
-instance QC.Arbitrary SendBuddyMessageToAll_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAll_args_requestId record   `H.hashWithSalt` sendBuddyMessageToAll_args_msg record
+instance QC.Arbitrary SendBuddyMessageToAll_args where
   arbitrary = M.liftM SendBuddyMessageToAll_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToAll_args = []
@@ -2862,8 +2862,8 @@ data SendBuddyMessageToAll_result = SendBuddyMessageToAll_result  { sendBuddyMes
   , sendBuddyMessageToAll_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToAll_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAll_result_success record   `H.hashWithSalt` sendBuddyMessageToAll_result_e record  
-instance QC.Arbitrary SendBuddyMessageToAll_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAll_result_success record   `H.hashWithSalt` sendBuddyMessageToAll_result_e record
+instance QC.Arbitrary SendBuddyMessageToAll_result where
   arbitrary = M.liftM SendBuddyMessageToAll_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToAll_result = []
@@ -2872,7 +2872,7 @@ instance QC.Arbitrary SendBuddyMessageToAll_result where
     , if obj == default_SendBuddyMessageToAll_result{sendBuddyMessageToAll_result_e = sendBuddyMessageToAll_result_e obj} then P.Nothing else P.Just $ default_SendBuddyMessageToAll_result{sendBuddyMessageToAll_result_e = sendBuddyMessageToAll_result_e obj}
     ]
 from_SendBuddyMessageToAll_result :: SendBuddyMessageToAll_result -> T.ThriftVal
-from_SendBuddyMessageToAll_result record = T.TStruct $ Map.fromList 
+from_SendBuddyMessageToAll_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4746 -> (1, ("e",from_TalkException _v4746))) <$> sendBuddyMessageToAll_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4746 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4746))) $ sendBuddyMessageToAll_result_success record
@@ -2903,8 +2903,8 @@ data SendBuddyMessageToAllAsync_args = SendBuddyMessageToAllAsync_args  { sendBu
   , sendBuddyMessageToAllAsync_args_msg :: Message
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToAllAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAllAsync_args_requestId record   `H.hashWithSalt` sendBuddyMessageToAllAsync_args_msg record  
-instance QC.Arbitrary SendBuddyMessageToAllAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAllAsync_args_requestId record   `H.hashWithSalt` sendBuddyMessageToAllAsync_args_msg record
+instance QC.Arbitrary SendBuddyMessageToAllAsync_args where
   arbitrary = M.liftM SendBuddyMessageToAllAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToAllAsync_args = []
@@ -2941,8 +2941,8 @@ data SendBuddyMessageToAllAsync_result = SendBuddyMessageToAllAsync_result  { se
   , sendBuddyMessageToAllAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToAllAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAllAsync_result_success record   `H.hashWithSalt` sendBuddyMessageToAllAsync_result_e record  
-instance QC.Arbitrary SendBuddyMessageToAllAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToAllAsync_result_success record   `H.hashWithSalt` sendBuddyMessageToAllAsync_result_e record
+instance QC.Arbitrary SendBuddyMessageToAllAsync_result where
   arbitrary = M.liftM SendBuddyMessageToAllAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToAllAsync_result = []
@@ -2951,7 +2951,7 @@ instance QC.Arbitrary SendBuddyMessageToAllAsync_result where
     , if obj == default_SendBuddyMessageToAllAsync_result{sendBuddyMessageToAllAsync_result_e = sendBuddyMessageToAllAsync_result_e obj} then P.Nothing else P.Just $ default_SendBuddyMessageToAllAsync_result{sendBuddyMessageToAllAsync_result_e = sendBuddyMessageToAllAsync_result_e obj}
     ]
 from_SendBuddyMessageToAllAsync_result :: SendBuddyMessageToAllAsync_result -> T.ThriftVal
-from_SendBuddyMessageToAllAsync_result record = T.TStruct $ Map.fromList 
+from_SendBuddyMessageToAllAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4760 -> (1, ("e",from_TalkException _v4760))) <$> sendBuddyMessageToAllAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4760 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4760))) $ sendBuddyMessageToAllAsync_result_success record
@@ -2983,8 +2983,8 @@ data SendBuddyMessageToMids_args = SendBuddyMessageToMids_args  { sendBuddyMessa
   , sendBuddyMessageToMids_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToMids_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMids_args_requestId record   `H.hashWithSalt` sendBuddyMessageToMids_args_msg record   `H.hashWithSalt` sendBuddyMessageToMids_args_mids record  
-instance QC.Arbitrary SendBuddyMessageToMids_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMids_args_requestId record   `H.hashWithSalt` sendBuddyMessageToMids_args_msg record   `H.hashWithSalt` sendBuddyMessageToMids_args_mids record
+instance QC.Arbitrary SendBuddyMessageToMids_args where
   arbitrary = M.liftM SendBuddyMessageToMids_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -3026,8 +3026,8 @@ data SendBuddyMessageToMids_result = SendBuddyMessageToMids_result  { sendBuddyM
   , sendBuddyMessageToMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMids_result_success record   `H.hashWithSalt` sendBuddyMessageToMids_result_e record  
-instance QC.Arbitrary SendBuddyMessageToMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMids_result_success record   `H.hashWithSalt` sendBuddyMessageToMids_result_e record
+instance QC.Arbitrary SendBuddyMessageToMids_result where
   arbitrary = M.liftM SendBuddyMessageToMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToMids_result = []
@@ -3036,7 +3036,7 @@ instance QC.Arbitrary SendBuddyMessageToMids_result where
     , if obj == default_SendBuddyMessageToMids_result{sendBuddyMessageToMids_result_e = sendBuddyMessageToMids_result_e obj} then P.Nothing else P.Just $ default_SendBuddyMessageToMids_result{sendBuddyMessageToMids_result_e = sendBuddyMessageToMids_result_e obj}
     ]
 from_SendBuddyMessageToMids_result :: SendBuddyMessageToMids_result -> T.ThriftVal
-from_SendBuddyMessageToMids_result record = T.TStruct $ Map.fromList 
+from_SendBuddyMessageToMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4779 -> (1, ("e",from_TalkException _v4779))) <$> sendBuddyMessageToMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4779 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4779))) $ sendBuddyMessageToMids_result_success record
@@ -3068,8 +3068,8 @@ data SendBuddyMessageToMidsAsync_args = SendBuddyMessageToMidsAsync_args  { send
   , sendBuddyMessageToMidsAsync_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToMidsAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_requestId record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_msg record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_mids record  
-instance QC.Arbitrary SendBuddyMessageToMidsAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_requestId record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_msg record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_args_mids record
+instance QC.Arbitrary SendBuddyMessageToMidsAsync_args where
   arbitrary = M.liftM SendBuddyMessageToMidsAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -3111,8 +3111,8 @@ data SendBuddyMessageToMidsAsync_result = SendBuddyMessageToMidsAsync_result  { 
   , sendBuddyMessageToMidsAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendBuddyMessageToMidsAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMidsAsync_result_success record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_result_e record  
-instance QC.Arbitrary SendBuddyMessageToMidsAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendBuddyMessageToMidsAsync_result_success record   `H.hashWithSalt` sendBuddyMessageToMidsAsync_result_e record
+instance QC.Arbitrary SendBuddyMessageToMidsAsync_result where
   arbitrary = M.liftM SendBuddyMessageToMidsAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendBuddyMessageToMidsAsync_result = []
@@ -3121,7 +3121,7 @@ instance QC.Arbitrary SendBuddyMessageToMidsAsync_result where
     , if obj == default_SendBuddyMessageToMidsAsync_result{sendBuddyMessageToMidsAsync_result_e = sendBuddyMessageToMidsAsync_result_e obj} then P.Nothing else P.Just $ default_SendBuddyMessageToMidsAsync_result{sendBuddyMessageToMidsAsync_result_e = sendBuddyMessageToMidsAsync_result_e obj}
     ]
 from_SendBuddyMessageToMidsAsync_result :: SendBuddyMessageToMidsAsync_result -> T.ThriftVal
-from_SendBuddyMessageToMidsAsync_result record = T.TStruct $ Map.fromList 
+from_SendBuddyMessageToMidsAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4798 -> (1, ("e",from_TalkException _v4798))) <$> sendBuddyMessageToMidsAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4798 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4798))) $ sendBuddyMessageToMidsAsync_result_success record
@@ -3153,8 +3153,8 @@ data SendIndividualEventToAllAsync_args = SendIndividualEventToAllAsync_args  { 
   , sendIndividualEventToAllAsync_args_notificationStatus :: NotificationStatus
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendIndividualEventToAllAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendIndividualEventToAllAsync_args_requestId record   `H.hashWithSalt` sendIndividualEventToAllAsync_args_buddyMid record   `H.hashWithSalt` sendIndividualEventToAllAsync_args_notificationStatus record  
-instance QC.Arbitrary SendIndividualEventToAllAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendIndividualEventToAllAsync_args_requestId record   `H.hashWithSalt` sendIndividualEventToAllAsync_args_buddyMid record   `H.hashWithSalt` sendIndividualEventToAllAsync_args_notificationStatus record
+instance QC.Arbitrary SendIndividualEventToAllAsync_args where
   arbitrary = M.liftM SendIndividualEventToAllAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -3195,15 +3195,15 @@ default_SendIndividualEventToAllAsync_args = SendIndividualEventToAllAsync_args{
 data SendIndividualEventToAllAsync_result = SendIndividualEventToAllAsync_result  { sendIndividualEventToAllAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendIndividualEventToAllAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendIndividualEventToAllAsync_result_e record  
-instance QC.Arbitrary SendIndividualEventToAllAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendIndividualEventToAllAsync_result_e record
+instance QC.Arbitrary SendIndividualEventToAllAsync_result where
   arbitrary = M.liftM SendIndividualEventToAllAsync_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendIndividualEventToAllAsync_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_SendIndividualEventToAllAsync_result{sendIndividualEventToAllAsync_result_e = sendIndividualEventToAllAsync_result_e obj} then P.Nothing else P.Just $ default_SendIndividualEventToAllAsync_result{sendIndividualEventToAllAsync_result_e = sendIndividualEventToAllAsync_result_e obj}
     ]
 from_SendIndividualEventToAllAsync_result :: SendIndividualEventToAllAsync_result -> T.ThriftVal
-from_SendIndividualEventToAllAsync_result record = T.TStruct $ Map.fromList 
+from_SendIndividualEventToAllAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4813 -> (1, ("e",from_TalkException _v4813))) <$> sendIndividualEventToAllAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4813 -> (1, ("e",from_TalkException _v4813))) <$> sendIndividualEventToAllAsync_result_e record
@@ -3231,8 +3231,8 @@ data SetBuddyOnAir_args = SetBuddyOnAir_args  { setBuddyOnAir_args_requestId :: 
   , setBuddyOnAir_args_onAir :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SetBuddyOnAir_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAir_args_requestId record   `H.hashWithSalt` setBuddyOnAir_args_onAir record  
-instance QC.Arbitrary SetBuddyOnAir_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAir_args_requestId record   `H.hashWithSalt` setBuddyOnAir_args_onAir record
+instance QC.Arbitrary SetBuddyOnAir_args where
   arbitrary = M.liftM SetBuddyOnAir_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SetBuddyOnAir_args = []
@@ -3269,8 +3269,8 @@ data SetBuddyOnAir_result = SetBuddyOnAir_result  { setBuddyOnAir_result_success
   , setBuddyOnAir_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SetBuddyOnAir_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAir_result_success record   `H.hashWithSalt` setBuddyOnAir_result_e record  
-instance QC.Arbitrary SetBuddyOnAir_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAir_result_success record   `H.hashWithSalt` setBuddyOnAir_result_e record
+instance QC.Arbitrary SetBuddyOnAir_result where
   arbitrary = M.liftM SetBuddyOnAir_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SetBuddyOnAir_result = []
@@ -3279,7 +3279,7 @@ instance QC.Arbitrary SetBuddyOnAir_result where
     , if obj == default_SetBuddyOnAir_result{setBuddyOnAir_result_e = setBuddyOnAir_result_e obj} then P.Nothing else P.Just $ default_SetBuddyOnAir_result{setBuddyOnAir_result_e = setBuddyOnAir_result_e obj}
     ]
 from_SetBuddyOnAir_result :: SetBuddyOnAir_result -> T.ThriftVal
-from_SetBuddyOnAir_result record = T.TStruct $ Map.fromList 
+from_SetBuddyOnAir_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4826 -> (1, ("e",from_TalkException _v4826))) <$> setBuddyOnAir_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4826 -> P.Just (0, ("success",from_SetBuddyOnAirResult _v4826))) $ setBuddyOnAir_result_success record
@@ -3310,8 +3310,8 @@ data SetBuddyOnAirAsync_args = SetBuddyOnAirAsync_args  { setBuddyOnAirAsync_arg
   , setBuddyOnAirAsync_args_onAir :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SetBuddyOnAirAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAirAsync_args_requestId record   `H.hashWithSalt` setBuddyOnAirAsync_args_onAir record  
-instance QC.Arbitrary SetBuddyOnAirAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAirAsync_args_requestId record   `H.hashWithSalt` setBuddyOnAirAsync_args_onAir record
+instance QC.Arbitrary SetBuddyOnAirAsync_args where
   arbitrary = M.liftM SetBuddyOnAirAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SetBuddyOnAirAsync_args = []
@@ -3348,8 +3348,8 @@ data SetBuddyOnAirAsync_result = SetBuddyOnAirAsync_result  { setBuddyOnAirAsync
   , setBuddyOnAirAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SetBuddyOnAirAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAirAsync_result_success record   `H.hashWithSalt` setBuddyOnAirAsync_result_e record  
-instance QC.Arbitrary SetBuddyOnAirAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` setBuddyOnAirAsync_result_success record   `H.hashWithSalt` setBuddyOnAirAsync_result_e record
+instance QC.Arbitrary SetBuddyOnAirAsync_result where
   arbitrary = M.liftM SetBuddyOnAirAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SetBuddyOnAirAsync_result = []
@@ -3358,7 +3358,7 @@ instance QC.Arbitrary SetBuddyOnAirAsync_result where
     , if obj == default_SetBuddyOnAirAsync_result{setBuddyOnAirAsync_result_e = setBuddyOnAirAsync_result_e obj} then P.Nothing else P.Just $ default_SetBuddyOnAirAsync_result{setBuddyOnAirAsync_result_e = setBuddyOnAirAsync_result_e obj}
     ]
 from_SetBuddyOnAirAsync_result :: SetBuddyOnAirAsync_result -> T.ThriftVal
-from_SetBuddyOnAirAsync_result record = T.TStruct $ Map.fromList 
+from_SetBuddyOnAirAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4840 -> (1, ("e",from_TalkException _v4840))) <$> setBuddyOnAirAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4840 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4840))) $ setBuddyOnAirAsync_result_success record
@@ -3389,8 +3389,8 @@ data StoreMessage_args = StoreMessage_args  { storeMessage_args_requestId :: LT.
   , storeMessage_args_messageRequest :: BuddyMessageRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable StoreMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` storeMessage_args_requestId record   `H.hashWithSalt` storeMessage_args_messageRequest record  
-instance QC.Arbitrary StoreMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` storeMessage_args_requestId record   `H.hashWithSalt` storeMessage_args_messageRequest record
+instance QC.Arbitrary StoreMessage_args where
   arbitrary = M.liftM StoreMessage_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_StoreMessage_args = []
@@ -3427,8 +3427,8 @@ data StoreMessage_result = StoreMessage_result  { storeMessage_result_success ::
   , storeMessage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable StoreMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` storeMessage_result_success record   `H.hashWithSalt` storeMessage_result_e record  
-instance QC.Arbitrary StoreMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` storeMessage_result_success record   `H.hashWithSalt` storeMessage_result_e record
+instance QC.Arbitrary StoreMessage_result where
   arbitrary = M.liftM StoreMessage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_StoreMessage_result = []
@@ -3437,7 +3437,7 @@ instance QC.Arbitrary StoreMessage_result where
     , if obj == default_StoreMessage_result{storeMessage_result_e = storeMessage_result_e obj} then P.Nothing else P.Just $ default_StoreMessage_result{storeMessage_result_e = storeMessage_result_e obj}
     ]
 from_StoreMessage_result :: StoreMessage_result -> T.ThriftVal
-from_StoreMessage_result record = T.TStruct $ Map.fromList 
+from_StoreMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4854 -> (1, ("e",from_TalkException _v4854))) <$> storeMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4854 -> P.Just (0, ("success",from_SendBuddyMessageResult _v4854))) $ storeMessage_result_success record
@@ -3468,8 +3468,8 @@ data UnblockBuddyMember_args = UnblockBuddyMember_args  { unblockBuddyMember_arg
   , unblockBuddyMember_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnblockBuddyMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unblockBuddyMember_args_requestId record   `H.hashWithSalt` unblockBuddyMember_args_mid record  
-instance QC.Arbitrary UnblockBuddyMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unblockBuddyMember_args_requestId record   `H.hashWithSalt` unblockBuddyMember_args_mid record
+instance QC.Arbitrary UnblockBuddyMember_args where
   arbitrary = M.liftM UnblockBuddyMember_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UnblockBuddyMember_args = []
@@ -3505,15 +3505,15 @@ default_UnblockBuddyMember_args = UnblockBuddyMember_args{
 data UnblockBuddyMember_result = UnblockBuddyMember_result  { unblockBuddyMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnblockBuddyMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unblockBuddyMember_result_e record  
-instance QC.Arbitrary UnblockBuddyMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unblockBuddyMember_result_e record
+instance QC.Arbitrary UnblockBuddyMember_result where
   arbitrary = M.liftM UnblockBuddyMember_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UnblockBuddyMember_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UnblockBuddyMember_result{unblockBuddyMember_result_e = unblockBuddyMember_result_e obj} then P.Nothing else P.Just $ default_UnblockBuddyMember_result{unblockBuddyMember_result_e = unblockBuddyMember_result_e obj}
     ]
 from_UnblockBuddyMember_result :: UnblockBuddyMember_result -> T.ThriftVal
-from_UnblockBuddyMember_result record = T.TStruct $ Map.fromList 
+from_UnblockBuddyMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4868 -> (1, ("e",from_TalkException _v4868))) <$> unblockBuddyMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4868 -> (1, ("e",from_TalkException _v4868))) <$> unblockBuddyMember_result_e record
@@ -3540,8 +3540,8 @@ default_UnblockBuddyMember_result = UnblockBuddyMember_result{
 data UnregisterBuddy_args = UnregisterBuddy_args  { unregisterBuddy_args_requestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterBuddy_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddy_args_requestId record  
-instance QC.Arbitrary UnregisterBuddy_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddy_args_requestId record
+instance QC.Arbitrary UnregisterBuddy_args where
   arbitrary = M.liftM UnregisterBuddy_args (QC.arbitrary)
   shrink obj | obj == default_UnregisterBuddy_args = []
              | P.otherwise = M.catMaybes
@@ -3572,15 +3572,15 @@ default_UnregisterBuddy_args = UnregisterBuddy_args{
 data UnregisterBuddy_result = UnregisterBuddy_result  { unregisterBuddy_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterBuddy_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddy_result_e record  
-instance QC.Arbitrary UnregisterBuddy_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddy_result_e record
+instance QC.Arbitrary UnregisterBuddy_result where
   arbitrary = M.liftM UnregisterBuddy_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UnregisterBuddy_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UnregisterBuddy_result{unregisterBuddy_result_e = unregisterBuddy_result_e obj} then P.Nothing else P.Just $ default_UnregisterBuddy_result{unregisterBuddy_result_e = unregisterBuddy_result_e obj}
     ]
 from_UnregisterBuddy_result :: UnregisterBuddy_result -> T.ThriftVal
-from_UnregisterBuddy_result record = T.TStruct $ Map.fromList 
+from_UnregisterBuddy_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4880 -> (1, ("e",from_TalkException _v4880))) <$> unregisterBuddy_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4880 -> (1, ("e",from_TalkException _v4880))) <$> unregisterBuddy_result_e record
@@ -3607,8 +3607,8 @@ default_UnregisterBuddy_result = UnregisterBuddy_result{
 data UnregisterBuddyAdmin_args = UnregisterBuddyAdmin_args  { unregisterBuddyAdmin_args_requestId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterBuddyAdmin_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddyAdmin_args_requestId record  
-instance QC.Arbitrary UnregisterBuddyAdmin_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddyAdmin_args_requestId record
+instance QC.Arbitrary UnregisterBuddyAdmin_args where
   arbitrary = M.liftM UnregisterBuddyAdmin_args (QC.arbitrary)
   shrink obj | obj == default_UnregisterBuddyAdmin_args = []
              | P.otherwise = M.catMaybes
@@ -3639,15 +3639,15 @@ default_UnregisterBuddyAdmin_args = UnregisterBuddyAdmin_args{
 data UnregisterBuddyAdmin_result = UnregisterBuddyAdmin_result  { unregisterBuddyAdmin_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterBuddyAdmin_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddyAdmin_result_e record  
-instance QC.Arbitrary UnregisterBuddyAdmin_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterBuddyAdmin_result_e record
+instance QC.Arbitrary UnregisterBuddyAdmin_result where
   arbitrary = M.liftM UnregisterBuddyAdmin_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UnregisterBuddyAdmin_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UnregisterBuddyAdmin_result{unregisterBuddyAdmin_result_e = unregisterBuddyAdmin_result_e obj} then P.Nothing else P.Just $ default_UnregisterBuddyAdmin_result{unregisterBuddyAdmin_result_e = unregisterBuddyAdmin_result_e obj}
     ]
 from_UnregisterBuddyAdmin_result :: UnregisterBuddyAdmin_result -> T.ThriftVal
-from_UnregisterBuddyAdmin_result record = T.TStruct $ Map.fromList 
+from_UnregisterBuddyAdmin_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4892 -> (1, ("e",from_TalkException _v4892))) <$> unregisterBuddyAdmin_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4892 -> (1, ("e",from_TalkException _v4892))) <$> unregisterBuddyAdmin_result_e record
@@ -3675,8 +3675,8 @@ data UpdateBuddyAdminProfileAttribute_args = UpdateBuddyAdminProfileAttribute_ar
   , updateBuddyAdminProfileAttribute_args_attributes :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyAdminProfileAttribute_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileAttribute_args_requestId record   `H.hashWithSalt` updateBuddyAdminProfileAttribute_args_attributes record  
-instance QC.Arbitrary UpdateBuddyAdminProfileAttribute_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileAttribute_args_requestId record   `H.hashWithSalt` updateBuddyAdminProfileAttribute_args_attributes record
+instance QC.Arbitrary UpdateBuddyAdminProfileAttribute_args where
   arbitrary = M.liftM UpdateBuddyAdminProfileAttribute_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyAdminProfileAttribute_args = []
@@ -3712,15 +3712,15 @@ default_UpdateBuddyAdminProfileAttribute_args = UpdateBuddyAdminProfileAttribute
 data UpdateBuddyAdminProfileAttribute_result = UpdateBuddyAdminProfileAttribute_result  { updateBuddyAdminProfileAttribute_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyAdminProfileAttribute_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileAttribute_result_e record  
-instance QC.Arbitrary UpdateBuddyAdminProfileAttribute_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileAttribute_result_e record
+instance QC.Arbitrary UpdateBuddyAdminProfileAttribute_result where
   arbitrary = M.liftM UpdateBuddyAdminProfileAttribute_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyAdminProfileAttribute_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateBuddyAdminProfileAttribute_result{updateBuddyAdminProfileAttribute_result_e = updateBuddyAdminProfileAttribute_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyAdminProfileAttribute_result{updateBuddyAdminProfileAttribute_result_e = updateBuddyAdminProfileAttribute_result_e obj}
     ]
 from_UpdateBuddyAdminProfileAttribute_result :: UpdateBuddyAdminProfileAttribute_result -> T.ThriftVal
-from_UpdateBuddyAdminProfileAttribute_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyAdminProfileAttribute_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4911 -> (1, ("e",from_TalkException _v4911))) <$> updateBuddyAdminProfileAttribute_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4911 -> (1, ("e",from_TalkException _v4911))) <$> updateBuddyAdminProfileAttribute_result_e record
@@ -3748,8 +3748,8 @@ data UpdateBuddyAdminProfileImage_args = UpdateBuddyAdminProfileImage_args  { up
   , updateBuddyAdminProfileImage_args_picture :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyAdminProfileImage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileImage_args_requestId record   `H.hashWithSalt` updateBuddyAdminProfileImage_args_picture record  
-instance QC.Arbitrary UpdateBuddyAdminProfileImage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileImage_args_requestId record   `H.hashWithSalt` updateBuddyAdminProfileImage_args_picture record
+instance QC.Arbitrary UpdateBuddyAdminProfileImage_args where
   arbitrary = M.liftM UpdateBuddyAdminProfileImage_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyAdminProfileImage_args = []
@@ -3785,15 +3785,15 @@ default_UpdateBuddyAdminProfileImage_args = UpdateBuddyAdminProfileImage_args{
 data UpdateBuddyAdminProfileImage_result = UpdateBuddyAdminProfileImage_result  { updateBuddyAdminProfileImage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyAdminProfileImage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileImage_result_e record  
-instance QC.Arbitrary UpdateBuddyAdminProfileImage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyAdminProfileImage_result_e record
+instance QC.Arbitrary UpdateBuddyAdminProfileImage_result where
   arbitrary = M.liftM UpdateBuddyAdminProfileImage_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyAdminProfileImage_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateBuddyAdminProfileImage_result{updateBuddyAdminProfileImage_result_e = updateBuddyAdminProfileImage_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyAdminProfileImage_result{updateBuddyAdminProfileImage_result_e = updateBuddyAdminProfileImage_result_e obj}
     ]
 from_UpdateBuddyAdminProfileImage_result :: UpdateBuddyAdminProfileImage_result -> T.ThriftVal
-from_UpdateBuddyAdminProfileImage_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyAdminProfileImage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4924 -> (1, ("e",from_TalkException _v4924))) <$> updateBuddyAdminProfileImage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4924 -> (1, ("e",from_TalkException _v4924))) <$> updateBuddyAdminProfileImage_result_e record
@@ -3821,8 +3821,8 @@ data UpdateBuddyProfileAttributes_args = UpdateBuddyProfileAttributes_args  { up
   , updateBuddyProfileAttributes_args_attributes :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileAttributes_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributes_args_requestId record   `H.hashWithSalt` updateBuddyProfileAttributes_args_attributes record  
-instance QC.Arbitrary UpdateBuddyProfileAttributes_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributes_args_requestId record   `H.hashWithSalt` updateBuddyProfileAttributes_args_attributes record
+instance QC.Arbitrary UpdateBuddyProfileAttributes_args where
   arbitrary = M.liftM UpdateBuddyProfileAttributes_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileAttributes_args = []
@@ -3859,8 +3859,8 @@ data UpdateBuddyProfileAttributes_result = UpdateBuddyProfileAttributes_result  
   , updateBuddyProfileAttributes_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileAttributes_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributes_result_success record   `H.hashWithSalt` updateBuddyProfileAttributes_result_e record  
-instance QC.Arbitrary UpdateBuddyProfileAttributes_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributes_result_success record   `H.hashWithSalt` updateBuddyProfileAttributes_result_e record
+instance QC.Arbitrary UpdateBuddyProfileAttributes_result where
   arbitrary = M.liftM UpdateBuddyProfileAttributes_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileAttributes_result = []
@@ -3869,7 +3869,7 @@ instance QC.Arbitrary UpdateBuddyProfileAttributes_result where
     , if obj == default_UpdateBuddyProfileAttributes_result{updateBuddyProfileAttributes_result_e = updateBuddyProfileAttributes_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyProfileAttributes_result{updateBuddyProfileAttributes_result_e = updateBuddyProfileAttributes_result_e obj}
     ]
 from_UpdateBuddyProfileAttributes_result :: UpdateBuddyProfileAttributes_result -> T.ThriftVal
-from_UpdateBuddyProfileAttributes_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyProfileAttributes_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4943 -> (1, ("e",from_TalkException _v4943))) <$> updateBuddyProfileAttributes_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4943 -> P.Just (0, ("success",from_UpdateBuddyProfileResult _v4943))) $ updateBuddyProfileAttributes_result_success record
@@ -3900,8 +3900,8 @@ data UpdateBuddyProfileAttributesAsync_args = UpdateBuddyProfileAttributesAsync_
   , updateBuddyProfileAttributesAsync_args_attributes :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileAttributesAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributesAsync_args_requestId record   `H.hashWithSalt` updateBuddyProfileAttributesAsync_args_attributes record  
-instance QC.Arbitrary UpdateBuddyProfileAttributesAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributesAsync_args_requestId record   `H.hashWithSalt` updateBuddyProfileAttributesAsync_args_attributes record
+instance QC.Arbitrary UpdateBuddyProfileAttributesAsync_args where
   arbitrary = M.liftM UpdateBuddyProfileAttributesAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileAttributesAsync_args = []
@@ -3938,8 +3938,8 @@ data UpdateBuddyProfileAttributesAsync_result = UpdateBuddyProfileAttributesAsyn
   , updateBuddyProfileAttributesAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileAttributesAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributesAsync_result_success record   `H.hashWithSalt` updateBuddyProfileAttributesAsync_result_e record  
-instance QC.Arbitrary UpdateBuddyProfileAttributesAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileAttributesAsync_result_success record   `H.hashWithSalt` updateBuddyProfileAttributesAsync_result_e record
+instance QC.Arbitrary UpdateBuddyProfileAttributesAsync_result where
   arbitrary = M.liftM UpdateBuddyProfileAttributesAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileAttributesAsync_result = []
@@ -3948,7 +3948,7 @@ instance QC.Arbitrary UpdateBuddyProfileAttributesAsync_result where
     , if obj == default_UpdateBuddyProfileAttributesAsync_result{updateBuddyProfileAttributesAsync_result_e = updateBuddyProfileAttributesAsync_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyProfileAttributesAsync_result{updateBuddyProfileAttributesAsync_result_e = updateBuddyProfileAttributesAsync_result_e obj}
     ]
 from_UpdateBuddyProfileAttributesAsync_result :: UpdateBuddyProfileAttributesAsync_result -> T.ThriftVal
-from_UpdateBuddyProfileAttributesAsync_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyProfileAttributesAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4963 -> (1, ("e",from_TalkException _v4963))) <$> updateBuddyProfileAttributesAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4963 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4963))) $ updateBuddyProfileAttributesAsync_result_success record
@@ -3979,8 +3979,8 @@ data UpdateBuddyProfileImage_args = UpdateBuddyProfileImage_args  { updateBuddyP
   , updateBuddyProfileImage_args_image :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileImage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImage_args_requestId record   `H.hashWithSalt` updateBuddyProfileImage_args_image record  
-instance QC.Arbitrary UpdateBuddyProfileImage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImage_args_requestId record   `H.hashWithSalt` updateBuddyProfileImage_args_image record
+instance QC.Arbitrary UpdateBuddyProfileImage_args where
   arbitrary = M.liftM UpdateBuddyProfileImage_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileImage_args = []
@@ -4017,8 +4017,8 @@ data UpdateBuddyProfileImage_result = UpdateBuddyProfileImage_result  { updateBu
   , updateBuddyProfileImage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileImage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImage_result_success record   `H.hashWithSalt` updateBuddyProfileImage_result_e record  
-instance QC.Arbitrary UpdateBuddyProfileImage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImage_result_success record   `H.hashWithSalt` updateBuddyProfileImage_result_e record
+instance QC.Arbitrary UpdateBuddyProfileImage_result where
   arbitrary = M.liftM UpdateBuddyProfileImage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileImage_result = []
@@ -4027,7 +4027,7 @@ instance QC.Arbitrary UpdateBuddyProfileImage_result where
     , if obj == default_UpdateBuddyProfileImage_result{updateBuddyProfileImage_result_e = updateBuddyProfileImage_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyProfileImage_result{updateBuddyProfileImage_result_e = updateBuddyProfileImage_result_e obj}
     ]
 from_UpdateBuddyProfileImage_result :: UpdateBuddyProfileImage_result -> T.ThriftVal
-from_UpdateBuddyProfileImage_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyProfileImage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4977 -> (1, ("e",from_TalkException _v4977))) <$> updateBuddyProfileImage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4977 -> P.Just (0, ("success",from_UpdateBuddyProfileResult _v4977))) $ updateBuddyProfileImage_result_success record
@@ -4058,8 +4058,8 @@ data UpdateBuddyProfileImageAsync_args = UpdateBuddyProfileImageAsync_args  { up
   , updateBuddyProfileImageAsync_args_image :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileImageAsync_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImageAsync_args_requestId record   `H.hashWithSalt` updateBuddyProfileImageAsync_args_image record  
-instance QC.Arbitrary UpdateBuddyProfileImageAsync_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImageAsync_args_requestId record   `H.hashWithSalt` updateBuddyProfileImageAsync_args_image record
+instance QC.Arbitrary UpdateBuddyProfileImageAsync_args where
   arbitrary = M.liftM UpdateBuddyProfileImageAsync_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileImageAsync_args = []
@@ -4096,8 +4096,8 @@ data UpdateBuddyProfileImageAsync_result = UpdateBuddyProfileImageAsync_result  
   , updateBuddyProfileImageAsync_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddyProfileImageAsync_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImageAsync_result_success record   `H.hashWithSalt` updateBuddyProfileImageAsync_result_e record  
-instance QC.Arbitrary UpdateBuddyProfileImageAsync_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddyProfileImageAsync_result_success record   `H.hashWithSalt` updateBuddyProfileImageAsync_result_e record
+instance QC.Arbitrary UpdateBuddyProfileImageAsync_result where
   arbitrary = M.liftM UpdateBuddyProfileImageAsync_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddyProfileImageAsync_result = []
@@ -4106,7 +4106,7 @@ instance QC.Arbitrary UpdateBuddyProfileImageAsync_result where
     , if obj == default_UpdateBuddyProfileImageAsync_result{updateBuddyProfileImageAsync_result_e = updateBuddyProfileImageAsync_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddyProfileImageAsync_result{updateBuddyProfileImageAsync_result_e = updateBuddyProfileImageAsync_result_e obj}
     ]
 from_UpdateBuddyProfileImageAsync_result :: UpdateBuddyProfileImageAsync_result -> T.ThriftVal
-from_UpdateBuddyProfileImageAsync_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddyProfileImageAsync_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4991 -> (1, ("e",from_TalkException _v4991))) <$> updateBuddyProfileImageAsync_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4991 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4991))) $ updateBuddyProfileImageAsync_result_success record
@@ -4137,8 +4137,8 @@ data UpdateBuddySearchId_args = UpdateBuddySearchId_args  { updateBuddySearchId_
   , updateBuddySearchId_args_searchId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddySearchId_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySearchId_args_requestId record   `H.hashWithSalt` updateBuddySearchId_args_searchId record  
-instance QC.Arbitrary UpdateBuddySearchId_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySearchId_args_requestId record   `H.hashWithSalt` updateBuddySearchId_args_searchId record
+instance QC.Arbitrary UpdateBuddySearchId_args where
   arbitrary = M.liftM UpdateBuddySearchId_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateBuddySearchId_args = []
@@ -4174,15 +4174,15 @@ default_UpdateBuddySearchId_args = UpdateBuddySearchId_args{
 data UpdateBuddySearchId_result = UpdateBuddySearchId_result  { updateBuddySearchId_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddySearchId_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySearchId_result_e record  
-instance QC.Arbitrary UpdateBuddySearchId_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySearchId_result_e record
+instance QC.Arbitrary UpdateBuddySearchId_result where
   arbitrary = M.liftM UpdateBuddySearchId_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddySearchId_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateBuddySearchId_result{updateBuddySearchId_result_e = updateBuddySearchId_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddySearchId_result{updateBuddySearchId_result_e = updateBuddySearchId_result_e obj}
     ]
 from_UpdateBuddySearchId_result :: UpdateBuddySearchId_result -> T.ThriftVal
-from_UpdateBuddySearchId_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddySearchId_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5005 -> (1, ("e",from_TalkException _v5005))) <$> updateBuddySearchId_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5005 -> (1, ("e",from_TalkException _v5005))) <$> updateBuddySearchId_result_e record
@@ -4209,8 +4209,8 @@ default_UpdateBuddySearchId_result = UpdateBuddySearchId_result{
 data UpdateBuddySettings_args = UpdateBuddySettings_args  { updateBuddySettings_args_settings :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddySettings_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySettings_args_settings record  
-instance QC.Arbitrary UpdateBuddySettings_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySettings_args_settings record
+instance QC.Arbitrary UpdateBuddySettings_args where
   arbitrary = M.liftM UpdateBuddySettings_args (QC.arbitrary)
   shrink obj | obj == default_UpdateBuddySettings_args = []
              | P.otherwise = M.catMaybes
@@ -4241,15 +4241,15 @@ default_UpdateBuddySettings_args = UpdateBuddySettings_args{
 data UpdateBuddySettings_result = UpdateBuddySettings_result  { updateBuddySettings_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateBuddySettings_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySettings_result_e record  
-instance QC.Arbitrary UpdateBuddySettings_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateBuddySettings_result_e record
+instance QC.Arbitrary UpdateBuddySettings_result where
   arbitrary = M.liftM UpdateBuddySettings_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateBuddySettings_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateBuddySettings_result{updateBuddySettings_result_e = updateBuddySettings_result_e obj} then P.Nothing else P.Just $ default_UpdateBuddySettings_result{updateBuddySettings_result_e = updateBuddySettings_result_e obj}
     ]
 from_UpdateBuddySettings_result :: UpdateBuddySettings_result -> T.ThriftVal
-from_UpdateBuddySettings_result record = T.TStruct $ Map.fromList 
+from_UpdateBuddySettings_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5023 -> (1, ("e",from_TalkException _v5023))) <$> updateBuddySettings_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5023 -> (1, ("e",from_TalkException _v5023))) <$> updateBuddySettings_result_e record
@@ -4277,8 +4277,8 @@ data UploadBuddyContent_args = UploadBuddyContent_args  { uploadBuddyContent_arg
   , uploadBuddyContent_args_content :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UploadBuddyContent_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` uploadBuddyContent_args_contentType record   `H.hashWithSalt` uploadBuddyContent_args_content record  
-instance QC.Arbitrary UploadBuddyContent_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` uploadBuddyContent_args_contentType record   `H.hashWithSalt` uploadBuddyContent_args_content record
+instance QC.Arbitrary UploadBuddyContent_args where
   arbitrary = M.liftM UploadBuddyContent_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UploadBuddyContent_args = []
@@ -4315,8 +4315,8 @@ data UploadBuddyContent_result = UploadBuddyContent_result  { uploadBuddyContent
   , uploadBuddyContent_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UploadBuddyContent_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` uploadBuddyContent_result_success record   `H.hashWithSalt` uploadBuddyContent_result_e record  
-instance QC.Arbitrary UploadBuddyContent_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` uploadBuddyContent_result_success record   `H.hashWithSalt` uploadBuddyContent_result_e record
+instance QC.Arbitrary UploadBuddyContent_result where
   arbitrary = M.liftM UploadBuddyContent_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UploadBuddyContent_result = []
@@ -4325,7 +4325,7 @@ instance QC.Arbitrary UploadBuddyContent_result where
     , if obj == default_UploadBuddyContent_result{uploadBuddyContent_result_e = uploadBuddyContent_result_e obj} then P.Nothing else P.Just $ default_UploadBuddyContent_result{uploadBuddyContent_result_e = uploadBuddyContent_result_e obj}
     ]
 from_UploadBuddyContent_result :: UploadBuddyContent_result -> T.ThriftVal
-from_UploadBuddyContent_result record = T.TStruct $ Map.fromList 
+from_UploadBuddyContent_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5036 -> (1, ("e",from_TalkException _v5036))) <$> uploadBuddyContent_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5036 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v5036))) $ uploadBuddyContent_result_success record

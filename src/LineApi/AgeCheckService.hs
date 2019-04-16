@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AgeCheckService where
+module LineApi.AgeCheckService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,8 +38,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified AgeCheckService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.AgeCheckService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data CheckUserAge_args = CheckUserAge_args  { checkUserAge_args_carrier :: CarrierCode
@@ -48,8 +48,8 @@ data CheckUserAge_args = CheckUserAge_args  { checkUserAge_args_carrier :: Carri
   , checkUserAge_args_standardAge :: I.Int32
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckUserAge_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAge_args_carrier record   `H.hashWithSalt` checkUserAge_args_sessionId record   `H.hashWithSalt` checkUserAge_args_verifier record   `H.hashWithSalt` checkUserAge_args_standardAge record  
-instance QC.Arbitrary CheckUserAge_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAge_args_carrier record   `H.hashWithSalt` checkUserAge_args_sessionId record   `H.hashWithSalt` checkUserAge_args_verifier record   `H.hashWithSalt` checkUserAge_args_standardAge record
+instance QC.Arbitrary CheckUserAge_args where
   arbitrary = M.liftM CheckUserAge_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -96,8 +96,8 @@ data CheckUserAge_result = CheckUserAge_result  { checkUserAge_result_success ::
   , checkUserAge_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckUserAge_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAge_result_success record   `H.hashWithSalt` checkUserAge_result_e record  
-instance QC.Arbitrary CheckUserAge_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAge_result_success record   `H.hashWithSalt` checkUserAge_result_e record
+instance QC.Arbitrary CheckUserAge_result where
   arbitrary = M.liftM CheckUserAge_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CheckUserAge_result = []
@@ -106,7 +106,7 @@ instance QC.Arbitrary CheckUserAge_result where
     , if obj == default_CheckUserAge_result{checkUserAge_result_e = checkUserAge_result_e obj} then P.Nothing else P.Just $ default_CheckUserAge_result{checkUserAge_result_e = checkUserAge_result_e obj}
     ]
 from_CheckUserAge_result :: CheckUserAge_result -> T.ThriftVal
-from_CheckUserAge_result record = T.TStruct $ Map.fromList 
+from_CheckUserAge_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4141 -> (1, ("e",from_TalkException _v4141))) <$> checkUserAge_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4141 -> P.Just (0, ("success",T.TI32 $ P.fromIntegral $ P.fromEnum _v4141))) $ checkUserAge_result_success record
@@ -138,8 +138,8 @@ data CheckUserAgeWithDocomo_args = CheckUserAgeWithDocomo_args  { checkUserAgeWi
   , checkUserAgeWithDocomo_args_verifier :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckUserAgeWithDocomo_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAgeWithDocomo_args_openIdRedirectUrl record   `H.hashWithSalt` checkUserAgeWithDocomo_args_standardAge record   `H.hashWithSalt` checkUserAgeWithDocomo_args_verifier record  
-instance QC.Arbitrary CheckUserAgeWithDocomo_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAgeWithDocomo_args_openIdRedirectUrl record   `H.hashWithSalt` checkUserAgeWithDocomo_args_standardAge record   `H.hashWithSalt` checkUserAgeWithDocomo_args_verifier record
+instance QC.Arbitrary CheckUserAgeWithDocomo_args where
   arbitrary = M.liftM CheckUserAgeWithDocomo_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -181,8 +181,8 @@ data CheckUserAgeWithDocomo_result = CheckUserAgeWithDocomo_result  { checkUserA
   , checkUserAgeWithDocomo_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckUserAgeWithDocomo_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAgeWithDocomo_result_success record   `H.hashWithSalt` checkUserAgeWithDocomo_result_e record  
-instance QC.Arbitrary CheckUserAgeWithDocomo_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkUserAgeWithDocomo_result_success record   `H.hashWithSalt` checkUserAgeWithDocomo_result_e record
+instance QC.Arbitrary CheckUserAgeWithDocomo_result where
   arbitrary = M.liftM CheckUserAgeWithDocomo_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CheckUserAgeWithDocomo_result = []
@@ -191,7 +191,7 @@ instance QC.Arbitrary CheckUserAgeWithDocomo_result where
     , if obj == default_CheckUserAgeWithDocomo_result{checkUserAgeWithDocomo_result_e = checkUserAgeWithDocomo_result_e obj} then P.Nothing else P.Just $ default_CheckUserAgeWithDocomo_result{checkUserAgeWithDocomo_result_e = checkUserAgeWithDocomo_result_e obj}
     ]
 from_CheckUserAgeWithDocomo_result :: CheckUserAgeWithDocomo_result -> T.ThriftVal
-from_CheckUserAgeWithDocomo_result record = T.TStruct $ Map.fromList 
+from_CheckUserAgeWithDocomo_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4156 -> (1, ("e",from_TalkException _v4156))) <$> checkUserAgeWithDocomo_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4156 -> P.Just (0, ("success",from_AgeCheckDocomoResult _v4156))) $ checkUserAgeWithDocomo_result_success record
@@ -220,8 +220,8 @@ default_CheckUserAgeWithDocomo_result = CheckUserAgeWithDocomo_result{
   checkUserAgeWithDocomo_result_e = P.Nothing}
 data RetrieveOpenIdAuthUrlWithDocomo_args = RetrieveOpenIdAuthUrlWithDocomo_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RetrieveOpenIdAuthUrlWithDocomo_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary RetrieveOpenIdAuthUrlWithDocomo_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary RetrieveOpenIdAuthUrlWithDocomo_args where
   arbitrary = QC.elements [RetrieveOpenIdAuthUrlWithDocomo_args]
 from_RetrieveOpenIdAuthUrlWithDocomo_args :: RetrieveOpenIdAuthUrlWithDocomo_args -> T.ThriftVal
 from_RetrieveOpenIdAuthUrlWithDocomo_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -248,8 +248,8 @@ data RetrieveOpenIdAuthUrlWithDocomo_result = RetrieveOpenIdAuthUrlWithDocomo_re
   , retrieveOpenIdAuthUrlWithDocomo_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RetrieveOpenIdAuthUrlWithDocomo_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveOpenIdAuthUrlWithDocomo_result_success record   `H.hashWithSalt` retrieveOpenIdAuthUrlWithDocomo_result_e record  
-instance QC.Arbitrary RetrieveOpenIdAuthUrlWithDocomo_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveOpenIdAuthUrlWithDocomo_result_success record   `H.hashWithSalt` retrieveOpenIdAuthUrlWithDocomo_result_e record
+instance QC.Arbitrary RetrieveOpenIdAuthUrlWithDocomo_result where
   arbitrary = M.liftM RetrieveOpenIdAuthUrlWithDocomo_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RetrieveOpenIdAuthUrlWithDocomo_result = []
@@ -258,7 +258,7 @@ instance QC.Arbitrary RetrieveOpenIdAuthUrlWithDocomo_result where
     , if obj == default_RetrieveOpenIdAuthUrlWithDocomo_result{retrieveOpenIdAuthUrlWithDocomo_result_e = retrieveOpenIdAuthUrlWithDocomo_result_e obj} then P.Nothing else P.Just $ default_RetrieveOpenIdAuthUrlWithDocomo_result{retrieveOpenIdAuthUrlWithDocomo_result_e = retrieveOpenIdAuthUrlWithDocomo_result_e obj}
     ]
 from_RetrieveOpenIdAuthUrlWithDocomo_result :: RetrieveOpenIdAuthUrlWithDocomo_result -> T.ThriftVal
-from_RetrieveOpenIdAuthUrlWithDocomo_result record = T.TStruct $ Map.fromList 
+from_RetrieveOpenIdAuthUrlWithDocomo_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4168 -> (1, ("e",from_TalkException _v4168))) <$> retrieveOpenIdAuthUrlWithDocomo_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4168 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4168))) $ retrieveOpenIdAuthUrlWithDocomo_result_success record
@@ -288,8 +288,8 @@ default_RetrieveOpenIdAuthUrlWithDocomo_result = RetrieveOpenIdAuthUrlWithDocomo
 data RetrieveRequestToken_args = RetrieveRequestToken_args  { retrieveRequestToken_args_carrier :: CarrierCode
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RetrieveRequestToken_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveRequestToken_args_carrier record  
-instance QC.Arbitrary RetrieveRequestToken_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveRequestToken_args_carrier record
+instance QC.Arbitrary RetrieveRequestToken_args where
   arbitrary = M.liftM RetrieveRequestToken_args (QC.arbitrary)
   shrink obj | obj == default_RetrieveRequestToken_args = []
              | P.otherwise = M.catMaybes
@@ -321,8 +321,8 @@ data RetrieveRequestToken_result = RetrieveRequestToken_result  { retrieveReques
   , retrieveRequestToken_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RetrieveRequestToken_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveRequestToken_result_success record   `H.hashWithSalt` retrieveRequestToken_result_e record  
-instance QC.Arbitrary RetrieveRequestToken_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` retrieveRequestToken_result_success record   `H.hashWithSalt` retrieveRequestToken_result_e record
+instance QC.Arbitrary RetrieveRequestToken_result where
   arbitrary = M.liftM RetrieveRequestToken_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RetrieveRequestToken_result = []
@@ -331,7 +331,7 @@ instance QC.Arbitrary RetrieveRequestToken_result where
     , if obj == default_RetrieveRequestToken_result{retrieveRequestToken_result_e = retrieveRequestToken_result_e obj} then P.Nothing else P.Just $ default_RetrieveRequestToken_result{retrieveRequestToken_result_e = retrieveRequestToken_result_e obj}
     ]
 from_RetrieveRequestToken_result :: RetrieveRequestToken_result -> T.ThriftVal
-from_RetrieveRequestToken_result record = T.TStruct $ Map.fromList 
+from_RetrieveRequestToken_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4181 -> (1, ("e",from_TalkException _v4181))) <$> retrieveRequestToken_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4181 -> P.Just (0, ("success",from_AgeCheckRequestResult _v4181))) $ retrieveRequestToken_result_success record

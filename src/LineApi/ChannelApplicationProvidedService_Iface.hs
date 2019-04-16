@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ChannelApplicationProvidedService_Iface where
+module LineApi.ChannelApplicationProvidedService_Iface where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,7 +38,7 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
+import LineApi.Line_Types
 
 class ChannelApplicationProvidedService_Iface a where
   activeBuddySubscriberCount :: a -> P.IO I.Int64

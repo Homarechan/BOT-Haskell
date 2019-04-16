@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AuthService_Client(updatePassword,getAuthRSAKey,openAuthSession,normalizePhoneNumber,respondE2EELoginRequest,confirmE2EELogin,logoutZ,loginZ,issueTokenForAccountMigrationSettings,issueTokenForAccountMigration,verifyQrcodeWithE2EE) where
+module LineApi.AuthService_Client(updatePassword,getAuthRSAKey,openAuthSession,normalizePhoneNumber,respondE2EELoginRequest,confirmE2EELogin,logoutZ,loginZ,issueTokenForAccountMigrationSettings,issueTokenForAccountMigration,verifyQrcodeWithE2EE) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import AuthService
+import LineApi.Line_Types
+import LineApi.AuthService
 seqid = R.newIORef 0
 updatePassword (ip,op) arg_authSessionId arg_request = do
   send_updatePassword op arg_authSessionId arg_request

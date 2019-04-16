@@ -21,15 +21,15 @@
 --
 
 module Thrift.Protocol
-    ( Protocol(..)
-    , StatelessProtocol(..)
-    , ProtocolExn(..)
-    , ProtocolExnType(..)
-    , getTypeOf
-    , runParser
-    , bsToDouble
-    , bsToDoubleLE
-    ) where
+		( Protocol(..)
+		, StatelessProtocol(..)
+		, ProtocolExn(..)
+		, ProtocolExnType(..)
+		, getTypeOf
+		, runParser
+		, bsToDouble
+		, bsToDoubleLE
+		) where
 
 import Control.Exception
 import Data.Attoparsec.ByteString
@@ -52,53 +52,53 @@ import Thrift.Transport
 import Thrift.Types
 
 class Protocol a where
-  readByte :: a -> IO LBS.ByteString
-  readVal :: a -> ThriftType -> IO ThriftVal
-  readMessage :: a -> ((Text, MessageType, Int32) -> IO b) -> IO b
+	readByte :: a -> IO LBS.ByteString
+	readVal :: a -> ThriftType -> IO ThriftVal
+	readMessage :: a -> ((Text, MessageType, Int32) -> IO b) -> IO b
 
-  writeVal :: a -> ThriftVal -> IO ()
-  writeMessage :: a -> (Text, MessageType, Int32) -> IO () -> IO ()
+	writeVal :: a -> ThriftVal -> IO ()
+	writeMessage :: a -> (Text, MessageType, Int32) -> IO () -> IO ()
 
 class Protocol a => StatelessProtocol a where
-  serializeVal :: a -> ThriftVal -> LBS.ByteString
-  deserializeVal :: a -> ThriftType -> LBS.ByteString -> ThriftVal
+	serializeVal :: a -> ThriftVal -> LBS.ByteString
+	deserializeVal :: a -> ThriftType -> LBS.ByteString -> ThriftVal
 
 data ProtocolExnType
-    = PE_UNKNOWN
-    | PE_INVALID_DATA
-    | PE_NEGATIVE_SIZE
-    | PE_SIZE_LIMIT
-    | PE_BAD_VERSION
-    | PE_NOT_IMPLEMENTED
-    | PE_MISSING_REQUIRED_FIELD
-      deriving ( Eq, Show, Typeable )
+		= PE_UNKNOWN
+		| PE_INVALID_DATA
+		| PE_NEGATIVE_SIZE
+		| PE_SIZE_LIMIT
+		| PE_BAD_VERSION
+		| PE_NOT_IMPLEMENTED
+		| PE_MISSING_REQUIRED_FIELD
+			deriving ( Eq, Show, Typeable )
 
 data ProtocolExn = ProtocolExn ProtocolExnType String
-  deriving ( Show, Typeable )
+	deriving ( Show, Typeable )
 instance Exception ProtocolExn
 
 getTypeOf :: ThriftVal -> ThriftType
 getTypeOf v =  case v of
-  TStruct{} -> T_STRUCT Map.empty
-  TMap{} -> T_MAP T_VOID T_VOID
-  TList{} -> T_LIST T_VOID
-  TSet{} -> T_SET T_VOID
-  TBool{} -> T_BOOL
-  TByte{} -> T_BYTE
-  TI16{} -> T_I16
-  TI32{} -> T_I32
-  TI64{} -> T_I64
-  TString{} -> T_STRING
-  TBinary{} -> T_BINARY
-  TDouble{} -> T_DOUBLE
+	TStruct{} -> T_STRUCT Map.empty
+	TMap{} -> T_MAP T_VOID T_VOID
+	TList{} -> T_LIST T_VOID
+	TSet{} -> T_SET T_VOID
+	TBool{} -> T_BOOL
+	TByte{} -> T_BYTE
+	TI16{} -> T_I16
+	TI32{} -> T_I32
+	TI64{} -> T_I64
+	TString{} -> T_STRING
+	TBinary{} -> T_BINARY
+	TDouble{} -> T_DOUBLE
 
 runParser :: (Protocol p, Show a) => p -> Parser a -> IO a
 runParser prot p = refill >>= getResult . parse p
-  where
-    refill = handle handleEOF $ LBS.toStrict <$> readByte prot
-    getResult (Done _ a) = return a
-    getResult (Partial k) = refill >>= getResult . k
-    getResult f = throw $ ProtocolExn PE_INVALID_DATA (show f)
+	where
+		refill = handle handleEOF $ LBS.toStrict <$> readByte prot
+		getResult (Done _ a) = return a
+		getResult (Partial k) = refill >>= getResult . k
+		getResult f = throw $ ProtocolExn PE_INVALID_DATA (show f)
 
 handleEOF :: SomeException -> IO BS.ByteString
 handleEOF = const $ return mempty
@@ -119,18 +119,18 @@ bsToDoubleLE bs = unsafeDupablePerformIO $ unsafeUseAsCString bs castBsSwapped
 
 
 castBsSwapped chrPtr = do
-  w <- peek (castPtr chrPtr)
-  poke (castPtr chrPtr) (byteSwap w)
-  peek (castPtr chrPtr)
+	w <- peek (castPtr chrPtr)
+	poke (castPtr chrPtr) (byteSwap w)
+	peek (castPtr chrPtr)
 castBs = peek . castPtr
 
 -- | Swap endianness of a 64-bit word
 byteSwap :: Word64 -> Word64
 byteSwap w = (w `shiftL` 56 .&. 0xFF00000000000000) .|.
-             (w `shiftL` 40 .&. 0x00FF000000000000) .|.
-             (w `shiftL` 24 .&. 0x0000FF0000000000) .|.
-             (w `shiftL` 8  .&. 0x000000FF00000000) .|.
-             (w `shiftR` 8  .&. 0x00000000FF000000) .|.
-             (w `shiftR` 24 .&. 0x0000000000FF0000) .|.
-             (w `shiftR` 40 .&. 0x000000000000FF00) .|.
-             (w `shiftR` 56 .&. 0x00000000000000FF)
+						 (w `shiftL` 40 .&. 0x00FF000000000000) .|.
+						 (w `shiftL` 24 .&. 0x0000FF0000000000) .|.
+						 (w `shiftL` 8  .&. 0x000000FF00000000) .|.
+						 (w `shiftR` 8  .&. 0x00000000FF000000) .|.
+						 (w `shiftR` 24 .&. 0x0000000000FF0000) .|.
+						 (w `shiftR` 40 .&. 0x000000000000FF00) .|.
+						 (w `shiftR` 56 .&. 0x00000000000000FF)

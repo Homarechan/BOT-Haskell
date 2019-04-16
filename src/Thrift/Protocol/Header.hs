@@ -1,3 +1,5 @@
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE Rank2Types #-}
 --
 -- Licensed to the Apache Software Foundation (ASF) under one
 -- or more contributor license agreements. See the NOTICE file
@@ -49,7 +51,7 @@ instance Protocol ProtocolWrap where
   writeVal (ProtocolWrap p) = writeVal p
   writeMessage (ProtocolWrap p) = writeMessage p
 
-data HeaderProtocol i o = (Transport i, Transport o) => HeaderProtocol {
+data HeaderProtocol i o = HeaderProtocol {
     trans :: HeaderTransport i o,
     wrappedProto :: IORef ProtocolWrap
   }

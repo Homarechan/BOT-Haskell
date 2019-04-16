@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module TalkService_Iface where
+module LineApi.TalkService_Iface where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,7 +38,7 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
+import LineApi.Line_Types
 
 class TalkService_Iface a where
   searchCollection :: a -> LT.Text -> SearchPagingParameter -> P.IO SearchResult

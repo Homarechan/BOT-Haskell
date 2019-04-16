@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BuddyService_Iface where
+module LineApi.BuddyService_Iface where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,7 +38,7 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
+import LineApi.Line_Types
 
 class BuddyService_Iface a where
   findBuddyContactsByQuery :: a -> LT.Text -> LT.Text -> LT.Text -> I.Int32 -> I.Int32 -> BuddySearchRequestSource -> P.IO (Vector.Vector BuddySearchResult)

@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ShopService_Client(buyCoinProduct,buyFreeProduct,buyMustbuyProduct,checkCanReceivePresent,getActivePurchases,getActivePurchaseVersions,getCoinProducts,getCoinProductsByPgCode,getCoinPurchaseHistory,getCoinUseAndRefundHistory,getDownloads,getEventPackages,getNewlyReleasedPackages,getPopularPackages,getPresentsReceived,getPresentsSent,getProduct,getProductList,getProductListWithCarrier,getProductWithCarrier,getPurchaseHistory,getTotalBalance,notifyDownloaded,reserveCoinPurchase,reservePayment) where
+module LineApi.ShopService_Client(buyCoinProduct,buyFreeProduct,buyMustbuyProduct,checkCanReceivePresent,getActivePurchases,getActivePurchaseVersions,getCoinProducts,getCoinProductsByPgCode,getCoinPurchaseHistory,getCoinUseAndRefundHistory,getDownloads,getEventPackages,getNewlyReleasedPackages,getPopularPackages,getPresentsReceived,getPresentsSent,getProduct,getProductList,getProductListWithCarrier,getProductWithCarrier,getPurchaseHistory,getTotalBalance,notifyDownloaded,reserveCoinPurchase,reservePayment) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import ShopService
+import LineApi.Line_Types
+import LineApi.ShopService
 seqid = R.newIORef 0
 buyCoinProduct (ip,op) arg_paymentReservation = do
   send_buyCoinProduct op arg_paymentReservation

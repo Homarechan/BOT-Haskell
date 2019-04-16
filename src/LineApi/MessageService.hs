@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module MessageService where
+module LineApi.MessageService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,8 +38,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified MessageService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.MessageService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data FetchMessageOperations_args = FetchMessageOperations_args  { fetchMessageOperations_args_localRevision :: I.Int64
@@ -47,8 +47,8 @@ data FetchMessageOperations_args = FetchMessageOperations_args  { fetchMessageOp
   , fetchMessageOperations_args_count :: I.Int32
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchMessageOperations_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMessageOperations_args_localRevision record   `H.hashWithSalt` fetchMessageOperations_args_lastOpTimestamp record   `H.hashWithSalt` fetchMessageOperations_args_count record  
-instance QC.Arbitrary FetchMessageOperations_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMessageOperations_args_localRevision record   `H.hashWithSalt` fetchMessageOperations_args_lastOpTimestamp record   `H.hashWithSalt` fetchMessageOperations_args_count record
+instance QC.Arbitrary FetchMessageOperations_args where
   arbitrary = M.liftM FetchMessageOperations_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -90,8 +90,8 @@ data FetchMessageOperations_result = FetchMessageOperations_result  { fetchMessa
   , fetchMessageOperations_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchMessageOperations_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMessageOperations_result_success record   `H.hashWithSalt` fetchMessageOperations_result_e record  
-instance QC.Arbitrary FetchMessageOperations_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMessageOperations_result_success record   `H.hashWithSalt` fetchMessageOperations_result_e record
+instance QC.Arbitrary FetchMessageOperations_result where
   arbitrary = M.liftM FetchMessageOperations_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FetchMessageOperations_result = []
@@ -100,7 +100,7 @@ instance QC.Arbitrary FetchMessageOperations_result where
     , if obj == default_FetchMessageOperations_result{fetchMessageOperations_result_e = fetchMessageOperations_result_e obj} then P.Nothing else P.Just $ default_FetchMessageOperations_result{fetchMessageOperations_result_e = fetchMessageOperations_result_e obj}
     ]
 from_FetchMessageOperations_result :: FetchMessageOperations_result -> T.ThriftVal
-from_FetchMessageOperations_result record = T.TStruct $ Map.fromList 
+from_FetchMessageOperations_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5989 -> (1, ("e",from_TalkException _v5989))) <$> fetchMessageOperations_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5989 -> P.Just (0, ("success",from_MessageOperations _v5989))) $ fetchMessageOperations_result_success record
@@ -130,8 +130,8 @@ default_FetchMessageOperations_result = FetchMessageOperations_result{
 data GetLastReadMessageIds_args = GetLastReadMessageIds_args  { getLastReadMessageIds_args_chatId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetLastReadMessageIds_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getLastReadMessageIds_args_chatId record  
-instance QC.Arbitrary GetLastReadMessageIds_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getLastReadMessageIds_args_chatId record
+instance QC.Arbitrary GetLastReadMessageIds_args where
   arbitrary = M.liftM GetLastReadMessageIds_args (QC.arbitrary)
   shrink obj | obj == default_GetLastReadMessageIds_args = []
              | P.otherwise = M.catMaybes
@@ -163,8 +163,8 @@ data GetLastReadMessageIds_result = GetLastReadMessageIds_result  { getLastReadM
   , getLastReadMessageIds_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetLastReadMessageIds_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getLastReadMessageIds_result_success record   `H.hashWithSalt` getLastReadMessageIds_result_e record  
-instance QC.Arbitrary GetLastReadMessageIds_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getLastReadMessageIds_result_success record   `H.hashWithSalt` getLastReadMessageIds_result_e record
+instance QC.Arbitrary GetLastReadMessageIds_result where
   arbitrary = M.liftM GetLastReadMessageIds_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetLastReadMessageIds_result = []
@@ -173,7 +173,7 @@ instance QC.Arbitrary GetLastReadMessageIds_result where
     , if obj == default_GetLastReadMessageIds_result{getLastReadMessageIds_result_e = getLastReadMessageIds_result_e obj} then P.Nothing else P.Just $ default_GetLastReadMessageIds_result{getLastReadMessageIds_result_e = getLastReadMessageIds_result_e obj}
     ]
 from_GetLastReadMessageIds_result :: GetLastReadMessageIds_result -> T.ThriftVal
-from_GetLastReadMessageIds_result record = T.TStruct $ Map.fromList 
+from_GetLastReadMessageIds_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6002 -> (1, ("e",from_TalkException _v6002))) <$> getLastReadMessageIds_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6002 -> P.Just (0, ("success",from_LastReadMessageIds _v6002))) $ getLastReadMessageIds_result_success record
@@ -203,8 +203,8 @@ default_GetLastReadMessageIds_result = GetLastReadMessageIds_result{
 data MultiGetLastReadMessageIds_args = MultiGetLastReadMessageIds_args  { multiGetLastReadMessageIds_args_chatIds :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MultiGetLastReadMessageIds_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` multiGetLastReadMessageIds_args_chatIds record  
-instance QC.Arbitrary MultiGetLastReadMessageIds_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` multiGetLastReadMessageIds_args_chatIds record
+instance QC.Arbitrary MultiGetLastReadMessageIds_args where
   arbitrary = M.liftM MultiGetLastReadMessageIds_args (QC.arbitrary)
   shrink obj | obj == default_MultiGetLastReadMessageIds_args = []
              | P.otherwise = M.catMaybes
@@ -236,8 +236,8 @@ data MultiGetLastReadMessageIds_result = MultiGetLastReadMessageIds_result  { mu
   , multiGetLastReadMessageIds_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MultiGetLastReadMessageIds_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` multiGetLastReadMessageIds_result_success record   `H.hashWithSalt` multiGetLastReadMessageIds_result_e record  
-instance QC.Arbitrary MultiGetLastReadMessageIds_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` multiGetLastReadMessageIds_result_success record   `H.hashWithSalt` multiGetLastReadMessageIds_result_e record
+instance QC.Arbitrary MultiGetLastReadMessageIds_result where
   arbitrary = M.liftM MultiGetLastReadMessageIds_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_MultiGetLastReadMessageIds_result = []
@@ -246,7 +246,7 @@ instance QC.Arbitrary MultiGetLastReadMessageIds_result where
     , if obj == default_MultiGetLastReadMessageIds_result{multiGetLastReadMessageIds_result_e = multiGetLastReadMessageIds_result_e obj} then P.Nothing else P.Just $ default_MultiGetLastReadMessageIds_result{multiGetLastReadMessageIds_result_e = multiGetLastReadMessageIds_result_e obj}
     ]
 from_MultiGetLastReadMessageIds_result :: MultiGetLastReadMessageIds_result -> T.ThriftVal
-from_MultiGetLastReadMessageIds_result record = T.TStruct $ Map.fromList 
+from_MultiGetLastReadMessageIds_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6019 -> (1, ("e",from_TalkException _v6019))) <$> multiGetLastReadMessageIds_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6019 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_LastReadMessageIds) $ P.map (\_v6021 -> from_LastReadMessageIds _v6021) $ Vector.toList _v6019))) $ multiGetLastReadMessageIds_result_success record

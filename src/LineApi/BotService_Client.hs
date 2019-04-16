@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BotService_Client(notifyLeaveGroup,notifyLeaveRoom,getBotUseInfo,sendChatCheckedByWatermark) where
+module LineApi.BotService_Client(notifyLeaveGroup,notifyLeaveRoom,getBotUseInfo,sendChatCheckedByWatermark) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import BotService
+import LineApi.Line_Types
+import LineApi.BotService
 seqid = R.newIORef 0
 notifyLeaveGroup (ip,op) arg_groupMid = do
   send_notifyLeaveGroup op arg_groupMid

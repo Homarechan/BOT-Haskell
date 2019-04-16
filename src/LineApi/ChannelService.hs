@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ChannelService where
+module LineApi.ChannelService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified ChannelService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.ChannelService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data IssueOTP_args = IssueOTP_args  { issueOTP_args_channelId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueOTP_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueOTP_args_channelId record  
-instance QC.Arbitrary IssueOTP_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueOTP_args_channelId record
+instance QC.Arbitrary IssueOTP_args where
   arbitrary = M.liftM IssueOTP_args (QC.arbitrary)
   shrink obj | obj == default_IssueOTP_args = []
              | P.otherwise = M.catMaybes
@@ -78,8 +78,8 @@ data IssueOTP_result = IssueOTP_result  { issueOTP_result_success :: OTPResult
   , issueOTP_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueOTP_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueOTP_result_success record   `H.hashWithSalt` issueOTP_result_e record  
-instance QC.Arbitrary IssueOTP_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueOTP_result_success record   `H.hashWithSalt` issueOTP_result_e record
+instance QC.Arbitrary IssueOTP_result where
   arbitrary = M.liftM IssueOTP_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueOTP_result = []
@@ -88,7 +88,7 @@ instance QC.Arbitrary IssueOTP_result where
     , if obj == default_IssueOTP_result{issueOTP_result_e = issueOTP_result_e obj} then P.Nothing else P.Just $ default_IssueOTP_result{issueOTP_result_e = issueOTP_result_e obj}
     ]
 from_IssueOTP_result :: IssueOTP_result -> T.ThriftVal
-from_IssueOTP_result record = T.TStruct $ Map.fromList 
+from_IssueOTP_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5653 -> (1, ("e",from_ChannelException _v5653))) <$> issueOTP_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5653 -> P.Just (0, ("success",from_OTPResult _v5653))) $ issueOTP_result_success record
@@ -118,8 +118,8 @@ default_IssueOTP_result = IssueOTP_result{
 data ApproveChannelAndIssueChannelToken_args = ApproveChannelAndIssueChannelToken_args  { approveChannelAndIssueChannelToken_args_channelId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveChannelAndIssueChannelToken_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueChannelToken_args_channelId record  
-instance QC.Arbitrary ApproveChannelAndIssueChannelToken_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueChannelToken_args_channelId record
+instance QC.Arbitrary ApproveChannelAndIssueChannelToken_args where
   arbitrary = M.liftM ApproveChannelAndIssueChannelToken_args (QC.arbitrary)
   shrink obj | obj == default_ApproveChannelAndIssueChannelToken_args = []
              | P.otherwise = M.catMaybes
@@ -151,8 +151,8 @@ data ApproveChannelAndIssueChannelToken_result = ApproveChannelAndIssueChannelTo
   , approveChannelAndIssueChannelToken_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveChannelAndIssueChannelToken_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueChannelToken_result_success record   `H.hashWithSalt` approveChannelAndIssueChannelToken_result_e record  
-instance QC.Arbitrary ApproveChannelAndIssueChannelToken_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueChannelToken_result_success record   `H.hashWithSalt` approveChannelAndIssueChannelToken_result_e record
+instance QC.Arbitrary ApproveChannelAndIssueChannelToken_result where
   arbitrary = M.liftM ApproveChannelAndIssueChannelToken_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ApproveChannelAndIssueChannelToken_result = []
@@ -161,7 +161,7 @@ instance QC.Arbitrary ApproveChannelAndIssueChannelToken_result where
     , if obj == default_ApproveChannelAndIssueChannelToken_result{approveChannelAndIssueChannelToken_result_e = approveChannelAndIssueChannelToken_result_e obj} then P.Nothing else P.Just $ default_ApproveChannelAndIssueChannelToken_result{approveChannelAndIssueChannelToken_result_e = approveChannelAndIssueChannelToken_result_e obj}
     ]
 from_ApproveChannelAndIssueChannelToken_result :: ApproveChannelAndIssueChannelToken_result -> T.ThriftVal
-from_ApproveChannelAndIssueChannelToken_result record = T.TStruct $ Map.fromList 
+from_ApproveChannelAndIssueChannelToken_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5666 -> (1, ("e",from_ChannelException _v5666))) <$> approveChannelAndIssueChannelToken_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5666 -> P.Just (0, ("success",from_ChannelToken _v5666))) $ approveChannelAndIssueChannelToken_result_success record
@@ -192,8 +192,8 @@ data ApproveChannelAndIssueRequestToken_args = ApproveChannelAndIssueRequestToke
   , approveChannelAndIssueRequestToken_args_otpId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveChannelAndIssueRequestToken_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueRequestToken_args_channelId record   `H.hashWithSalt` approveChannelAndIssueRequestToken_args_otpId record  
-instance QC.Arbitrary ApproveChannelAndIssueRequestToken_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueRequestToken_args_channelId record   `H.hashWithSalt` approveChannelAndIssueRequestToken_args_otpId record
+instance QC.Arbitrary ApproveChannelAndIssueRequestToken_args where
   arbitrary = M.liftM ApproveChannelAndIssueRequestToken_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_ApproveChannelAndIssueRequestToken_args = []
@@ -230,8 +230,8 @@ data ApproveChannelAndIssueRequestToken_result = ApproveChannelAndIssueRequestTo
   , approveChannelAndIssueRequestToken_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveChannelAndIssueRequestToken_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueRequestToken_result_success record   `H.hashWithSalt` approveChannelAndIssueRequestToken_result_e record  
-instance QC.Arbitrary ApproveChannelAndIssueRequestToken_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveChannelAndIssueRequestToken_result_success record   `H.hashWithSalt` approveChannelAndIssueRequestToken_result_e record
+instance QC.Arbitrary ApproveChannelAndIssueRequestToken_result where
   arbitrary = M.liftM ApproveChannelAndIssueRequestToken_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ApproveChannelAndIssueRequestToken_result = []
@@ -240,7 +240,7 @@ instance QC.Arbitrary ApproveChannelAndIssueRequestToken_result where
     , if obj == default_ApproveChannelAndIssueRequestToken_result{approveChannelAndIssueRequestToken_result_e = approveChannelAndIssueRequestToken_result_e obj} then P.Nothing else P.Just $ default_ApproveChannelAndIssueRequestToken_result{approveChannelAndIssueRequestToken_result_e = approveChannelAndIssueRequestToken_result_e obj}
     ]
 from_ApproveChannelAndIssueRequestToken_result :: ApproveChannelAndIssueRequestToken_result -> T.ThriftVal
-from_ApproveChannelAndIssueRequestToken_result record = T.TStruct $ Map.fromList 
+from_ApproveChannelAndIssueRequestToken_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5680 -> (1, ("e",from_ChannelException _v5680))) <$> approveChannelAndIssueRequestToken_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5680 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v5680))) $ approveChannelAndIssueRequestToken_result_success record
@@ -270,8 +270,8 @@ default_ApproveChannelAndIssueRequestToken_result = ApproveChannelAndIssueReques
 data FetchNotificationItems_args = FetchNotificationItems_args  { fetchNotificationItems_args_localRev :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchNotificationItems_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchNotificationItems_args_localRev record  
-instance QC.Arbitrary FetchNotificationItems_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchNotificationItems_args_localRev record
+instance QC.Arbitrary FetchNotificationItems_args where
   arbitrary = M.liftM FetchNotificationItems_args (QC.arbitrary)
   shrink obj | obj == default_FetchNotificationItems_args = []
              | P.otherwise = M.catMaybes
@@ -303,8 +303,8 @@ data FetchNotificationItems_result = FetchNotificationItems_result  { fetchNotif
   , fetchNotificationItems_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchNotificationItems_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchNotificationItems_result_success record   `H.hashWithSalt` fetchNotificationItems_result_e record  
-instance QC.Arbitrary FetchNotificationItems_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchNotificationItems_result_success record   `H.hashWithSalt` fetchNotificationItems_result_e record
+instance QC.Arbitrary FetchNotificationItems_result where
   arbitrary = M.liftM FetchNotificationItems_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FetchNotificationItems_result = []
@@ -313,7 +313,7 @@ instance QC.Arbitrary FetchNotificationItems_result where
     , if obj == default_FetchNotificationItems_result{fetchNotificationItems_result_e = fetchNotificationItems_result_e obj} then P.Nothing else P.Just $ default_FetchNotificationItems_result{fetchNotificationItems_result_e = fetchNotificationItems_result_e obj}
     ]
 from_FetchNotificationItems_result :: FetchNotificationItems_result -> T.ThriftVal
-from_FetchNotificationItems_result record = T.TStruct $ Map.fromList 
+from_FetchNotificationItems_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5693 -> (1, ("e",from_ChannelException _v5693))) <$> fetchNotificationItems_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5693 -> P.Just (0, ("success",from_NotificationFetchResult _v5693))) $ fetchNotificationItems_result_success record
@@ -344,8 +344,8 @@ data GetApprovedChannels_args = GetApprovedChannels_args  { getApprovedChannels_
   , getApprovedChannels_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetApprovedChannels_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getApprovedChannels_args_lastSynced record   `H.hashWithSalt` getApprovedChannels_args_locale record  
-instance QC.Arbitrary GetApprovedChannels_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getApprovedChannels_args_lastSynced record   `H.hashWithSalt` getApprovedChannels_args_locale record
+instance QC.Arbitrary GetApprovedChannels_args where
   arbitrary = M.liftM GetApprovedChannels_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetApprovedChannels_args = []
@@ -382,8 +382,8 @@ data GetApprovedChannels_result = GetApprovedChannels_result  { getApprovedChann
   , getApprovedChannels_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetApprovedChannels_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getApprovedChannels_result_success record   `H.hashWithSalt` getApprovedChannels_result_e record  
-instance QC.Arbitrary GetApprovedChannels_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getApprovedChannels_result_success record   `H.hashWithSalt` getApprovedChannels_result_e record
+instance QC.Arbitrary GetApprovedChannels_result where
   arbitrary = M.liftM GetApprovedChannels_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetApprovedChannels_result = []
@@ -392,7 +392,7 @@ instance QC.Arbitrary GetApprovedChannels_result where
     , if obj == default_GetApprovedChannels_result{getApprovedChannels_result_e = getApprovedChannels_result_e obj} then P.Nothing else P.Just $ default_GetApprovedChannels_result{getApprovedChannels_result_e = getApprovedChannels_result_e obj}
     ]
 from_GetApprovedChannels_result :: GetApprovedChannels_result -> T.ThriftVal
-from_GetApprovedChannels_result record = T.TStruct $ Map.fromList 
+from_GetApprovedChannels_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5707 -> (1, ("e",from_ChannelException _v5707))) <$> getApprovedChannels_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5707 -> P.Just (0, ("success",from_ApprovedChannelInfos _v5707))) $ getApprovedChannels_result_success record
@@ -423,8 +423,8 @@ data GetChannelInfo_args = GetChannelInfo_args  { getChannelInfo_args_channelId 
   , getChannelInfo_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelInfo_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelInfo_args_channelId record   `H.hashWithSalt` getChannelInfo_args_locale record  
-instance QC.Arbitrary GetChannelInfo_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelInfo_args_channelId record   `H.hashWithSalt` getChannelInfo_args_locale record
+instance QC.Arbitrary GetChannelInfo_args where
   arbitrary = M.liftM GetChannelInfo_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetChannelInfo_args = []
@@ -461,8 +461,8 @@ data GetChannelInfo_result = GetChannelInfo_result  { getChannelInfo_result_succ
   , getChannelInfo_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelInfo_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelInfo_result_success record   `H.hashWithSalt` getChannelInfo_result_e record  
-instance QC.Arbitrary GetChannelInfo_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelInfo_result_success record   `H.hashWithSalt` getChannelInfo_result_e record
+instance QC.Arbitrary GetChannelInfo_result where
   arbitrary = M.liftM GetChannelInfo_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetChannelInfo_result = []
@@ -471,7 +471,7 @@ instance QC.Arbitrary GetChannelInfo_result where
     , if obj == default_GetChannelInfo_result{getChannelInfo_result_e = getChannelInfo_result_e obj} then P.Nothing else P.Just $ default_GetChannelInfo_result{getChannelInfo_result_e = getChannelInfo_result_e obj}
     ]
 from_GetChannelInfo_result :: GetChannelInfo_result -> T.ThriftVal
-from_GetChannelInfo_result record = T.TStruct $ Map.fromList 
+from_GetChannelInfo_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5721 -> (1, ("e",from_ChannelException _v5721))) <$> getChannelInfo_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5721 -> P.Just (0, ("success",from_ChannelInfo _v5721))) $ getChannelInfo_result_success record
@@ -502,8 +502,8 @@ data GetChannelNotificationSetting_args = GetChannelNotificationSetting_args  { 
   , getChannelNotificationSetting_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelNotificationSetting_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSetting_args_channelId record   `H.hashWithSalt` getChannelNotificationSetting_args_locale record  
-instance QC.Arbitrary GetChannelNotificationSetting_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSetting_args_channelId record   `H.hashWithSalt` getChannelNotificationSetting_args_locale record
+instance QC.Arbitrary GetChannelNotificationSetting_args where
   arbitrary = M.liftM GetChannelNotificationSetting_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetChannelNotificationSetting_args = []
@@ -540,8 +540,8 @@ data GetChannelNotificationSetting_result = GetChannelNotificationSetting_result
   , getChannelNotificationSetting_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelNotificationSetting_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSetting_result_success record   `H.hashWithSalt` getChannelNotificationSetting_result_e record  
-instance QC.Arbitrary GetChannelNotificationSetting_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSetting_result_success record   `H.hashWithSalt` getChannelNotificationSetting_result_e record
+instance QC.Arbitrary GetChannelNotificationSetting_result where
   arbitrary = M.liftM GetChannelNotificationSetting_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetChannelNotificationSetting_result = []
@@ -550,7 +550,7 @@ instance QC.Arbitrary GetChannelNotificationSetting_result where
     , if obj == default_GetChannelNotificationSetting_result{getChannelNotificationSetting_result_e = getChannelNotificationSetting_result_e obj} then P.Nothing else P.Just $ default_GetChannelNotificationSetting_result{getChannelNotificationSetting_result_e = getChannelNotificationSetting_result_e obj}
     ]
 from_GetChannelNotificationSetting_result :: GetChannelNotificationSetting_result -> T.ThriftVal
-from_GetChannelNotificationSetting_result record = T.TStruct $ Map.fromList 
+from_GetChannelNotificationSetting_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5735 -> (1, ("e",from_ChannelException _v5735))) <$> getChannelNotificationSetting_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5735 -> P.Just (0, ("success",from_ChannelNotificationSetting _v5735))) $ getChannelNotificationSetting_result_success record
@@ -580,8 +580,8 @@ default_GetChannelNotificationSetting_result = GetChannelNotificationSetting_res
 data GetChannelNotificationSettings_args = GetChannelNotificationSettings_args  { getChannelNotificationSettings_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelNotificationSettings_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSettings_args_locale record  
-instance QC.Arbitrary GetChannelNotificationSettings_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSettings_args_locale record
+instance QC.Arbitrary GetChannelNotificationSettings_args where
   arbitrary = M.liftM GetChannelNotificationSettings_args (QC.arbitrary)
   shrink obj | obj == default_GetChannelNotificationSettings_args = []
              | P.otherwise = M.catMaybes
@@ -613,8 +613,8 @@ data GetChannelNotificationSettings_result = GetChannelNotificationSettings_resu
   , getChannelNotificationSettings_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannelNotificationSettings_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSettings_result_success record   `H.hashWithSalt` getChannelNotificationSettings_result_e record  
-instance QC.Arbitrary GetChannelNotificationSettings_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannelNotificationSettings_result_success record   `H.hashWithSalt` getChannelNotificationSettings_result_e record
+instance QC.Arbitrary GetChannelNotificationSettings_result where
   arbitrary = M.liftM GetChannelNotificationSettings_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetChannelNotificationSettings_result = []
@@ -623,7 +623,7 @@ instance QC.Arbitrary GetChannelNotificationSettings_result where
     , if obj == default_GetChannelNotificationSettings_result{getChannelNotificationSettings_result_e = getChannelNotificationSettings_result_e obj} then P.Nothing else P.Just $ default_GetChannelNotificationSettings_result{getChannelNotificationSettings_result_e = getChannelNotificationSettings_result_e obj}
     ]
 from_GetChannelNotificationSettings_result :: GetChannelNotificationSettings_result -> T.ThriftVal
-from_GetChannelNotificationSettings_result record = T.TStruct $ Map.fromList 
+from_GetChannelNotificationSettings_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5748 -> (1, ("e",from_ChannelException _v5748))) <$> getChannelNotificationSettings_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5748 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_ChannelNotificationSetting) $ P.map (\_v5750 -> from_ChannelNotificationSetting _v5750) $ Vector.toList _v5748))) $ getChannelNotificationSettings_result_success record
@@ -654,8 +654,8 @@ data GetChannels_args = GetChannels_args  { getChannels_args_lastSynced :: I.Int
   , getChannels_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannels_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannels_args_lastSynced record   `H.hashWithSalt` getChannels_args_locale record  
-instance QC.Arbitrary GetChannels_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannels_args_lastSynced record   `H.hashWithSalt` getChannels_args_locale record
+instance QC.Arbitrary GetChannels_args where
   arbitrary = M.liftM GetChannels_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetChannels_args = []
@@ -692,8 +692,8 @@ data GetChannels_result = GetChannels_result  { getChannels_result_success :: Ch
   , getChannels_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetChannels_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getChannels_result_success record   `H.hashWithSalt` getChannels_result_e record  
-instance QC.Arbitrary GetChannels_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getChannels_result_success record   `H.hashWithSalt` getChannels_result_e record
+instance QC.Arbitrary GetChannels_result where
   arbitrary = M.liftM GetChannels_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetChannels_result = []
@@ -702,7 +702,7 @@ instance QC.Arbitrary GetChannels_result where
     , if obj == default_GetChannels_result{getChannels_result_e = getChannels_result_e obj} then P.Nothing else P.Just $ default_GetChannels_result{getChannels_result_e = getChannels_result_e obj}
     ]
 from_GetChannels_result :: GetChannels_result -> T.ThriftVal
-from_GetChannels_result record = T.TStruct $ Map.fromList 
+from_GetChannels_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5766 -> (1, ("e",from_ChannelException _v5766))) <$> getChannels_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5766 -> P.Just (0, ("success",from_ChannelInfos _v5766))) $ getChannels_result_success record
@@ -732,8 +732,8 @@ default_GetChannels_result = GetChannels_result{
 data GetDomains_args = GetDomains_args  { getDomains_args_lastSynced :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDomains_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDomains_args_lastSynced record  
-instance QC.Arbitrary GetDomains_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDomains_args_lastSynced record
+instance QC.Arbitrary GetDomains_args where
   arbitrary = M.liftM GetDomains_args (QC.arbitrary)
   shrink obj | obj == default_GetDomains_args = []
              | P.otherwise = M.catMaybes
@@ -765,8 +765,8 @@ data GetDomains_result = GetDomains_result  { getDomains_result_success :: Chann
   , getDomains_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDomains_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDomains_result_success record   `H.hashWithSalt` getDomains_result_e record  
-instance QC.Arbitrary GetDomains_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDomains_result_success record   `H.hashWithSalt` getDomains_result_e record
+instance QC.Arbitrary GetDomains_result where
   arbitrary = M.liftM GetDomains_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetDomains_result = []
@@ -775,7 +775,7 @@ instance QC.Arbitrary GetDomains_result where
     , if obj == default_GetDomains_result{getDomains_result_e = getDomains_result_e obj} then P.Nothing else P.Just $ default_GetDomains_result{getDomains_result_e = getDomains_result_e obj}
     ]
 from_GetDomains_result :: GetDomains_result -> T.ThriftVal
-from_GetDomains_result record = T.TStruct $ Map.fromList 
+from_GetDomains_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5779 -> (1, ("e",from_ChannelException _v5779))) <$> getDomains_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5779 -> P.Just (0, ("success",from_ChannelDomains _v5779))) $ getDomains_result_success record
@@ -805,8 +805,8 @@ default_GetDomains_result = GetDomains_result{
 data GetFriendChannelMatrices_args = GetFriendChannelMatrices_args  { getFriendChannelMatrices_args_channelIds :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFriendChannelMatrices_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendChannelMatrices_args_channelIds record  
-instance QC.Arbitrary GetFriendChannelMatrices_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendChannelMatrices_args_channelIds record
+instance QC.Arbitrary GetFriendChannelMatrices_args where
   arbitrary = M.liftM GetFriendChannelMatrices_args (QC.arbitrary)
   shrink obj | obj == default_GetFriendChannelMatrices_args = []
              | P.otherwise = M.catMaybes
@@ -838,8 +838,8 @@ data GetFriendChannelMatrices_result = GetFriendChannelMatrices_result  { getFri
   , getFriendChannelMatrices_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFriendChannelMatrices_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendChannelMatrices_result_success record   `H.hashWithSalt` getFriendChannelMatrices_result_e record  
-instance QC.Arbitrary GetFriendChannelMatrices_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendChannelMatrices_result_success record   `H.hashWithSalt` getFriendChannelMatrices_result_e record
+instance QC.Arbitrary GetFriendChannelMatrices_result where
   arbitrary = M.liftM GetFriendChannelMatrices_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetFriendChannelMatrices_result = []
@@ -848,7 +848,7 @@ instance QC.Arbitrary GetFriendChannelMatrices_result where
     , if obj == default_GetFriendChannelMatrices_result{getFriendChannelMatrices_result_e = getFriendChannelMatrices_result_e obj} then P.Nothing else P.Just $ default_GetFriendChannelMatrices_result{getFriendChannelMatrices_result_e = getFriendChannelMatrices_result_e obj}
     ]
 from_GetFriendChannelMatrices_result :: GetFriendChannelMatrices_result -> T.ThriftVal
-from_GetFriendChannelMatrices_result record = T.TStruct $ Map.fromList 
+from_GetFriendChannelMatrices_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5796 -> (1, ("e",from_ChannelException _v5796))) <$> getFriendChannelMatrices_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5796 -> P.Just (0, ("success",from_FriendChannelMatricesResponse _v5796))) $ getFriendChannelMatrices_result_success record
@@ -878,8 +878,8 @@ default_GetFriendChannelMatrices_result = GetFriendChannelMatrices_result{
 data UpdateChannelSettings_args = UpdateChannelSettings_args  { updateChannelSettings_args_channelSettings :: ChannelSettings
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateChannelSettings_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelSettings_args_channelSettings record  
-instance QC.Arbitrary UpdateChannelSettings_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelSettings_args_channelSettings record
+instance QC.Arbitrary UpdateChannelSettings_args where
   arbitrary = M.liftM UpdateChannelSettings_args (QC.arbitrary)
   shrink obj | obj == default_UpdateChannelSettings_args = []
              | P.otherwise = M.catMaybes
@@ -911,8 +911,8 @@ data UpdateChannelSettings_result = UpdateChannelSettings_result  { updateChanne
   , updateChannelSettings_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateChannelSettings_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelSettings_result_success record   `H.hashWithSalt` updateChannelSettings_result_e record  
-instance QC.Arbitrary UpdateChannelSettings_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelSettings_result_success record   `H.hashWithSalt` updateChannelSettings_result_e record
+instance QC.Arbitrary UpdateChannelSettings_result where
   arbitrary = M.liftM UpdateChannelSettings_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateChannelSettings_result = []
@@ -921,7 +921,7 @@ instance QC.Arbitrary UpdateChannelSettings_result where
     , if obj == default_UpdateChannelSettings_result{updateChannelSettings_result_e = updateChannelSettings_result_e obj} then P.Nothing else P.Just $ default_UpdateChannelSettings_result{updateChannelSettings_result_e = updateChannelSettings_result_e obj}
     ]
 from_UpdateChannelSettings_result :: UpdateChannelSettings_result -> T.ThriftVal
-from_UpdateChannelSettings_result record = T.TStruct $ Map.fromList 
+from_UpdateChannelSettings_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5809 -> (1, ("e",from_ChannelException _v5809))) <$> updateChannelSettings_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5809 -> P.Just (0, ("success",T.TBool _v5809))) $ updateChannelSettings_result_success record
@@ -951,8 +951,8 @@ default_UpdateChannelSettings_result = UpdateChannelSettings_result{
 data GetCommonDomains_args = GetCommonDomains_args  { getCommonDomains_args_lastSynced :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCommonDomains_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCommonDomains_args_lastSynced record  
-instance QC.Arbitrary GetCommonDomains_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCommonDomains_args_lastSynced record
+instance QC.Arbitrary GetCommonDomains_args where
   arbitrary = M.liftM GetCommonDomains_args (QC.arbitrary)
   shrink obj | obj == default_GetCommonDomains_args = []
              | P.otherwise = M.catMaybes
@@ -984,8 +984,8 @@ data GetCommonDomains_result = GetCommonDomains_result  { getCommonDomains_resul
   , getCommonDomains_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCommonDomains_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCommonDomains_result_success record   `H.hashWithSalt` getCommonDomains_result_e record  
-instance QC.Arbitrary GetCommonDomains_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCommonDomains_result_success record   `H.hashWithSalt` getCommonDomains_result_e record
+instance QC.Arbitrary GetCommonDomains_result where
   arbitrary = M.liftM GetCommonDomains_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCommonDomains_result = []
@@ -994,7 +994,7 @@ instance QC.Arbitrary GetCommonDomains_result where
     , if obj == default_GetCommonDomains_result{getCommonDomains_result_e = getCommonDomains_result_e obj} then P.Nothing else P.Just $ default_GetCommonDomains_result{getCommonDomains_result_e = getCommonDomains_result_e obj}
     ]
 from_GetCommonDomains_result :: GetCommonDomains_result -> T.ThriftVal
-from_GetCommonDomains_result record = T.TStruct $ Map.fromList 
+from_GetCommonDomains_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5822 -> (1, ("e",from_ChannelException _v5822))) <$> getCommonDomains_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5822 -> P.Just (0, ("success",from_ChannelDomains _v5822))) $ getCommonDomains_result_success record
@@ -1024,8 +1024,8 @@ default_GetCommonDomains_result = GetCommonDomains_result{
 data GetNotificationBadgeCount_args = GetNotificationBadgeCount_args  { getNotificationBadgeCount_args_localRev :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNotificationBadgeCount_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNotificationBadgeCount_args_localRev record  
-instance QC.Arbitrary GetNotificationBadgeCount_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNotificationBadgeCount_args_localRev record
+instance QC.Arbitrary GetNotificationBadgeCount_args where
   arbitrary = M.liftM GetNotificationBadgeCount_args (QC.arbitrary)
   shrink obj | obj == default_GetNotificationBadgeCount_args = []
              | P.otherwise = M.catMaybes
@@ -1057,8 +1057,8 @@ data GetNotificationBadgeCount_result = GetNotificationBadgeCount_result  { getN
   , getNotificationBadgeCount_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNotificationBadgeCount_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNotificationBadgeCount_result_success record   `H.hashWithSalt` getNotificationBadgeCount_result_e record  
-instance QC.Arbitrary GetNotificationBadgeCount_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNotificationBadgeCount_result_success record   `H.hashWithSalt` getNotificationBadgeCount_result_e record
+instance QC.Arbitrary GetNotificationBadgeCount_result where
   arbitrary = M.liftM GetNotificationBadgeCount_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetNotificationBadgeCount_result = []
@@ -1067,7 +1067,7 @@ instance QC.Arbitrary GetNotificationBadgeCount_result where
     , if obj == default_GetNotificationBadgeCount_result{getNotificationBadgeCount_result_e = getNotificationBadgeCount_result_e obj} then P.Nothing else P.Just $ default_GetNotificationBadgeCount_result{getNotificationBadgeCount_result_e = getNotificationBadgeCount_result_e obj}
     ]
 from_GetNotificationBadgeCount_result :: GetNotificationBadgeCount_result -> T.ThriftVal
-from_GetNotificationBadgeCount_result record = T.TStruct $ Map.fromList 
+from_GetNotificationBadgeCount_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5835 -> (1, ("e",from_ChannelException _v5835))) <$> getNotificationBadgeCount_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5835 -> P.Just (0, ("success",T.TI32 _v5835))) $ getNotificationBadgeCount_result_success record
@@ -1097,8 +1097,8 @@ default_GetNotificationBadgeCount_result = GetNotificationBadgeCount_result{
 data IssueChannelToken_args = IssueChannelToken_args  { issueChannelToken_args_channelId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueChannelToken_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueChannelToken_args_channelId record  
-instance QC.Arbitrary IssueChannelToken_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueChannelToken_args_channelId record
+instance QC.Arbitrary IssueChannelToken_args where
   arbitrary = M.liftM IssueChannelToken_args (QC.arbitrary)
   shrink obj | obj == default_IssueChannelToken_args = []
              | P.otherwise = M.catMaybes
@@ -1130,8 +1130,8 @@ data IssueChannelToken_result = IssueChannelToken_result  { issueChannelToken_re
   , issueChannelToken_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueChannelToken_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueChannelToken_result_success record   `H.hashWithSalt` issueChannelToken_result_e record  
-instance QC.Arbitrary IssueChannelToken_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueChannelToken_result_success record   `H.hashWithSalt` issueChannelToken_result_e record
+instance QC.Arbitrary IssueChannelToken_result where
   arbitrary = M.liftM IssueChannelToken_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueChannelToken_result = []
@@ -1140,7 +1140,7 @@ instance QC.Arbitrary IssueChannelToken_result where
     , if obj == default_IssueChannelToken_result{issueChannelToken_result_e = issueChannelToken_result_e obj} then P.Nothing else P.Just $ default_IssueChannelToken_result{issueChannelToken_result_e = issueChannelToken_result_e obj}
     ]
 from_IssueChannelToken_result :: IssueChannelToken_result -> T.ThriftVal
-from_IssueChannelToken_result record = T.TStruct $ Map.fromList 
+from_IssueChannelToken_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5848 -> (1, ("e",from_ChannelException _v5848))) <$> issueChannelToken_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5848 -> P.Just (0, ("success",from_ChannelToken _v5848))) $ issueChannelToken_result_success record
@@ -1171,8 +1171,8 @@ data IssueRequestToken_args = IssueRequestToken_args  { issueRequestToken_args_c
   , issueRequestToken_args_otpId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestToken_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestToken_args_channelId record   `H.hashWithSalt` issueRequestToken_args_otpId record  
-instance QC.Arbitrary IssueRequestToken_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestToken_args_channelId record   `H.hashWithSalt` issueRequestToken_args_otpId record
+instance QC.Arbitrary IssueRequestToken_args where
   arbitrary = M.liftM IssueRequestToken_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_IssueRequestToken_args = []
@@ -1209,8 +1209,8 @@ data IssueRequestToken_result = IssueRequestToken_result  { issueRequestToken_re
   , issueRequestToken_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestToken_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestToken_result_success record   `H.hashWithSalt` issueRequestToken_result_e record  
-instance QC.Arbitrary IssueRequestToken_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestToken_result_success record   `H.hashWithSalt` issueRequestToken_result_e record
+instance QC.Arbitrary IssueRequestToken_result where
   arbitrary = M.liftM IssueRequestToken_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueRequestToken_result = []
@@ -1219,7 +1219,7 @@ instance QC.Arbitrary IssueRequestToken_result where
     , if obj == default_IssueRequestToken_result{issueRequestToken_result_e = issueRequestToken_result_e obj} then P.Nothing else P.Just $ default_IssueRequestToken_result{issueRequestToken_result_e = issueRequestToken_result_e obj}
     ]
 from_IssueRequestToken_result :: IssueRequestToken_result -> T.ThriftVal
-from_IssueRequestToken_result record = T.TStruct $ Map.fromList 
+from_IssueRequestToken_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5862 -> (1, ("e",from_ChannelException _v5862))) <$> issueRequestToken_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5862 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v5862))) $ issueRequestToken_result_success record
@@ -1252,8 +1252,8 @@ data IssueRequestTokenWithAuthScheme_args = IssueRequestTokenWithAuthScheme_args
   , issueRequestTokenWithAuthScheme_args_returnUrl :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestTokenWithAuthScheme_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_channelId record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_otpId record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_authScheme record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_returnUrl record  
-instance QC.Arbitrary IssueRequestTokenWithAuthScheme_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_channelId record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_otpId record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_authScheme record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_args_returnUrl record
+instance QC.Arbitrary IssueRequestTokenWithAuthScheme_args where
   arbitrary = M.liftM IssueRequestTokenWithAuthScheme_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1300,8 +1300,8 @@ data IssueRequestTokenWithAuthScheme_result = IssueRequestTokenWithAuthScheme_re
   , issueRequestTokenWithAuthScheme_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestTokenWithAuthScheme_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenWithAuthScheme_result_success record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_result_e record  
-instance QC.Arbitrary IssueRequestTokenWithAuthScheme_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenWithAuthScheme_result_success record   `H.hashWithSalt` issueRequestTokenWithAuthScheme_result_e record
+instance QC.Arbitrary IssueRequestTokenWithAuthScheme_result where
   arbitrary = M.liftM IssueRequestTokenWithAuthScheme_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueRequestTokenWithAuthScheme_result = []
@@ -1310,7 +1310,7 @@ instance QC.Arbitrary IssueRequestTokenWithAuthScheme_result where
     , if obj == default_IssueRequestTokenWithAuthScheme_result{issueRequestTokenWithAuthScheme_result_e = issueRequestTokenWithAuthScheme_result_e obj} then P.Nothing else P.Just $ default_IssueRequestTokenWithAuthScheme_result{issueRequestTokenWithAuthScheme_result_e = issueRequestTokenWithAuthScheme_result_e obj}
     ]
 from_IssueRequestTokenWithAuthScheme_result :: IssueRequestTokenWithAuthScheme_result -> T.ThriftVal
-from_IssueRequestTokenWithAuthScheme_result record = T.TStruct $ Map.fromList 
+from_IssueRequestTokenWithAuthScheme_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5882 -> (1, ("e",from_ChannelException _v5882))) <$> issueRequestTokenWithAuthScheme_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5882 -> P.Just (0, ("success",from_RequestTokenResponse _v5882))) $ issueRequestTokenWithAuthScheme_result_success record
@@ -1342,8 +1342,8 @@ data IssueRequestTokenForAutoLogin_args = IssueRequestTokenForAutoLogin_args  { 
   , issueRequestTokenForAutoLogin_args_redirectUrl :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestTokenForAutoLogin_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_channelId record   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_otpId record   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_redirectUrl record  
-instance QC.Arbitrary IssueRequestTokenForAutoLogin_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_channelId record   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_otpId record   `H.hashWithSalt` issueRequestTokenForAutoLogin_args_redirectUrl record
+instance QC.Arbitrary IssueRequestTokenForAutoLogin_args where
   arbitrary = M.liftM IssueRequestTokenForAutoLogin_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1385,8 +1385,8 @@ data IssueRequestTokenForAutoLogin_result = IssueRequestTokenForAutoLogin_result
   , issueRequestTokenForAutoLogin_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueRequestTokenForAutoLogin_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenForAutoLogin_result_success record   `H.hashWithSalt` issueRequestTokenForAutoLogin_result_e record  
-instance QC.Arbitrary IssueRequestTokenForAutoLogin_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueRequestTokenForAutoLogin_result_success record   `H.hashWithSalt` issueRequestTokenForAutoLogin_result_e record
+instance QC.Arbitrary IssueRequestTokenForAutoLogin_result where
   arbitrary = M.liftM IssueRequestTokenForAutoLogin_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueRequestTokenForAutoLogin_result = []
@@ -1395,7 +1395,7 @@ instance QC.Arbitrary IssueRequestTokenForAutoLogin_result where
     , if obj == default_IssueRequestTokenForAutoLogin_result{issueRequestTokenForAutoLogin_result_e = issueRequestTokenForAutoLogin_result_e obj} then P.Nothing else P.Just $ default_IssueRequestTokenForAutoLogin_result{issueRequestTokenForAutoLogin_result_e = issueRequestTokenForAutoLogin_result_e obj}
     ]
 from_IssueRequestTokenForAutoLogin_result :: IssueRequestTokenForAutoLogin_result -> T.ThriftVal
-from_IssueRequestTokenForAutoLogin_result record = T.TStruct $ Map.fromList 
+from_IssueRequestTokenForAutoLogin_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5897 -> (1, ("e",from_ChannelException _v5897))) <$> issueRequestTokenForAutoLogin_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5897 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v5897))) $ issueRequestTokenForAutoLogin_result_success record
@@ -1425,8 +1425,8 @@ default_IssueRequestTokenForAutoLogin_result = IssueRequestTokenForAutoLogin_res
 data GetUpdatedChannelIds_args = GetUpdatedChannelIds_args  { getUpdatedChannelIds_args_channelIds :: (Vector.Vector ChannelIdWithLastUpdated)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUpdatedChannelIds_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdatedChannelIds_args_channelIds record  
-instance QC.Arbitrary GetUpdatedChannelIds_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdatedChannelIds_args_channelIds record
+instance QC.Arbitrary GetUpdatedChannelIds_args where
   arbitrary = M.liftM GetUpdatedChannelIds_args (QC.arbitrary)
   shrink obj | obj == default_GetUpdatedChannelIds_args = []
              | P.otherwise = M.catMaybes
@@ -1458,8 +1458,8 @@ data GetUpdatedChannelIds_result = GetUpdatedChannelIds_result  { getUpdatedChan
   , getUpdatedChannelIds_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUpdatedChannelIds_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdatedChannelIds_result_success record   `H.hashWithSalt` getUpdatedChannelIds_result_e record  
-instance QC.Arbitrary GetUpdatedChannelIds_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUpdatedChannelIds_result_success record   `H.hashWithSalt` getUpdatedChannelIds_result_e record
+instance QC.Arbitrary GetUpdatedChannelIds_result where
   arbitrary = M.liftM GetUpdatedChannelIds_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUpdatedChannelIds_result = []
@@ -1468,7 +1468,7 @@ instance QC.Arbitrary GetUpdatedChannelIds_result where
     , if obj == default_GetUpdatedChannelIds_result{getUpdatedChannelIds_result_e = getUpdatedChannelIds_result_e obj} then P.Nothing else P.Just $ default_GetUpdatedChannelIds_result{getUpdatedChannelIds_result_e = getUpdatedChannelIds_result_e obj}
     ]
 from_GetUpdatedChannelIds_result :: GetUpdatedChannelIds_result -> T.ThriftVal
-from_GetUpdatedChannelIds_result record = T.TStruct $ Map.fromList 
+from_GetUpdatedChannelIds_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5914 -> (1, ("e",from_ChannelException _v5914))) <$> getUpdatedChannelIds_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5914 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v5916 -> T.TString $ E.encodeUtf8 _v5916) $ Vector.toList _v5914))) $ getUpdatedChannelIds_result_success record
@@ -1499,8 +1499,8 @@ data ReserveCoinUse_args = ReserveCoinUse_args  { reserveCoinUse_args_request ::
   , reserveCoinUse_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCoinUse_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinUse_args_request record   `H.hashWithSalt` reserveCoinUse_args_locale record  
-instance QC.Arbitrary ReserveCoinUse_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinUse_args_request record   `H.hashWithSalt` reserveCoinUse_args_locale record
+instance QC.Arbitrary ReserveCoinUse_args where
   arbitrary = M.liftM ReserveCoinUse_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_ReserveCoinUse_args = []
@@ -1537,8 +1537,8 @@ data ReserveCoinUse_result = ReserveCoinUse_result  { reserveCoinUse_result_succ
   , reserveCoinUse_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCoinUse_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinUse_result_success record   `H.hashWithSalt` reserveCoinUse_result_e record  
-instance QC.Arbitrary ReserveCoinUse_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinUse_result_success record   `H.hashWithSalt` reserveCoinUse_result_e record
+instance QC.Arbitrary ReserveCoinUse_result where
   arbitrary = M.liftM ReserveCoinUse_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReserveCoinUse_result = []
@@ -1547,7 +1547,7 @@ instance QC.Arbitrary ReserveCoinUse_result where
     , if obj == default_ReserveCoinUse_result{reserveCoinUse_result_e = reserveCoinUse_result_e obj} then P.Nothing else P.Just $ default_ReserveCoinUse_result{reserveCoinUse_result_e = reserveCoinUse_result_e obj}
     ]
 from_ReserveCoinUse_result :: ReserveCoinUse_result -> T.ThriftVal
-from_ReserveCoinUse_result record = T.TStruct $ Map.fromList 
+from_ReserveCoinUse_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5932 -> (1, ("e",from_ChannelException _v5932))) <$> reserveCoinUse_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5932 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v5932))) $ reserveCoinUse_result_success record
@@ -1577,8 +1577,8 @@ default_ReserveCoinUse_result = ReserveCoinUse_result{
 data RevokeChannel_args = RevokeChannel_args  { revokeChannel_args_channelId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RevokeChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` revokeChannel_args_channelId record  
-instance QC.Arbitrary RevokeChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` revokeChannel_args_channelId record
+instance QC.Arbitrary RevokeChannel_args where
   arbitrary = M.liftM RevokeChannel_args (QC.arbitrary)
   shrink obj | obj == default_RevokeChannel_args = []
              | P.otherwise = M.catMaybes
@@ -1609,15 +1609,15 @@ default_RevokeChannel_args = RevokeChannel_args{
 data RevokeChannel_result = RevokeChannel_result  { revokeChannel_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RevokeChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` revokeChannel_result_e record  
-instance QC.Arbitrary RevokeChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` revokeChannel_result_e record
+instance QC.Arbitrary RevokeChannel_result where
   arbitrary = M.liftM RevokeChannel_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RevokeChannel_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RevokeChannel_result{revokeChannel_result_e = revokeChannel_result_e obj} then P.Nothing else P.Just $ default_RevokeChannel_result{revokeChannel_result_e = revokeChannel_result_e obj}
     ]
 from_RevokeChannel_result :: RevokeChannel_result -> T.ThriftVal
-from_RevokeChannel_result record = T.TStruct $ Map.fromList 
+from_RevokeChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5945 -> (1, ("e",from_ChannelException _v5945))) <$> revokeChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5945 -> (1, ("e",from_ChannelException _v5945))) <$> revokeChannel_result_e record
@@ -1645,8 +1645,8 @@ data SyncChannelData_args = SyncChannelData_args  { syncChannelData_args_lastSyn
   , syncChannelData_args_locale :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SyncChannelData_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` syncChannelData_args_lastSynced record   `H.hashWithSalt` syncChannelData_args_locale record  
-instance QC.Arbitrary SyncChannelData_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` syncChannelData_args_lastSynced record   `H.hashWithSalt` syncChannelData_args_locale record
+instance QC.Arbitrary SyncChannelData_args where
   arbitrary = M.liftM SyncChannelData_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SyncChannelData_args = []
@@ -1683,8 +1683,8 @@ data SyncChannelData_result = SyncChannelData_result  { syncChannelData_result_s
   , syncChannelData_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SyncChannelData_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` syncChannelData_result_success record   `H.hashWithSalt` syncChannelData_result_e record  
-instance QC.Arbitrary SyncChannelData_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` syncChannelData_result_success record   `H.hashWithSalt` syncChannelData_result_e record
+instance QC.Arbitrary SyncChannelData_result where
   arbitrary = M.liftM SyncChannelData_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SyncChannelData_result = []
@@ -1693,7 +1693,7 @@ instance QC.Arbitrary SyncChannelData_result where
     , if obj == default_SyncChannelData_result{syncChannelData_result_e = syncChannelData_result_e obj} then P.Nothing else P.Just $ default_SyncChannelData_result{syncChannelData_result_e = syncChannelData_result_e obj}
     ]
 from_SyncChannelData_result :: SyncChannelData_result -> T.ThriftVal
-from_SyncChannelData_result record = T.TStruct $ Map.fromList 
+from_SyncChannelData_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5958 -> (1, ("e",from_ChannelException _v5958))) <$> syncChannelData_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5958 -> P.Just (0, ("success",from_ChannelSyncDatas _v5958))) $ syncChannelData_result_success record
@@ -1723,8 +1723,8 @@ default_SyncChannelData_result = SyncChannelData_result{
 data UpdateChannelNotificationSetting_args = UpdateChannelNotificationSetting_args  { updateChannelNotificationSetting_args_setting :: (Vector.Vector ChannelNotificationSetting)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateChannelNotificationSetting_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelNotificationSetting_args_setting record  
-instance QC.Arbitrary UpdateChannelNotificationSetting_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelNotificationSetting_args_setting record
+instance QC.Arbitrary UpdateChannelNotificationSetting_args where
   arbitrary = M.liftM UpdateChannelNotificationSetting_args (QC.arbitrary)
   shrink obj | obj == default_UpdateChannelNotificationSetting_args = []
              | P.otherwise = M.catMaybes
@@ -1755,15 +1755,15 @@ default_UpdateChannelNotificationSetting_args = UpdateChannelNotificationSetting
 data UpdateChannelNotificationSetting_result = UpdateChannelNotificationSetting_result  { updateChannelNotificationSetting_result_e :: P.Maybe ChannelException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateChannelNotificationSetting_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelNotificationSetting_result_e record  
-instance QC.Arbitrary UpdateChannelNotificationSetting_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateChannelNotificationSetting_result_e record
+instance QC.Arbitrary UpdateChannelNotificationSetting_result where
   arbitrary = M.liftM UpdateChannelNotificationSetting_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateChannelNotificationSetting_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateChannelNotificationSetting_result{updateChannelNotificationSetting_result_e = updateChannelNotificationSetting_result_e obj} then P.Nothing else P.Just $ default_UpdateChannelNotificationSetting_result{updateChannelNotificationSetting_result_e = updateChannelNotificationSetting_result_e obj}
     ]
 from_UpdateChannelNotificationSetting_result :: UpdateChannelNotificationSetting_result -> T.ThriftVal
-from_UpdateChannelNotificationSetting_result record = T.TStruct $ Map.fromList 
+from_UpdateChannelNotificationSetting_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v5975 -> (1, ("e",from_ChannelException _v5975))) <$> updateChannelNotificationSetting_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v5975 -> (1, ("e",from_ChannelException _v5975))) <$> updateChannelNotificationSetting_result_e record

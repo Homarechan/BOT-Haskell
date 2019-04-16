@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ShopService where
+module LineApi.ShopService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified ShopService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.ShopService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data BuyCoinProduct_args = BuyCoinProduct_args  { buyCoinProduct_args_paymentReservation :: PaymentReservation
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyCoinProduct_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyCoinProduct_args_paymentReservation record  
-instance QC.Arbitrary BuyCoinProduct_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyCoinProduct_args_paymentReservation record
+instance QC.Arbitrary BuyCoinProduct_args where
   arbitrary = M.liftM BuyCoinProduct_args (QC.arbitrary)
   shrink obj | obj == default_BuyCoinProduct_args = []
              | P.otherwise = M.catMaybes
@@ -77,15 +77,15 @@ default_BuyCoinProduct_args = BuyCoinProduct_args{
 data BuyCoinProduct_result = BuyCoinProduct_result  { buyCoinProduct_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyCoinProduct_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyCoinProduct_result_e record  
-instance QC.Arbitrary BuyCoinProduct_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyCoinProduct_result_e record
+instance QC.Arbitrary BuyCoinProduct_result where
   arbitrary = M.liftM BuyCoinProduct_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_BuyCoinProduct_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_BuyCoinProduct_result{buyCoinProduct_result_e = buyCoinProduct_result_e obj} then P.Nothing else P.Just $ default_BuyCoinProduct_result{buyCoinProduct_result_e = buyCoinProduct_result_e obj}
     ]
 from_BuyCoinProduct_result :: BuyCoinProduct_result -> T.ThriftVal
-from_BuyCoinProduct_result record = T.TStruct $ Map.fromList 
+from_BuyCoinProduct_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6036 -> (1, ("e",from_TalkException _v6036))) <$> buyCoinProduct_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6036 -> (1, ("e",from_TalkException _v6036))) <$> buyCoinProduct_result_e record
@@ -117,8 +117,8 @@ data BuyFreeProduct_args = BuyFreeProduct_args  { buyFreeProduct_args_receiverMi
   , buyFreeProduct_args_packageId :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyFreeProduct_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyFreeProduct_args_receiverMid record   `H.hashWithSalt` buyFreeProduct_args_productId record   `H.hashWithSalt` buyFreeProduct_args_messageTemplate record   `H.hashWithSalt` buyFreeProduct_args_language record   `H.hashWithSalt` buyFreeProduct_args_country record   `H.hashWithSalt` buyFreeProduct_args_packageId record  
-instance QC.Arbitrary BuyFreeProduct_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyFreeProduct_args_receiverMid record   `H.hashWithSalt` buyFreeProduct_args_productId record   `H.hashWithSalt` buyFreeProduct_args_messageTemplate record   `H.hashWithSalt` buyFreeProduct_args_language record   `H.hashWithSalt` buyFreeProduct_args_country record   `H.hashWithSalt` buyFreeProduct_args_packageId record
+instance QC.Arbitrary BuyFreeProduct_args where
   arbitrary = M.liftM BuyFreeProduct_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -174,15 +174,15 @@ default_BuyFreeProduct_args = BuyFreeProduct_args{
 data BuyFreeProduct_result = BuyFreeProduct_result  { buyFreeProduct_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyFreeProduct_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyFreeProduct_result_e record  
-instance QC.Arbitrary BuyFreeProduct_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyFreeProduct_result_e record
+instance QC.Arbitrary BuyFreeProduct_result where
   arbitrary = M.liftM BuyFreeProduct_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_BuyFreeProduct_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_BuyFreeProduct_result{buyFreeProduct_result_e = buyFreeProduct_result_e obj} then P.Nothing else P.Just $ default_BuyFreeProduct_result{buyFreeProduct_result_e = buyFreeProduct_result_e obj}
     ]
 from_BuyFreeProduct_result :: BuyFreeProduct_result -> T.ThriftVal
-from_BuyFreeProduct_result record = T.TStruct $ Map.fromList 
+from_BuyFreeProduct_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6053 -> (1, ("e",from_TalkException _v6053))) <$> buyFreeProduct_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6053 -> (1, ("e",from_TalkException _v6053))) <$> buyFreeProduct_result_e record
@@ -215,8 +215,8 @@ data BuyMustbuyProduct_args = BuyMustbuyProduct_args  { buyMustbuyProduct_args_r
   , buyMustbuyProduct_args_serialNumber :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyMustbuyProduct_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyMustbuyProduct_args_receiverMid record   `H.hashWithSalt` buyMustbuyProduct_args_productId record   `H.hashWithSalt` buyMustbuyProduct_args_messageTemplate record   `H.hashWithSalt` buyMustbuyProduct_args_language record   `H.hashWithSalt` buyMustbuyProduct_args_country record   `H.hashWithSalt` buyMustbuyProduct_args_packageId record   `H.hashWithSalt` buyMustbuyProduct_args_serialNumber record  
-instance QC.Arbitrary BuyMustbuyProduct_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyMustbuyProduct_args_receiverMid record   `H.hashWithSalt` buyMustbuyProduct_args_productId record   `H.hashWithSalt` buyMustbuyProduct_args_messageTemplate record   `H.hashWithSalt` buyMustbuyProduct_args_language record   `H.hashWithSalt` buyMustbuyProduct_args_country record   `H.hashWithSalt` buyMustbuyProduct_args_packageId record   `H.hashWithSalt` buyMustbuyProduct_args_serialNumber record
+instance QC.Arbitrary BuyMustbuyProduct_args where
   arbitrary = M.liftM BuyMustbuyProduct_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -277,15 +277,15 @@ default_BuyMustbuyProduct_args = BuyMustbuyProduct_args{
 data BuyMustbuyProduct_result = BuyMustbuyProduct_result  { buyMustbuyProduct_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable BuyMustbuyProduct_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` buyMustbuyProduct_result_e record  
-instance QC.Arbitrary BuyMustbuyProduct_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` buyMustbuyProduct_result_e record
+instance QC.Arbitrary BuyMustbuyProduct_result where
   arbitrary = M.liftM BuyMustbuyProduct_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_BuyMustbuyProduct_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_BuyMustbuyProduct_result{buyMustbuyProduct_result_e = buyMustbuyProduct_result_e obj} then P.Nothing else P.Just $ default_BuyMustbuyProduct_result{buyMustbuyProduct_result_e = buyMustbuyProduct_result_e obj}
     ]
 from_BuyMustbuyProduct_result :: BuyMustbuyProduct_result -> T.ThriftVal
-from_BuyMustbuyProduct_result record = T.TStruct $ Map.fromList 
+from_BuyMustbuyProduct_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6071 -> (1, ("e",from_TalkException _v6071))) <$> buyMustbuyProduct_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6071 -> (1, ("e",from_TalkException _v6071))) <$> buyMustbuyProduct_result_e record
@@ -315,8 +315,8 @@ data CheckCanReceivePresent_args = CheckCanReceivePresent_args  { checkCanReceiv
   , checkCanReceivePresent_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckCanReceivePresent_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkCanReceivePresent_args_recipientMid record   `H.hashWithSalt` checkCanReceivePresent_args_packageId record   `H.hashWithSalt` checkCanReceivePresent_args_language record   `H.hashWithSalt` checkCanReceivePresent_args_country record  
-instance QC.Arbitrary CheckCanReceivePresent_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkCanReceivePresent_args_recipientMid record   `H.hashWithSalt` checkCanReceivePresent_args_packageId record   `H.hashWithSalt` checkCanReceivePresent_args_language record   `H.hashWithSalt` checkCanReceivePresent_args_country record
+instance QC.Arbitrary CheckCanReceivePresent_args where
   arbitrary = M.liftM CheckCanReceivePresent_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -362,15 +362,15 @@ default_CheckCanReceivePresent_args = CheckCanReceivePresent_args{
 data CheckCanReceivePresent_result = CheckCanReceivePresent_result  { checkCanReceivePresent_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CheckCanReceivePresent_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` checkCanReceivePresent_result_e record  
-instance QC.Arbitrary CheckCanReceivePresent_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` checkCanReceivePresent_result_e record
+instance QC.Arbitrary CheckCanReceivePresent_result where
   arbitrary = M.liftM CheckCanReceivePresent_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CheckCanReceivePresent_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_CheckCanReceivePresent_result{checkCanReceivePresent_result_e = checkCanReceivePresent_result_e obj} then P.Nothing else P.Just $ default_CheckCanReceivePresent_result{checkCanReceivePresent_result_e = checkCanReceivePresent_result_e obj}
     ]
 from_CheckCanReceivePresent_result :: CheckCanReceivePresent_result -> T.ThriftVal
-from_CheckCanReceivePresent_result record = T.TStruct $ Map.fromList 
+from_CheckCanReceivePresent_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6086 -> (1, ("e",from_TalkException _v6086))) <$> checkCanReceivePresent_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6086 -> (1, ("e",from_TalkException _v6086))) <$> checkCanReceivePresent_result_e record
@@ -400,8 +400,8 @@ data GetActivePurchases_args = GetActivePurchases_args  { getActivePurchases_arg
   , getActivePurchases_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActivePurchases_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchases_args_start record   `H.hashWithSalt` getActivePurchases_args_size record   `H.hashWithSalt` getActivePurchases_args_language record   `H.hashWithSalt` getActivePurchases_args_country record  
-instance QC.Arbitrary GetActivePurchases_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchases_args_start record   `H.hashWithSalt` getActivePurchases_args_size record   `H.hashWithSalt` getActivePurchases_args_language record   `H.hashWithSalt` getActivePurchases_args_country record
+instance QC.Arbitrary GetActivePurchases_args where
   arbitrary = M.liftM GetActivePurchases_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -448,8 +448,8 @@ data GetActivePurchases_result = GetActivePurchases_result  { getActivePurchases
   , getActivePurchases_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActivePurchases_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchases_result_success record   `H.hashWithSalt` getActivePurchases_result_e record  
-instance QC.Arbitrary GetActivePurchases_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchases_result_success record   `H.hashWithSalt` getActivePurchases_result_e record
+instance QC.Arbitrary GetActivePurchases_result where
   arbitrary = M.liftM GetActivePurchases_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetActivePurchases_result = []
@@ -458,7 +458,7 @@ instance QC.Arbitrary GetActivePurchases_result where
     , if obj == default_GetActivePurchases_result{getActivePurchases_result_e = getActivePurchases_result_e obj} then P.Nothing else P.Just $ default_GetActivePurchases_result{getActivePurchases_result_e = getActivePurchases_result_e obj}
     ]
 from_GetActivePurchases_result :: GetActivePurchases_result -> T.ThriftVal
-from_GetActivePurchases_result record = T.TStruct $ Map.fromList 
+from_GetActivePurchases_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6101 -> (1, ("e",from_TalkException _v6101))) <$> getActivePurchases_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6101 -> P.Just (0, ("success",from_ProductList _v6101))) $ getActivePurchases_result_success record
@@ -491,8 +491,8 @@ data GetActivePurchaseVersions_args = GetActivePurchaseVersions_args  { getActiv
   , getActivePurchaseVersions_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActivePurchaseVersions_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchaseVersions_args_start record   `H.hashWithSalt` getActivePurchaseVersions_args_size record   `H.hashWithSalt` getActivePurchaseVersions_args_language record   `H.hashWithSalt` getActivePurchaseVersions_args_country record  
-instance QC.Arbitrary GetActivePurchaseVersions_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchaseVersions_args_start record   `H.hashWithSalt` getActivePurchaseVersions_args_size record   `H.hashWithSalt` getActivePurchaseVersions_args_language record   `H.hashWithSalt` getActivePurchaseVersions_args_country record
+instance QC.Arbitrary GetActivePurchaseVersions_args where
   arbitrary = M.liftM GetActivePurchaseVersions_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -539,8 +539,8 @@ data GetActivePurchaseVersions_result = GetActivePurchaseVersions_result  { getA
   , getActivePurchaseVersions_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetActivePurchaseVersions_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchaseVersions_result_success record   `H.hashWithSalt` getActivePurchaseVersions_result_e record  
-instance QC.Arbitrary GetActivePurchaseVersions_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getActivePurchaseVersions_result_success record   `H.hashWithSalt` getActivePurchaseVersions_result_e record
+instance QC.Arbitrary GetActivePurchaseVersions_result where
   arbitrary = M.liftM GetActivePurchaseVersions_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetActivePurchaseVersions_result = []
@@ -549,7 +549,7 @@ instance QC.Arbitrary GetActivePurchaseVersions_result where
     , if obj == default_GetActivePurchaseVersions_result{getActivePurchaseVersions_result_e = getActivePurchaseVersions_result_e obj} then P.Nothing else P.Just $ default_GetActivePurchaseVersions_result{getActivePurchaseVersions_result_e = getActivePurchaseVersions_result_e obj}
     ]
 from_GetActivePurchaseVersions_result :: GetActivePurchaseVersions_result -> T.ThriftVal
-from_GetActivePurchaseVersions_result record = T.TStruct $ Map.fromList 
+from_GetActivePurchaseVersions_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6117 -> (1, ("e",from_TalkException _v6117))) <$> getActivePurchaseVersions_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6117 -> P.Just (0, ("success",from_ProductSimpleList _v6117))) $ getActivePurchaseVersions_result_success record
@@ -581,8 +581,8 @@ data GetCoinProducts_args = GetCoinProducts_args  { getCoinProducts_args_appStor
   , getCoinProducts_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinProducts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProducts_args_appStoreCode record   `H.hashWithSalt` getCoinProducts_args_country record   `H.hashWithSalt` getCoinProducts_args_language record  
-instance QC.Arbitrary GetCoinProducts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProducts_args_appStoreCode record   `H.hashWithSalt` getCoinProducts_args_country record   `H.hashWithSalt` getCoinProducts_args_language record
+instance QC.Arbitrary GetCoinProducts_args where
   arbitrary = M.liftM GetCoinProducts_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -624,8 +624,8 @@ data GetCoinProducts_result = GetCoinProducts_result  { getCoinProducts_result_s
   , getCoinProducts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinProducts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProducts_result_success record   `H.hashWithSalt` getCoinProducts_result_e record  
-instance QC.Arbitrary GetCoinProducts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProducts_result_success record   `H.hashWithSalt` getCoinProducts_result_e record
+instance QC.Arbitrary GetCoinProducts_result where
   arbitrary = M.liftM GetCoinProducts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCoinProducts_result = []
@@ -634,7 +634,7 @@ instance QC.Arbitrary GetCoinProducts_result where
     , if obj == default_GetCoinProducts_result{getCoinProducts_result_e = getCoinProducts_result_e obj} then P.Nothing else P.Just $ default_GetCoinProducts_result{getCoinProducts_result_e = getCoinProducts_result_e obj}
     ]
 from_GetCoinProducts_result :: GetCoinProducts_result -> T.ThriftVal
-from_GetCoinProducts_result record = T.TStruct $ Map.fromList 
+from_GetCoinProducts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6132 -> (1, ("e",from_TalkException _v6132))) <$> getCoinProducts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6132 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_CoinProductItem) $ P.map (\_v6134 -> from_CoinProductItem _v6134) $ Vector.toList _v6132))) $ getCoinProducts_result_success record
@@ -667,8 +667,8 @@ data GetCoinProductsByPgCode_args = GetCoinProductsByPgCode_args  { getCoinProdu
   , getCoinProductsByPgCode_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinProductsByPgCode_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProductsByPgCode_args_appStoreCode record   `H.hashWithSalt` getCoinProductsByPgCode_args_pgCode record   `H.hashWithSalt` getCoinProductsByPgCode_args_country record   `H.hashWithSalt` getCoinProductsByPgCode_args_language record  
-instance QC.Arbitrary GetCoinProductsByPgCode_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProductsByPgCode_args_appStoreCode record   `H.hashWithSalt` getCoinProductsByPgCode_args_pgCode record   `H.hashWithSalt` getCoinProductsByPgCode_args_country record   `H.hashWithSalt` getCoinProductsByPgCode_args_language record
+instance QC.Arbitrary GetCoinProductsByPgCode_args where
   arbitrary = M.liftM GetCoinProductsByPgCode_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -715,8 +715,8 @@ data GetCoinProductsByPgCode_result = GetCoinProductsByPgCode_result  { getCoinP
   , getCoinProductsByPgCode_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinProductsByPgCode_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProductsByPgCode_result_success record   `H.hashWithSalt` getCoinProductsByPgCode_result_e record  
-instance QC.Arbitrary GetCoinProductsByPgCode_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinProductsByPgCode_result_success record   `H.hashWithSalt` getCoinProductsByPgCode_result_e record
+instance QC.Arbitrary GetCoinProductsByPgCode_result where
   arbitrary = M.liftM GetCoinProductsByPgCode_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCoinProductsByPgCode_result = []
@@ -725,7 +725,7 @@ instance QC.Arbitrary GetCoinProductsByPgCode_result where
     , if obj == default_GetCoinProductsByPgCode_result{getCoinProductsByPgCode_result_e = getCoinProductsByPgCode_result_e obj} then P.Nothing else P.Just $ default_GetCoinProductsByPgCode_result{getCoinProductsByPgCode_result_e = getCoinProductsByPgCode_result_e obj}
     ]
 from_GetCoinProductsByPgCode_result :: GetCoinProductsByPgCode_result -> T.ThriftVal
-from_GetCoinProductsByPgCode_result record = T.TStruct $ Map.fromList 
+from_GetCoinProductsByPgCode_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6152 -> (1, ("e",from_TalkException _v6152))) <$> getCoinProductsByPgCode_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6152 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_CoinProductItem) $ P.map (\_v6154 -> from_CoinProductItem _v6154) $ Vector.toList _v6152))) $ getCoinProductsByPgCode_result_success record
@@ -755,8 +755,8 @@ default_GetCoinProductsByPgCode_result = GetCoinProductsByPgCode_result{
 data GetCoinPurchaseHistory_args = GetCoinPurchaseHistory_args  { getCoinPurchaseHistory_args_request :: CoinHistoryCondition
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinPurchaseHistory_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinPurchaseHistory_args_request record  
-instance QC.Arbitrary GetCoinPurchaseHistory_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinPurchaseHistory_args_request record
+instance QC.Arbitrary GetCoinPurchaseHistory_args where
   arbitrary = M.liftM GetCoinPurchaseHistory_args (QC.arbitrary)
   shrink obj | obj == default_GetCoinPurchaseHistory_args = []
              | P.otherwise = M.catMaybes
@@ -788,8 +788,8 @@ data GetCoinPurchaseHistory_result = GetCoinPurchaseHistory_result  { getCoinPur
   , getCoinPurchaseHistory_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinPurchaseHistory_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinPurchaseHistory_result_success record   `H.hashWithSalt` getCoinPurchaseHistory_result_e record  
-instance QC.Arbitrary GetCoinPurchaseHistory_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinPurchaseHistory_result_success record   `H.hashWithSalt` getCoinPurchaseHistory_result_e record
+instance QC.Arbitrary GetCoinPurchaseHistory_result where
   arbitrary = M.liftM GetCoinPurchaseHistory_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCoinPurchaseHistory_result = []
@@ -798,7 +798,7 @@ instance QC.Arbitrary GetCoinPurchaseHistory_result where
     , if obj == default_GetCoinPurchaseHistory_result{getCoinPurchaseHistory_result_e = getCoinPurchaseHistory_result_e obj} then P.Nothing else P.Just $ default_GetCoinPurchaseHistory_result{getCoinPurchaseHistory_result_e = getCoinPurchaseHistory_result_e obj}
     ]
 from_GetCoinPurchaseHistory_result :: GetCoinPurchaseHistory_result -> T.ThriftVal
-from_GetCoinPurchaseHistory_result record = T.TStruct $ Map.fromList 
+from_GetCoinPurchaseHistory_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6169 -> (1, ("e",from_TalkException _v6169))) <$> getCoinPurchaseHistory_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6169 -> P.Just (0, ("success",from_CoinHistoryResult _v6169))) $ getCoinPurchaseHistory_result_success record
@@ -828,8 +828,8 @@ default_GetCoinPurchaseHistory_result = GetCoinPurchaseHistory_result{
 data GetCoinUseAndRefundHistory_args = GetCoinUseAndRefundHistory_args  { getCoinUseAndRefundHistory_args_request :: CoinHistoryCondition
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinUseAndRefundHistory_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinUseAndRefundHistory_args_request record  
-instance QC.Arbitrary GetCoinUseAndRefundHistory_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinUseAndRefundHistory_args_request record
+instance QC.Arbitrary GetCoinUseAndRefundHistory_args where
   arbitrary = M.liftM GetCoinUseAndRefundHistory_args (QC.arbitrary)
   shrink obj | obj == default_GetCoinUseAndRefundHistory_args = []
              | P.otherwise = M.catMaybes
@@ -861,8 +861,8 @@ data GetCoinUseAndRefundHistory_result = GetCoinUseAndRefundHistory_result  { ge
   , getCoinUseAndRefundHistory_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCoinUseAndRefundHistory_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinUseAndRefundHistory_result_success record   `H.hashWithSalt` getCoinUseAndRefundHistory_result_e record  
-instance QC.Arbitrary GetCoinUseAndRefundHistory_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCoinUseAndRefundHistory_result_success record   `H.hashWithSalt` getCoinUseAndRefundHistory_result_e record
+instance QC.Arbitrary GetCoinUseAndRefundHistory_result where
   arbitrary = M.liftM GetCoinUseAndRefundHistory_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCoinUseAndRefundHistory_result = []
@@ -871,7 +871,7 @@ instance QC.Arbitrary GetCoinUseAndRefundHistory_result where
     , if obj == default_GetCoinUseAndRefundHistory_result{getCoinUseAndRefundHistory_result_e = getCoinUseAndRefundHistory_result_e obj} then P.Nothing else P.Just $ default_GetCoinUseAndRefundHistory_result{getCoinUseAndRefundHistory_result_e = getCoinUseAndRefundHistory_result_e obj}
     ]
 from_GetCoinUseAndRefundHistory_result :: GetCoinUseAndRefundHistory_result -> T.ThriftVal
-from_GetCoinUseAndRefundHistory_result record = T.TStruct $ Map.fromList 
+from_GetCoinUseAndRefundHistory_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6182 -> (1, ("e",from_TalkException _v6182))) <$> getCoinUseAndRefundHistory_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6182 -> P.Just (0, ("success",from_CoinHistoryResult _v6182))) $ getCoinUseAndRefundHistory_result_success record
@@ -904,8 +904,8 @@ data GetDownloads_args = GetDownloads_args  { getDownloads_args_start :: I.Int64
   , getDownloads_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDownloads_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDownloads_args_start record   `H.hashWithSalt` getDownloads_args_size record   `H.hashWithSalt` getDownloads_args_language record   `H.hashWithSalt` getDownloads_args_country record  
-instance QC.Arbitrary GetDownloads_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDownloads_args_start record   `H.hashWithSalt` getDownloads_args_size record   `H.hashWithSalt` getDownloads_args_language record   `H.hashWithSalt` getDownloads_args_country record
+instance QC.Arbitrary GetDownloads_args where
   arbitrary = M.liftM GetDownloads_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -952,8 +952,8 @@ data GetDownloads_result = GetDownloads_result  { getDownloads_result_success ::
   , getDownloads_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDownloads_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDownloads_result_success record   `H.hashWithSalt` getDownloads_result_e record  
-instance QC.Arbitrary GetDownloads_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDownloads_result_success record   `H.hashWithSalt` getDownloads_result_e record
+instance QC.Arbitrary GetDownloads_result where
   arbitrary = M.liftM GetDownloads_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetDownloads_result = []
@@ -962,7 +962,7 @@ instance QC.Arbitrary GetDownloads_result where
     , if obj == default_GetDownloads_result{getDownloads_result_e = getDownloads_result_e obj} then P.Nothing else P.Just $ default_GetDownloads_result{getDownloads_result_e = getDownloads_result_e obj}
     ]
 from_GetDownloads_result :: GetDownloads_result -> T.ThriftVal
-from_GetDownloads_result record = T.TStruct $ Map.fromList 
+from_GetDownloads_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6198 -> (1, ("e",from_TalkException _v6198))) <$> getDownloads_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6198 -> P.Just (0, ("success",from_ProductList _v6198))) $ getDownloads_result_success record
@@ -995,8 +995,8 @@ data GetEventPackages_args = GetEventPackages_args  { getEventPackages_args_star
   , getEventPackages_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetEventPackages_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getEventPackages_args_start record   `H.hashWithSalt` getEventPackages_args_size record   `H.hashWithSalt` getEventPackages_args_language record   `H.hashWithSalt` getEventPackages_args_country record  
-instance QC.Arbitrary GetEventPackages_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getEventPackages_args_start record   `H.hashWithSalt` getEventPackages_args_size record   `H.hashWithSalt` getEventPackages_args_language record   `H.hashWithSalt` getEventPackages_args_country record
+instance QC.Arbitrary GetEventPackages_args where
   arbitrary = M.liftM GetEventPackages_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1043,8 +1043,8 @@ data GetEventPackages_result = GetEventPackages_result  { getEventPackages_resul
   , getEventPackages_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetEventPackages_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getEventPackages_result_success record   `H.hashWithSalt` getEventPackages_result_e record  
-instance QC.Arbitrary GetEventPackages_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getEventPackages_result_success record   `H.hashWithSalt` getEventPackages_result_e record
+instance QC.Arbitrary GetEventPackages_result where
   arbitrary = M.liftM GetEventPackages_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetEventPackages_result = []
@@ -1053,7 +1053,7 @@ instance QC.Arbitrary GetEventPackages_result where
     , if obj == default_GetEventPackages_result{getEventPackages_result_e = getEventPackages_result_e obj} then P.Nothing else P.Just $ default_GetEventPackages_result{getEventPackages_result_e = getEventPackages_result_e obj}
     ]
 from_GetEventPackages_result :: GetEventPackages_result -> T.ThriftVal
-from_GetEventPackages_result record = T.TStruct $ Map.fromList 
+from_GetEventPackages_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6214 -> (1, ("e",from_TalkException _v6214))) <$> getEventPackages_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6214 -> P.Just (0, ("success",from_ProductList _v6214))) $ getEventPackages_result_success record
@@ -1086,8 +1086,8 @@ data GetNewlyReleasedPackages_args = GetNewlyReleasedPackages_args  { getNewlyRe
   , getNewlyReleasedPackages_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNewlyReleasedPackages_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNewlyReleasedPackages_args_start record   `H.hashWithSalt` getNewlyReleasedPackages_args_size record   `H.hashWithSalt` getNewlyReleasedPackages_args_language record   `H.hashWithSalt` getNewlyReleasedPackages_args_country record  
-instance QC.Arbitrary GetNewlyReleasedPackages_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNewlyReleasedPackages_args_start record   `H.hashWithSalt` getNewlyReleasedPackages_args_size record   `H.hashWithSalt` getNewlyReleasedPackages_args_language record   `H.hashWithSalt` getNewlyReleasedPackages_args_country record
+instance QC.Arbitrary GetNewlyReleasedPackages_args where
   arbitrary = M.liftM GetNewlyReleasedPackages_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1134,8 +1134,8 @@ data GetNewlyReleasedPackages_result = GetNewlyReleasedPackages_result  { getNew
   , getNewlyReleasedPackages_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNewlyReleasedPackages_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNewlyReleasedPackages_result_success record   `H.hashWithSalt` getNewlyReleasedPackages_result_e record  
-instance QC.Arbitrary GetNewlyReleasedPackages_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNewlyReleasedPackages_result_success record   `H.hashWithSalt` getNewlyReleasedPackages_result_e record
+instance QC.Arbitrary GetNewlyReleasedPackages_result where
   arbitrary = M.liftM GetNewlyReleasedPackages_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetNewlyReleasedPackages_result = []
@@ -1144,7 +1144,7 @@ instance QC.Arbitrary GetNewlyReleasedPackages_result where
     , if obj == default_GetNewlyReleasedPackages_result{getNewlyReleasedPackages_result_e = getNewlyReleasedPackages_result_e obj} then P.Nothing else P.Just $ default_GetNewlyReleasedPackages_result{getNewlyReleasedPackages_result_e = getNewlyReleasedPackages_result_e obj}
     ]
 from_GetNewlyReleasedPackages_result :: GetNewlyReleasedPackages_result -> T.ThriftVal
-from_GetNewlyReleasedPackages_result record = T.TStruct $ Map.fromList 
+from_GetNewlyReleasedPackages_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6230 -> (1, ("e",from_TalkException _v6230))) <$> getNewlyReleasedPackages_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6230 -> P.Just (0, ("success",from_ProductList _v6230))) $ getNewlyReleasedPackages_result_success record
@@ -1177,8 +1177,8 @@ data GetPopularPackages_args = GetPopularPackages_args  { getPopularPackages_arg
   , getPopularPackages_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPopularPackages_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPopularPackages_args_start record   `H.hashWithSalt` getPopularPackages_args_size record   `H.hashWithSalt` getPopularPackages_args_language record   `H.hashWithSalt` getPopularPackages_args_country record  
-instance QC.Arbitrary GetPopularPackages_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPopularPackages_args_start record   `H.hashWithSalt` getPopularPackages_args_size record   `H.hashWithSalt` getPopularPackages_args_language record   `H.hashWithSalt` getPopularPackages_args_country record
+instance QC.Arbitrary GetPopularPackages_args where
   arbitrary = M.liftM GetPopularPackages_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1225,8 +1225,8 @@ data GetPopularPackages_result = GetPopularPackages_result  { getPopularPackages
   , getPopularPackages_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPopularPackages_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPopularPackages_result_success record   `H.hashWithSalt` getPopularPackages_result_e record  
-instance QC.Arbitrary GetPopularPackages_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPopularPackages_result_success record   `H.hashWithSalt` getPopularPackages_result_e record
+instance QC.Arbitrary GetPopularPackages_result where
   arbitrary = M.liftM GetPopularPackages_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPopularPackages_result = []
@@ -1235,7 +1235,7 @@ instance QC.Arbitrary GetPopularPackages_result where
     , if obj == default_GetPopularPackages_result{getPopularPackages_result_e = getPopularPackages_result_e obj} then P.Nothing else P.Just $ default_GetPopularPackages_result{getPopularPackages_result_e = getPopularPackages_result_e obj}
     ]
 from_GetPopularPackages_result :: GetPopularPackages_result -> T.ThriftVal
-from_GetPopularPackages_result record = T.TStruct $ Map.fromList 
+from_GetPopularPackages_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6246 -> (1, ("e",from_TalkException _v6246))) <$> getPopularPackages_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6246 -> P.Just (0, ("success",from_ProductList _v6246))) $ getPopularPackages_result_success record
@@ -1268,8 +1268,8 @@ data GetPresentsReceived_args = GetPresentsReceived_args  { getPresentsReceived_
   , getPresentsReceived_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPresentsReceived_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsReceived_args_start record   `H.hashWithSalt` getPresentsReceived_args_size record   `H.hashWithSalt` getPresentsReceived_args_language record   `H.hashWithSalt` getPresentsReceived_args_country record  
-instance QC.Arbitrary GetPresentsReceived_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsReceived_args_start record   `H.hashWithSalt` getPresentsReceived_args_size record   `H.hashWithSalt` getPresentsReceived_args_language record   `H.hashWithSalt` getPresentsReceived_args_country record
+instance QC.Arbitrary GetPresentsReceived_args where
   arbitrary = M.liftM GetPresentsReceived_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1316,8 +1316,8 @@ data GetPresentsReceived_result = GetPresentsReceived_result  { getPresentsRecei
   , getPresentsReceived_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPresentsReceived_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsReceived_result_success record   `H.hashWithSalt` getPresentsReceived_result_e record  
-instance QC.Arbitrary GetPresentsReceived_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsReceived_result_success record   `H.hashWithSalt` getPresentsReceived_result_e record
+instance QC.Arbitrary GetPresentsReceived_result where
   arbitrary = M.liftM GetPresentsReceived_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPresentsReceived_result = []
@@ -1326,7 +1326,7 @@ instance QC.Arbitrary GetPresentsReceived_result where
     , if obj == default_GetPresentsReceived_result{getPresentsReceived_result_e = getPresentsReceived_result_e obj} then P.Nothing else P.Just $ default_GetPresentsReceived_result{getPresentsReceived_result_e = getPresentsReceived_result_e obj}
     ]
 from_GetPresentsReceived_result :: GetPresentsReceived_result -> T.ThriftVal
-from_GetPresentsReceived_result record = T.TStruct $ Map.fromList 
+from_GetPresentsReceived_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6262 -> (1, ("e",from_TalkException _v6262))) <$> getPresentsReceived_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6262 -> P.Just (0, ("success",from_ProductList _v6262))) $ getPresentsReceived_result_success record
@@ -1359,8 +1359,8 @@ data GetPresentsSent_args = GetPresentsSent_args  { getPresentsSent_args_start :
   , getPresentsSent_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPresentsSent_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsSent_args_start record   `H.hashWithSalt` getPresentsSent_args_size record   `H.hashWithSalt` getPresentsSent_args_language record   `H.hashWithSalt` getPresentsSent_args_country record  
-instance QC.Arbitrary GetPresentsSent_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsSent_args_start record   `H.hashWithSalt` getPresentsSent_args_size record   `H.hashWithSalt` getPresentsSent_args_language record   `H.hashWithSalt` getPresentsSent_args_country record
+instance QC.Arbitrary GetPresentsSent_args where
   arbitrary = M.liftM GetPresentsSent_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1407,8 +1407,8 @@ data GetPresentsSent_result = GetPresentsSent_result  { getPresentsSent_result_s
   , getPresentsSent_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPresentsSent_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsSent_result_success record   `H.hashWithSalt` getPresentsSent_result_e record  
-instance QC.Arbitrary GetPresentsSent_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPresentsSent_result_success record   `H.hashWithSalt` getPresentsSent_result_e record
+instance QC.Arbitrary GetPresentsSent_result where
   arbitrary = M.liftM GetPresentsSent_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPresentsSent_result = []
@@ -1417,7 +1417,7 @@ instance QC.Arbitrary GetPresentsSent_result where
     , if obj == default_GetPresentsSent_result{getPresentsSent_result_e = getPresentsSent_result_e obj} then P.Nothing else P.Just $ default_GetPresentsSent_result{getPresentsSent_result_e = getPresentsSent_result_e obj}
     ]
 from_GetPresentsSent_result :: GetPresentsSent_result -> T.ThriftVal
-from_GetPresentsSent_result record = T.TStruct $ Map.fromList 
+from_GetPresentsSent_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6278 -> (1, ("e",from_TalkException _v6278))) <$> getPresentsSent_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6278 -> P.Just (0, ("success",from_ProductList _v6278))) $ getPresentsSent_result_success record
@@ -1449,8 +1449,8 @@ data GetProduct_args = GetProduct_args  { getProduct_args_packageID :: I.Int64
   , getProduct_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProduct_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProduct_args_packageID record   `H.hashWithSalt` getProduct_args_language record   `H.hashWithSalt` getProduct_args_country record  
-instance QC.Arbitrary GetProduct_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProduct_args_packageID record   `H.hashWithSalt` getProduct_args_language record   `H.hashWithSalt` getProduct_args_country record
+instance QC.Arbitrary GetProduct_args where
   arbitrary = M.liftM GetProduct_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1492,8 +1492,8 @@ data GetProduct_result = GetProduct_result  { getProduct_result_success :: Produ
   , getProduct_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProduct_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProduct_result_success record   `H.hashWithSalt` getProduct_result_e record  
-instance QC.Arbitrary GetProduct_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProduct_result_success record   `H.hashWithSalt` getProduct_result_e record
+instance QC.Arbitrary GetProduct_result where
   arbitrary = M.liftM GetProduct_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetProduct_result = []
@@ -1502,7 +1502,7 @@ instance QC.Arbitrary GetProduct_result where
     , if obj == default_GetProduct_result{getProduct_result_e = getProduct_result_e obj} then P.Nothing else P.Just $ default_GetProduct_result{getProduct_result_e = getProduct_result_e obj}
     ]
 from_GetProduct_result :: GetProduct_result -> T.ThriftVal
-from_GetProduct_result record = T.TStruct $ Map.fromList 
+from_GetProduct_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6293 -> (1, ("e",from_TalkException _v6293))) <$> getProduct_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6293 -> P.Just (0, ("success",from_Product _v6293))) $ getProduct_result_success record
@@ -1534,8 +1534,8 @@ data GetProductList_args = GetProductList_args  { getProductList_args_productIdL
   , getProductList_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductList_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductList_args_productIdList record   `H.hashWithSalt` getProductList_args_language record   `H.hashWithSalt` getProductList_args_country record  
-instance QC.Arbitrary GetProductList_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductList_args_productIdList record   `H.hashWithSalt` getProductList_args_language record   `H.hashWithSalt` getProductList_args_country record
+instance QC.Arbitrary GetProductList_args where
   arbitrary = M.liftM GetProductList_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1577,8 +1577,8 @@ data GetProductList_result = GetProductList_result  { getProductList_result_succ
   , getProductList_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductList_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductList_result_success record   `H.hashWithSalt` getProductList_result_e record  
-instance QC.Arbitrary GetProductList_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductList_result_success record   `H.hashWithSalt` getProductList_result_e record
+instance QC.Arbitrary GetProductList_result where
   arbitrary = M.liftM GetProductList_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetProductList_result = []
@@ -1587,7 +1587,7 @@ instance QC.Arbitrary GetProductList_result where
     , if obj == default_GetProductList_result{getProductList_result_e = getProductList_result_e obj} then P.Nothing else P.Just $ default_GetProductList_result{getProductList_result_e = getProductList_result_e obj}
     ]
 from_GetProductList_result :: GetProductList_result -> T.ThriftVal
-from_GetProductList_result record = T.TStruct $ Map.fromList 
+from_GetProductList_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6312 -> (1, ("e",from_TalkException _v6312))) <$> getProductList_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6312 -> P.Just (0, ("success",from_ProductList _v6312))) $ getProductList_result_success record
@@ -1620,8 +1620,8 @@ data GetProductListWithCarrier_args = GetProductListWithCarrier_args  { getProdu
   , getProductListWithCarrier_args_carrierCode :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductListWithCarrier_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductListWithCarrier_args_productIdList record   `H.hashWithSalt` getProductListWithCarrier_args_language record   `H.hashWithSalt` getProductListWithCarrier_args_country record   `H.hashWithSalt` getProductListWithCarrier_args_carrierCode record  
-instance QC.Arbitrary GetProductListWithCarrier_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductListWithCarrier_args_productIdList record   `H.hashWithSalt` getProductListWithCarrier_args_language record   `H.hashWithSalt` getProductListWithCarrier_args_country record   `H.hashWithSalt` getProductListWithCarrier_args_carrierCode record
+instance QC.Arbitrary GetProductListWithCarrier_args where
   arbitrary = M.liftM GetProductListWithCarrier_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1668,8 +1668,8 @@ data GetProductListWithCarrier_result = GetProductListWithCarrier_result  { getP
   , getProductListWithCarrier_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductListWithCarrier_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductListWithCarrier_result_success record   `H.hashWithSalt` getProductListWithCarrier_result_e record  
-instance QC.Arbitrary GetProductListWithCarrier_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductListWithCarrier_result_success record   `H.hashWithSalt` getProductListWithCarrier_result_e record
+instance QC.Arbitrary GetProductListWithCarrier_result where
   arbitrary = M.liftM GetProductListWithCarrier_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetProductListWithCarrier_result = []
@@ -1678,7 +1678,7 @@ instance QC.Arbitrary GetProductListWithCarrier_result where
     , if obj == default_GetProductListWithCarrier_result{getProductListWithCarrier_result_e = getProductListWithCarrier_result_e obj} then P.Nothing else P.Just $ default_GetProductListWithCarrier_result{getProductListWithCarrier_result_e = getProductListWithCarrier_result_e obj}
     ]
 from_GetProductListWithCarrier_result :: GetProductListWithCarrier_result -> T.ThriftVal
-from_GetProductListWithCarrier_result record = T.TStruct $ Map.fromList 
+from_GetProductListWithCarrier_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6332 -> (1, ("e",from_TalkException _v6332))) <$> getProductListWithCarrier_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6332 -> P.Just (0, ("success",from_ProductList _v6332))) $ getProductListWithCarrier_result_success record
@@ -1711,8 +1711,8 @@ data GetProductWithCarrier_args = GetProductWithCarrier_args  { getProductWithCa
   , getProductWithCarrier_args_carrierCode :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductWithCarrier_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductWithCarrier_args_packageID record   `H.hashWithSalt` getProductWithCarrier_args_language record   `H.hashWithSalt` getProductWithCarrier_args_country record   `H.hashWithSalt` getProductWithCarrier_args_carrierCode record  
-instance QC.Arbitrary GetProductWithCarrier_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductWithCarrier_args_packageID record   `H.hashWithSalt` getProductWithCarrier_args_language record   `H.hashWithSalt` getProductWithCarrier_args_country record   `H.hashWithSalt` getProductWithCarrier_args_carrierCode record
+instance QC.Arbitrary GetProductWithCarrier_args where
   arbitrary = M.liftM GetProductWithCarrier_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1759,8 +1759,8 @@ data GetProductWithCarrier_result = GetProductWithCarrier_result  { getProductWi
   , getProductWithCarrier_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProductWithCarrier_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProductWithCarrier_result_success record   `H.hashWithSalt` getProductWithCarrier_result_e record  
-instance QC.Arbitrary GetProductWithCarrier_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProductWithCarrier_result_success record   `H.hashWithSalt` getProductWithCarrier_result_e record
+instance QC.Arbitrary GetProductWithCarrier_result where
   arbitrary = M.liftM GetProductWithCarrier_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetProductWithCarrier_result = []
@@ -1769,7 +1769,7 @@ instance QC.Arbitrary GetProductWithCarrier_result where
     , if obj == default_GetProductWithCarrier_result{getProductWithCarrier_result_e = getProductWithCarrier_result_e obj} then P.Nothing else P.Just $ default_GetProductWithCarrier_result{getProductWithCarrier_result_e = getProductWithCarrier_result_e obj}
     ]
 from_GetProductWithCarrier_result :: GetProductWithCarrier_result -> T.ThriftVal
-from_GetProductWithCarrier_result record = T.TStruct $ Map.fromList 
+from_GetProductWithCarrier_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6348 -> (1, ("e",from_TalkException _v6348))) <$> getProductWithCarrier_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6348 -> P.Just (0, ("success",from_Product _v6348))) $ getProductWithCarrier_result_success record
@@ -1802,8 +1802,8 @@ data GetPurchaseHistory_args = GetPurchaseHistory_args  { getPurchaseHistory_arg
   , getPurchaseHistory_args_country :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPurchaseHistory_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPurchaseHistory_args_start record   `H.hashWithSalt` getPurchaseHistory_args_size record   `H.hashWithSalt` getPurchaseHistory_args_language record   `H.hashWithSalt` getPurchaseHistory_args_country record  
-instance QC.Arbitrary GetPurchaseHistory_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPurchaseHistory_args_start record   `H.hashWithSalt` getPurchaseHistory_args_size record   `H.hashWithSalt` getPurchaseHistory_args_language record   `H.hashWithSalt` getPurchaseHistory_args_country record
+instance QC.Arbitrary GetPurchaseHistory_args where
   arbitrary = M.liftM GetPurchaseHistory_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1850,8 +1850,8 @@ data GetPurchaseHistory_result = GetPurchaseHistory_result  { getPurchaseHistory
   , getPurchaseHistory_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPurchaseHistory_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPurchaseHistory_result_success record   `H.hashWithSalt` getPurchaseHistory_result_e record  
-instance QC.Arbitrary GetPurchaseHistory_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPurchaseHistory_result_success record   `H.hashWithSalt` getPurchaseHistory_result_e record
+instance QC.Arbitrary GetPurchaseHistory_result where
   arbitrary = M.liftM GetPurchaseHistory_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPurchaseHistory_result = []
@@ -1860,7 +1860,7 @@ instance QC.Arbitrary GetPurchaseHistory_result where
     , if obj == default_GetPurchaseHistory_result{getPurchaseHistory_result_e = getPurchaseHistory_result_e obj} then P.Nothing else P.Just $ default_GetPurchaseHistory_result{getPurchaseHistory_result_e = getPurchaseHistory_result_e obj}
     ]
 from_GetPurchaseHistory_result :: GetPurchaseHistory_result -> T.ThriftVal
-from_GetPurchaseHistory_result record = T.TStruct $ Map.fromList 
+from_GetPurchaseHistory_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6364 -> (1, ("e",from_TalkException _v6364))) <$> getPurchaseHistory_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6364 -> P.Just (0, ("success",from_ProductList _v6364))) $ getPurchaseHistory_result_success record
@@ -1890,8 +1890,8 @@ default_GetPurchaseHistory_result = GetPurchaseHistory_result{
 data GetTotalBalance_args = GetTotalBalance_args  { getTotalBalance_args_appStoreCode :: PaymentType
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetTotalBalance_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getTotalBalance_args_appStoreCode record  
-instance QC.Arbitrary GetTotalBalance_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getTotalBalance_args_appStoreCode record
+instance QC.Arbitrary GetTotalBalance_args where
   arbitrary = M.liftM GetTotalBalance_args (QC.arbitrary)
   shrink obj | obj == default_GetTotalBalance_args = []
              | P.otherwise = M.catMaybes
@@ -1923,8 +1923,8 @@ data GetTotalBalance_result = GetTotalBalance_result  { getTotalBalance_result_s
   , getTotalBalance_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetTotalBalance_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getTotalBalance_result_success record   `H.hashWithSalt` getTotalBalance_result_e record  
-instance QC.Arbitrary GetTotalBalance_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getTotalBalance_result_success record   `H.hashWithSalt` getTotalBalance_result_e record
+instance QC.Arbitrary GetTotalBalance_result where
   arbitrary = M.liftM GetTotalBalance_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetTotalBalance_result = []
@@ -1933,7 +1933,7 @@ instance QC.Arbitrary GetTotalBalance_result where
     , if obj == default_GetTotalBalance_result{getTotalBalance_result_e = getTotalBalance_result_e obj} then P.Nothing else P.Just $ default_GetTotalBalance_result{getTotalBalance_result_e = getTotalBalance_result_e obj}
     ]
 from_GetTotalBalance_result :: GetTotalBalance_result -> T.ThriftVal
-from_GetTotalBalance_result record = T.TStruct $ Map.fromList 
+from_GetTotalBalance_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6377 -> (1, ("e",from_TalkException _v6377))) <$> getTotalBalance_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6377 -> P.Just (0, ("success",from_Coin _v6377))) $ getTotalBalance_result_success record
@@ -1964,8 +1964,8 @@ data NotifyDownloaded_args = NotifyDownloaded_args  { notifyDownloaded_args_pack
   , notifyDownloaded_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyDownloaded_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyDownloaded_args_packageId record   `H.hashWithSalt` notifyDownloaded_args_language record  
-instance QC.Arbitrary NotifyDownloaded_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyDownloaded_args_packageId record   `H.hashWithSalt` notifyDownloaded_args_language record
+instance QC.Arbitrary NotifyDownloaded_args where
   arbitrary = M.liftM NotifyDownloaded_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_NotifyDownloaded_args = []
@@ -2002,8 +2002,8 @@ data NotifyDownloaded_result = NotifyDownloaded_result  { notifyDownloaded_resul
   , notifyDownloaded_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyDownloaded_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyDownloaded_result_success record   `H.hashWithSalt` notifyDownloaded_result_e record  
-instance QC.Arbitrary NotifyDownloaded_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyDownloaded_result_success record   `H.hashWithSalt` notifyDownloaded_result_e record
+instance QC.Arbitrary NotifyDownloaded_result where
   arbitrary = M.liftM NotifyDownloaded_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyDownloaded_result = []
@@ -2012,7 +2012,7 @@ instance QC.Arbitrary NotifyDownloaded_result where
     , if obj == default_NotifyDownloaded_result{notifyDownloaded_result_e = notifyDownloaded_result_e obj} then P.Nothing else P.Just $ default_NotifyDownloaded_result{notifyDownloaded_result_e = notifyDownloaded_result_e obj}
     ]
 from_NotifyDownloaded_result :: NotifyDownloaded_result -> T.ThriftVal
-from_NotifyDownloaded_result record = T.TStruct $ Map.fromList 
+from_NotifyDownloaded_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6391 -> (1, ("e",from_TalkException _v6391))) <$> notifyDownloaded_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6391 -> P.Just (0, ("success",T.TI64 _v6391))) $ notifyDownloaded_result_success record
@@ -2042,8 +2042,8 @@ default_NotifyDownloaded_result = NotifyDownloaded_result{
 data ReserveCoinPurchase_args = ReserveCoinPurchase_args  { reserveCoinPurchase_args_request :: CoinPurchaseReservation
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCoinPurchase_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinPurchase_args_request record  
-instance QC.Arbitrary ReserveCoinPurchase_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinPurchase_args_request record
+instance QC.Arbitrary ReserveCoinPurchase_args where
   arbitrary = M.liftM ReserveCoinPurchase_args (QC.arbitrary)
   shrink obj | obj == default_ReserveCoinPurchase_args = []
              | P.otherwise = M.catMaybes
@@ -2075,8 +2075,8 @@ data ReserveCoinPurchase_result = ReserveCoinPurchase_result  { reserveCoinPurch
   , reserveCoinPurchase_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCoinPurchase_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinPurchase_result_success record   `H.hashWithSalt` reserveCoinPurchase_result_e record  
-instance QC.Arbitrary ReserveCoinPurchase_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCoinPurchase_result_success record   `H.hashWithSalt` reserveCoinPurchase_result_e record
+instance QC.Arbitrary ReserveCoinPurchase_result where
   arbitrary = M.liftM ReserveCoinPurchase_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReserveCoinPurchase_result = []
@@ -2085,7 +2085,7 @@ instance QC.Arbitrary ReserveCoinPurchase_result where
     , if obj == default_ReserveCoinPurchase_result{reserveCoinPurchase_result_e = reserveCoinPurchase_result_e obj} then P.Nothing else P.Just $ default_ReserveCoinPurchase_result{reserveCoinPurchase_result_e = reserveCoinPurchase_result_e obj}
     ]
 from_ReserveCoinPurchase_result :: ReserveCoinPurchase_result -> T.ThriftVal
-from_ReserveCoinPurchase_result record = T.TStruct $ Map.fromList 
+from_ReserveCoinPurchase_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6404 -> (1, ("e",from_TalkException _v6404))) <$> reserveCoinPurchase_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6404 -> P.Just (0, ("success",from_PaymentReservationResult _v6404))) $ reserveCoinPurchase_result_success record
@@ -2115,8 +2115,8 @@ default_ReserveCoinPurchase_result = ReserveCoinPurchase_result{
 data ReservePayment_args = ReservePayment_args  { reservePayment_args_paymentReservation :: PaymentReservation
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReservePayment_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reservePayment_args_paymentReservation record  
-instance QC.Arbitrary ReservePayment_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reservePayment_args_paymentReservation record
+instance QC.Arbitrary ReservePayment_args where
   arbitrary = M.liftM ReservePayment_args (QC.arbitrary)
   shrink obj | obj == default_ReservePayment_args = []
              | P.otherwise = M.catMaybes
@@ -2148,8 +2148,8 @@ data ReservePayment_result = ReservePayment_result  { reservePayment_result_succ
   , reservePayment_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReservePayment_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reservePayment_result_success record   `H.hashWithSalt` reservePayment_result_e record  
-instance QC.Arbitrary ReservePayment_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reservePayment_result_success record   `H.hashWithSalt` reservePayment_result_e record
+instance QC.Arbitrary ReservePayment_result where
   arbitrary = M.liftM ReservePayment_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReservePayment_result = []
@@ -2158,7 +2158,7 @@ instance QC.Arbitrary ReservePayment_result where
     , if obj == default_ReservePayment_result{reservePayment_result_e = reservePayment_result_e obj} then P.Nothing else P.Just $ default_ReservePayment_result{reservePayment_result_e = reservePayment_result_e obj}
     ]
 from_ReservePayment_result :: ReservePayment_result -> T.ThriftVal
-from_ReservePayment_result record = T.TStruct $ Map.fromList 
+from_ReservePayment_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6417 -> (1, ("e",from_TalkException _v6417))) <$> reservePayment_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6417 -> P.Just (0, ("success",from_PaymentReservationResult _v6417))) $ reservePayment_result_success record

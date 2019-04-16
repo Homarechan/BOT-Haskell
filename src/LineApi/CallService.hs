@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module CallService where
+module LineApi.CallService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified CallService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.CallService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data GetUserStatus_args = GetUserStatus_args  { getUserStatus_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserStatus_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserStatus_args_mid record  
-instance QC.Arbitrary GetUserStatus_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserStatus_args_mid record
+instance QC.Arbitrary GetUserStatus_args where
   arbitrary = M.liftM GetUserStatus_args (QC.arbitrary)
   shrink obj | obj == default_GetUserStatus_args = []
              | P.otherwise = M.catMaybes
@@ -78,8 +78,8 @@ data GetUserStatus_result = GetUserStatus_result  { getUserStatus_result_success
   , getUserStatus_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserStatus_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserStatus_result_success record   `H.hashWithSalt` getUserStatus_result_e record  
-instance QC.Arbitrary GetUserStatus_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserStatus_result_success record   `H.hashWithSalt` getUserStatus_result_e record
+instance QC.Arbitrary GetUserStatus_result where
   arbitrary = M.liftM GetUserStatus_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserStatus_result = []
@@ -88,7 +88,7 @@ instance QC.Arbitrary GetUserStatus_result where
     , if obj == default_GetUserStatus_result{getUserStatus_result_e = getUserStatus_result_e obj} then P.Nothing else P.Just $ default_GetUserStatus_result{getUserStatus_result_e = getUserStatus_result_e obj}
     ]
 from_GetUserStatus_result :: GetUserStatus_result -> T.ThriftVal
-from_GetUserStatus_result record = T.TStruct $ Map.fromList 
+from_GetUserStatus_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10128 -> (1, ("e",from_TalkException _v10128))) <$> getUserStatus_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10128 -> P.Just (0, ("success",T.TI32 $ P.fromIntegral $ P.fromEnum _v10128))) $ getUserStatus_result_success record
@@ -119,8 +119,8 @@ data UpdateProfileAttributeForChannel_args = UpdateProfileAttributeForChannel_ar
   , updateProfileAttributeForChannel_args_value :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateProfileAttributeForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateProfileAttributeForChannel_args_profileAttribute record   `H.hashWithSalt` updateProfileAttributeForChannel_args_value record  
-instance QC.Arbitrary UpdateProfileAttributeForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateProfileAttributeForChannel_args_profileAttribute record   `H.hashWithSalt` updateProfileAttributeForChannel_args_value record
+instance QC.Arbitrary UpdateProfileAttributeForChannel_args where
   arbitrary = M.liftM UpdateProfileAttributeForChannel_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateProfileAttributeForChannel_args = []
@@ -156,15 +156,15 @@ default_UpdateProfileAttributeForChannel_args = UpdateProfileAttributeForChannel
 data UpdateProfileAttributeForChannel_result = UpdateProfileAttributeForChannel_result  { updateProfileAttributeForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateProfileAttributeForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateProfileAttributeForChannel_result_e record  
-instance QC.Arbitrary UpdateProfileAttributeForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateProfileAttributeForChannel_result_e record
+instance QC.Arbitrary UpdateProfileAttributeForChannel_result where
   arbitrary = M.liftM UpdateProfileAttributeForChannel_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateProfileAttributeForChannel_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateProfileAttributeForChannel_result{updateProfileAttributeForChannel_result_e = updateProfileAttributeForChannel_result_e obj} then P.Nothing else P.Just $ default_UpdateProfileAttributeForChannel_result{updateProfileAttributeForChannel_result_e = updateProfileAttributeForChannel_result_e obj}
     ]
 from_UpdateProfileAttributeForChannel_result :: UpdateProfileAttributeForChannel_result -> T.ThriftVal
-from_UpdateProfileAttributeForChannel_result record = T.TStruct $ Map.fromList 
+from_UpdateProfileAttributeForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10142 -> (1, ("e",from_TalkException _v10142))) <$> updateProfileAttributeForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10142 -> (1, ("e",from_TalkException _v10142))) <$> updateProfileAttributeForChannel_result_e record
@@ -188,12 +188,12 @@ typemap_UpdateProfileAttributeForChannel_result = Map.fromList [(1,("e",(T.T_STR
 default_UpdateProfileAttributeForChannel_result :: UpdateProfileAttributeForChannel_result
 default_UpdateProfileAttributeForChannel_result = UpdateProfileAttributeForChannel_result{
   updateProfileAttributeForChannel_result_e = P.Nothing}
-data UpdateExtendedProfileAttribute_args = UpdateExtendedProfileAttribute_args  { updateExtendedProfileAttribute_args_attr :: ExtendedProfileAttribute
+data UpdateExtendedProfileAttribute_args = UpdateExtendedProfileAttribute_args  { updateExtendedProfileAttribute_args_attr :: ProfileAttribute
   , updateExtendedProfileAttribute_args_extendedProfile :: ExtendedProfile
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateExtendedProfileAttribute_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateExtendedProfileAttribute_args_attr record   `H.hashWithSalt` updateExtendedProfileAttribute_args_extendedProfile record  
-instance QC.Arbitrary UpdateExtendedProfileAttribute_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateExtendedProfileAttribute_args_attr record   `H.hashWithSalt` updateExtendedProfileAttribute_args_extendedProfile record
+instance QC.Arbitrary UpdateExtendedProfileAttribute_args where
   arbitrary = M.liftM UpdateExtendedProfileAttribute_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdateExtendedProfileAttribute_args = []
@@ -229,15 +229,15 @@ default_UpdateExtendedProfileAttribute_args = UpdateExtendedProfileAttribute_arg
 data UpdateExtendedProfileAttribute_result = UpdateExtendedProfileAttribute_result  { updateExtendedProfileAttribute_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateExtendedProfileAttribute_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateExtendedProfileAttribute_result_e record  
-instance QC.Arbitrary UpdateExtendedProfileAttribute_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateExtendedProfileAttribute_result_e record
+instance QC.Arbitrary UpdateExtendedProfileAttribute_result where
   arbitrary = M.liftM UpdateExtendedProfileAttribute_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateExtendedProfileAttribute_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UpdateExtendedProfileAttribute_result{updateExtendedProfileAttribute_result_e = updateExtendedProfileAttribute_result_e obj} then P.Nothing else P.Just $ default_UpdateExtendedProfileAttribute_result{updateExtendedProfileAttribute_result_e = updateExtendedProfileAttribute_result_e obj}
     ]
 from_UpdateExtendedProfileAttribute_result :: UpdateExtendedProfileAttribute_result -> T.ThriftVal
-from_UpdateExtendedProfileAttribute_result record = T.TStruct $ Map.fromList 
+from_UpdateExtendedProfileAttribute_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10155 -> (1, ("e",from_TalkException _v10155))) <$> updateExtendedProfileAttribute_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10155 -> (1, ("e",from_TalkException _v10155))) <$> updateExtendedProfileAttribute_result_e record
@@ -264,8 +264,8 @@ default_UpdateExtendedProfileAttribute_result = UpdateExtendedProfileAttribute_r
 data GetAllSimpleChannelContacts_args = GetAllSimpleChannelContacts_args  { getAllSimpleChannelContacts_args_statusSticonFallbackDisabled :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllSimpleChannelContacts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAllSimpleChannelContacts_args_statusSticonFallbackDisabled record  
-instance QC.Arbitrary GetAllSimpleChannelContacts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAllSimpleChannelContacts_args_statusSticonFallbackDisabled record
+instance QC.Arbitrary GetAllSimpleChannelContacts_args where
   arbitrary = M.liftM GetAllSimpleChannelContacts_args (QC.arbitrary)
   shrink obj | obj == default_GetAllSimpleChannelContacts_args = []
              | P.otherwise = M.catMaybes
@@ -297,8 +297,8 @@ data GetAllSimpleChannelContacts_result = GetAllSimpleChannelContacts_result  { 
   , getAllSimpleChannelContacts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllSimpleChannelContacts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAllSimpleChannelContacts_result_success record   `H.hashWithSalt` getAllSimpleChannelContacts_result_e record  
-instance QC.Arbitrary GetAllSimpleChannelContacts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAllSimpleChannelContacts_result_success record   `H.hashWithSalt` getAllSimpleChannelContacts_result_e record
+instance QC.Arbitrary GetAllSimpleChannelContacts_result where
   arbitrary = M.liftM GetAllSimpleChannelContacts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetAllSimpleChannelContacts_result = []
@@ -307,7 +307,7 @@ instance QC.Arbitrary GetAllSimpleChannelContacts_result where
     , if obj == default_GetAllSimpleChannelContacts_result{getAllSimpleChannelContacts_result_e = getAllSimpleChannelContacts_result_e obj} then P.Nothing else P.Just $ default_GetAllSimpleChannelContacts_result{getAllSimpleChannelContacts_result_e = getAllSimpleChannelContacts_result_e obj}
     ]
 from_GetAllSimpleChannelContacts_result :: GetAllSimpleChannelContacts_result -> T.ThriftVal
-from_GetAllSimpleChannelContacts_result record = T.TStruct $ Map.fromList 
+from_GetAllSimpleChannelContacts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10167 -> (1, ("e",from_TalkException _v10167))) <$> getAllSimpleChannelContacts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10167 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SimpleChannelContact) $ P.map (\_v10169 -> from_SimpleChannelContact _v10169) $ Vector.toList _v10167))) $ getAllSimpleChannelContacts_result_success record
@@ -336,8 +336,8 @@ default_GetAllSimpleChannelContacts_result = GetAllSimpleChannelContacts_result{
   getAllSimpleChannelContacts_result_e = P.Nothing}
 data GetUserIdentities_args = GetUserIdentities_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserIdentities_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetUserIdentities_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetUserIdentities_args where
   arbitrary = QC.elements [GetUserIdentities_args]
 from_GetUserIdentities_args :: GetUserIdentities_args -> T.ThriftVal
 from_GetUserIdentities_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -364,8 +364,8 @@ data GetUserIdentities_result = GetUserIdentities_result  { getUserIdentities_re
   , getUserIdentities_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserIdentities_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserIdentities_result_success record   `H.hashWithSalt` getUserIdentities_result_e record  
-instance QC.Arbitrary GetUserIdentities_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserIdentities_result_success record   `H.hashWithSalt` getUserIdentities_result_e record
+instance QC.Arbitrary GetUserIdentities_result where
   arbitrary = M.liftM GetUserIdentities_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserIdentities_result = []
@@ -374,7 +374,7 @@ instance QC.Arbitrary GetUserIdentities_result where
     , if obj == default_GetUserIdentities_result{getUserIdentities_result_e = getUserIdentities_result_e obj} then P.Nothing else P.Just $ default_GetUserIdentities_result{getUserIdentities_result_e = getUserIdentities_result_e obj}
     ]
 from_GetUserIdentities_result :: GetUserIdentities_result -> T.ThriftVal
-from_GetUserIdentities_result record = T.TStruct $ Map.fromList 
+from_GetUserIdentities_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10183 -> (1, ("e",from_TalkException _v10183))) <$> getUserIdentities_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10183 -> P.Just (0, ("success",T.TMap T.T_I32 T.T_STRING $ P.map (\(_k10184,_v10185) -> (T.TI32 $ P.fromIntegral $ P.fromEnum _k10184, T.TString $ E.encodeUtf8 _v10185)) $ Map.toList _v10183))) $ getUserIdentities_result_success record
@@ -406,8 +406,8 @@ data MarkPaidCallAd_args = MarkPaidCallAd_args  { markPaidCallAd_args_dialedNumb
   , markPaidCallAd_args_disableCallerId :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MarkPaidCallAd_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` markPaidCallAd_args_dialedNumber record   `H.hashWithSalt` markPaidCallAd_args_language record   `H.hashWithSalt` markPaidCallAd_args_disableCallerId record  
-instance QC.Arbitrary MarkPaidCallAd_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` markPaidCallAd_args_dialedNumber record   `H.hashWithSalt` markPaidCallAd_args_language record   `H.hashWithSalt` markPaidCallAd_args_disableCallerId record
+instance QC.Arbitrary MarkPaidCallAd_args where
   arbitrary = M.liftM MarkPaidCallAd_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -449,8 +449,8 @@ data MarkPaidCallAd_result = MarkPaidCallAd_result  { markPaidCallAd_result_succ
   , markPaidCallAd_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MarkPaidCallAd_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` markPaidCallAd_result_success record   `H.hashWithSalt` markPaidCallAd_result_e record  
-instance QC.Arbitrary MarkPaidCallAd_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` markPaidCallAd_result_success record   `H.hashWithSalt` markPaidCallAd_result_e record
+instance QC.Arbitrary MarkPaidCallAd_result where
   arbitrary = M.liftM MarkPaidCallAd_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_MarkPaidCallAd_result = []
@@ -459,7 +459,7 @@ instance QC.Arbitrary MarkPaidCallAd_result where
     , if obj == default_MarkPaidCallAd_result{markPaidCallAd_result_e = markPaidCallAd_result_e obj} then P.Nothing else P.Just $ default_MarkPaidCallAd_result{markPaidCallAd_result_e = markPaidCallAd_result_e obj}
     ]
 from_MarkPaidCallAd_result :: MarkPaidCallAd_result -> T.ThriftVal
-from_MarkPaidCallAd_result record = T.TStruct $ Map.fromList 
+from_MarkPaidCallAd_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10204 -> (1, ("e",from_TalkException _v10204))) <$> markPaidCallAd_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10204 -> P.Just (0, ("success",from_PaidCallDialing _v10204))) $ markPaidCallAd_result_success record
@@ -489,8 +489,8 @@ default_MarkPaidCallAd_result = MarkPaidCallAd_result{
 data IsGroupMember_args = IsGroupMember_args  { isGroupMember_args_groupId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsGroupMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isGroupMember_args_groupId record  
-instance QC.Arbitrary IsGroupMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isGroupMember_args_groupId record
+instance QC.Arbitrary IsGroupMember_args where
   arbitrary = M.liftM IsGroupMember_args (QC.arbitrary)
   shrink obj | obj == default_IsGroupMember_args = []
              | P.otherwise = M.catMaybes
@@ -522,8 +522,8 @@ data IsGroupMember_result = IsGroupMember_result  { isGroupMember_result_success
   , isGroupMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsGroupMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isGroupMember_result_success record   `H.hashWithSalt` isGroupMember_result_e record  
-instance QC.Arbitrary IsGroupMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isGroupMember_result_success record   `H.hashWithSalt` isGroupMember_result_e record
+instance QC.Arbitrary IsGroupMember_result where
   arbitrary = M.liftM IsGroupMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IsGroupMember_result = []
@@ -532,7 +532,7 @@ instance QC.Arbitrary IsGroupMember_result where
     , if obj == default_IsGroupMember_result{isGroupMember_result_e = isGroupMember_result_e obj} then P.Nothing else P.Just $ default_IsGroupMember_result{isGroupMember_result_e = isGroupMember_result_e obj}
     ]
 from_IsGroupMember_result :: IsGroupMember_result -> T.ThriftVal
-from_IsGroupMember_result record = T.TStruct $ Map.fromList 
+from_IsGroupMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10217 -> (1, ("e",from_TalkException _v10217))) <$> isGroupMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10217 -> P.Just (0, ("success",T.TBool _v10217))) $ isGroupMember_result_success record
@@ -563,8 +563,8 @@ data GetPhoneInfoFromPhoneNumber_args = GetPhoneInfoFromPhoneNumber_args  { getP
   , getPhoneInfoFromPhoneNumber_args_phoneNumber :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPhoneInfoFromPhoneNumber_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_args_region record   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_args_phoneNumber record  
-instance QC.Arbitrary GetPhoneInfoFromPhoneNumber_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_args_region record   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_args_phoneNumber record
+instance QC.Arbitrary GetPhoneInfoFromPhoneNumber_args where
   arbitrary = M.liftM GetPhoneInfoFromPhoneNumber_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetPhoneInfoFromPhoneNumber_args = []
@@ -601,8 +601,8 @@ data GetPhoneInfoFromPhoneNumber_result = GetPhoneInfoFromPhoneNumber_result  { 
   , getPhoneInfoFromPhoneNumber_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPhoneInfoFromPhoneNumber_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_result_success record   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_result_e record  
-instance QC.Arbitrary GetPhoneInfoFromPhoneNumber_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_result_success record   `H.hashWithSalt` getPhoneInfoFromPhoneNumber_result_e record
+instance QC.Arbitrary GetPhoneInfoFromPhoneNumber_result where
   arbitrary = M.liftM GetPhoneInfoFromPhoneNumber_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPhoneInfoFromPhoneNumber_result = []
@@ -611,7 +611,7 @@ instance QC.Arbitrary GetPhoneInfoFromPhoneNumber_result where
     , if obj == default_GetPhoneInfoFromPhoneNumber_result{getPhoneInfoFromPhoneNumber_result_e = getPhoneInfoFromPhoneNumber_result_e obj} then P.Nothing else P.Just $ default_GetPhoneInfoFromPhoneNumber_result{getPhoneInfoFromPhoneNumber_result_e = getPhoneInfoFromPhoneNumber_result_e obj}
     ]
 from_GetPhoneInfoFromPhoneNumber_result :: GetPhoneInfoFromPhoneNumber_result -> T.ThriftVal
-from_GetPhoneInfoFromPhoneNumber_result record = T.TStruct $ Map.fromList 
+from_GetPhoneInfoFromPhoneNumber_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10231 -> (1, ("e",from_TalkException _v10231))) <$> getPhoneInfoFromPhoneNumber_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10231 -> P.Just (0, ("success",from_PhoneInfoForChannel _v10231))) $ getPhoneInfoFromPhoneNumber_result_success record
@@ -642,8 +642,8 @@ data RedeemPaidCallVoucher_args = RedeemPaidCallVoucher_args  { redeemPaidCallVo
   , redeemPaidCallVoucher_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RedeemPaidCallVoucher_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` redeemPaidCallVoucher_args_serial record   `H.hashWithSalt` redeemPaidCallVoucher_args_language record  
-instance QC.Arbitrary RedeemPaidCallVoucher_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` redeemPaidCallVoucher_args_serial record   `H.hashWithSalt` redeemPaidCallVoucher_args_language record
+instance QC.Arbitrary RedeemPaidCallVoucher_args where
   arbitrary = M.liftM RedeemPaidCallVoucher_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_RedeemPaidCallVoucher_args = []
@@ -680,8 +680,8 @@ data RedeemPaidCallVoucher_result = RedeemPaidCallVoucher_result  { redeemPaidCa
   , redeemPaidCallVoucher_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RedeemPaidCallVoucher_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` redeemPaidCallVoucher_result_success record   `H.hashWithSalt` redeemPaidCallVoucher_result_e record  
-instance QC.Arbitrary RedeemPaidCallVoucher_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` redeemPaidCallVoucher_result_success record   `H.hashWithSalt` redeemPaidCallVoucher_result_e record
+instance QC.Arbitrary RedeemPaidCallVoucher_result where
   arbitrary = M.liftM RedeemPaidCallVoucher_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RedeemPaidCallVoucher_result = []
@@ -690,7 +690,7 @@ instance QC.Arbitrary RedeemPaidCallVoucher_result where
     , if obj == default_RedeemPaidCallVoucher_result{redeemPaidCallVoucher_result_e = redeemPaidCallVoucher_result_e obj} then P.Nothing else P.Just $ default_RedeemPaidCallVoucher_result{redeemPaidCallVoucher_result_e = redeemPaidCallVoucher_result_e obj}
     ]
 from_RedeemPaidCallVoucher_result :: RedeemPaidCallVoucher_result -> T.ThriftVal
-from_RedeemPaidCallVoucher_result record = T.TStruct $ Map.fromList 
+from_RedeemPaidCallVoucher_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10245 -> (1, ("e",from_TalkException _v10245))) <$> redeemPaidCallVoucher_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10245 -> P.Just (0, ("success",from_PaidCallRedeemResult _v10245))) $ redeemPaidCallVoucher_result_success record
@@ -720,8 +720,8 @@ default_RedeemPaidCallVoucher_result = RedeemPaidCallVoucher_result{
 data GetPreferredDisplayName_args = GetPreferredDisplayName_args  { getPreferredDisplayName_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPreferredDisplayName_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPreferredDisplayName_args_mids record  
-instance QC.Arbitrary GetPreferredDisplayName_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPreferredDisplayName_args_mids record
+instance QC.Arbitrary GetPreferredDisplayName_args where
   arbitrary = M.liftM GetPreferredDisplayName_args (QC.arbitrary)
   shrink obj | obj == default_GetPreferredDisplayName_args = []
              | P.otherwise = M.catMaybes
@@ -753,8 +753,8 @@ data GetPreferredDisplayName_result = GetPreferredDisplayName_result  { getPrefe
   , getPreferredDisplayName_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPreferredDisplayName_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPreferredDisplayName_result_success record   `H.hashWithSalt` getPreferredDisplayName_result_e record  
-instance QC.Arbitrary GetPreferredDisplayName_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPreferredDisplayName_result_success record   `H.hashWithSalt` getPreferredDisplayName_result_e record
+instance QC.Arbitrary GetPreferredDisplayName_result where
   arbitrary = M.liftM GetPreferredDisplayName_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPreferredDisplayName_result = []
@@ -763,7 +763,7 @@ instance QC.Arbitrary GetPreferredDisplayName_result where
     , if obj == default_GetPreferredDisplayName_result{getPreferredDisplayName_result_e = getPreferredDisplayName_result_e obj} then P.Nothing else P.Just $ default_GetPreferredDisplayName_result{getPreferredDisplayName_result_e = getPreferredDisplayName_result_e obj}
     ]
 from_GetPreferredDisplayName_result :: GetPreferredDisplayName_result -> T.ThriftVal
-from_GetPreferredDisplayName_result record = T.TStruct $ Map.fromList 
+from_GetPreferredDisplayName_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10262 -> (1, ("e",from_TalkException _v10262))) <$> getPreferredDisplayName_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10262 -> P.Just (0, ("success",T.TMap T.T_STRING T.T_STRING $ P.map (\(_k10263,_v10264) -> (T.TString $ E.encodeUtf8 _k10263, T.TString $ E.encodeUtf8 _v10264)) $ Map.toList _v10262))) $ getPreferredDisplayName_result_success record
@@ -793,8 +793,8 @@ default_GetPreferredDisplayName_result = GetPreferredDisplayName_result{
 data GetContactsForChannel_args = GetContactsForChannel_args  { getContactsForChannel_args_ids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetContactsForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getContactsForChannel_args_ids record  
-instance QC.Arbitrary GetContactsForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getContactsForChannel_args_ids record
+instance QC.Arbitrary GetContactsForChannel_args where
   arbitrary = M.liftM GetContactsForChannel_args (QC.arbitrary)
   shrink obj | obj == default_GetContactsForChannel_args = []
              | P.otherwise = M.catMaybes
@@ -826,8 +826,8 @@ data GetContactsForChannel_result = GetContactsForChannel_result  { getContactsF
   , getContactsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetContactsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getContactsForChannel_result_success record   `H.hashWithSalt` getContactsForChannel_result_e record  
-instance QC.Arbitrary GetContactsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getContactsForChannel_result_success record   `H.hashWithSalt` getContactsForChannel_result_e record
+instance QC.Arbitrary GetContactsForChannel_result where
   arbitrary = M.liftM GetContactsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetContactsForChannel_result = []
@@ -836,7 +836,7 @@ instance QC.Arbitrary GetContactsForChannel_result where
     , if obj == default_GetContactsForChannel_result{getContactsForChannel_result_e = getContactsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetContactsForChannel_result{getContactsForChannel_result_e = getContactsForChannel_result_e obj}
     ]
 from_GetContactsForChannel_result :: GetContactsForChannel_result -> T.ThriftVal
-from_GetContactsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetContactsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10285 -> (1, ("e",from_TalkException _v10285))) <$> getContactsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10285 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_Contact) $ P.map (\_v10287 -> from_Contact _v10287) $ Vector.toList _v10285))) $ getContactsForChannel_result_success record
@@ -869,8 +869,8 @@ data GetCallCreditProducts_args = GetCallCreditProducts_args  { getCallCreditPro
   , getCallCreditProducts_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCallCreditProducts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditProducts_args_appStoreCode record   `H.hashWithSalt` getCallCreditProducts_args_pgCode record   `H.hashWithSalt` getCallCreditProducts_args_country record   `H.hashWithSalt` getCallCreditProducts_args_language record  
-instance QC.Arbitrary GetCallCreditProducts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditProducts_args_appStoreCode record   `H.hashWithSalt` getCallCreditProducts_args_pgCode record   `H.hashWithSalt` getCallCreditProducts_args_country record   `H.hashWithSalt` getCallCreditProducts_args_language record
+instance QC.Arbitrary GetCallCreditProducts_args where
   arbitrary = M.liftM GetCallCreditProducts_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -917,8 +917,8 @@ data GetCallCreditProducts_result = GetCallCreditProducts_result  { getCallCredi
   , getCallCreditProducts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCallCreditProducts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditProducts_result_success record   `H.hashWithSalt` getCallCreditProducts_result_e record  
-instance QC.Arbitrary GetCallCreditProducts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditProducts_result_success record   `H.hashWithSalt` getCallCreditProducts_result_e record
+instance QC.Arbitrary GetCallCreditProducts_result where
   arbitrary = M.liftM GetCallCreditProducts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCallCreditProducts_result = []
@@ -927,7 +927,7 @@ instance QC.Arbitrary GetCallCreditProducts_result where
     , if obj == default_GetCallCreditProducts_result{getCallCreditProducts_result_e = getCallCreditProducts_result_e obj} then P.Nothing else P.Just $ default_GetCallCreditProducts_result{getCallCreditProducts_result_e = getCallCreditProducts_result_e obj}
     ]
 from_GetCallCreditProducts_result :: GetCallCreditProducts_result -> T.ThriftVal
-from_GetCallCreditProducts_result record = T.TStruct $ Map.fromList 
+from_GetCallCreditProducts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10305 -> (1, ("e",from_TalkException _v10305))) <$> getCallCreditProducts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10305 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_CoinProductItem) $ P.map (\_v10307 -> from_CoinProductItem _v10307) $ Vector.toList _v10305))) $ getCallCreditProducts_result_success record
@@ -957,8 +957,8 @@ default_GetCallCreditProducts_result = GetCallCreditProducts_result{
 data GetCompactContacts_args = GetCompactContacts_args  { getCompactContacts_args_lastModifiedTimestamp :: I.Int64
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCompactContacts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCompactContacts_args_lastModifiedTimestamp record  
-instance QC.Arbitrary GetCompactContacts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCompactContacts_args_lastModifiedTimestamp record
+instance QC.Arbitrary GetCompactContacts_args where
   arbitrary = M.liftM GetCompactContacts_args (QC.arbitrary)
   shrink obj | obj == default_GetCompactContacts_args = []
              | P.otherwise = M.catMaybes
@@ -990,8 +990,8 @@ data GetCompactContacts_result = GetCompactContacts_result  { getCompactContacts
   , getCompactContacts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCompactContacts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCompactContacts_result_success record   `H.hashWithSalt` getCompactContacts_result_e record  
-instance QC.Arbitrary GetCompactContacts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCompactContacts_result_success record   `H.hashWithSalt` getCompactContacts_result_e record
+instance QC.Arbitrary GetCompactContacts_result where
   arbitrary = M.liftM GetCompactContacts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCompactContacts_result = []
@@ -1000,7 +1000,7 @@ instance QC.Arbitrary GetCompactContacts_result where
     , if obj == default_GetCompactContacts_result{getCompactContacts_result_e = getCompactContacts_result_e obj} then P.Nothing else P.Just $ default_GetCompactContacts_result{getCompactContacts_result_e = getCompactContacts_result_e obj}
     ]
 from_GetCompactContacts_result :: GetCompactContacts_result -> T.ThriftVal
-from_GetCompactContacts_result record = T.TStruct $ Map.fromList 
+from_GetCompactContacts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10322 -> (1, ("e",from_TalkException _v10322))) <$> getCompactContacts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10322 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_CompactContact) $ P.map (\_v10324 -> from_CompactContact _v10324) $ Vector.toList _v10322))) $ getCompactContacts_result_success record
@@ -1030,8 +1030,8 @@ default_GetCompactContacts_result = GetCompactContacts_result{
 data NotifyNotiCenterEvent_args = NotifyNotiCenterEvent_args  { notifyNotiCenterEvent_args_event :: NotiCenterEventData
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyNotiCenterEvent_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyNotiCenterEvent_args_event record  
-instance QC.Arbitrary NotifyNotiCenterEvent_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyNotiCenterEvent_args_event record
+instance QC.Arbitrary NotifyNotiCenterEvent_args where
   arbitrary = M.liftM NotifyNotiCenterEvent_args (QC.arbitrary)
   shrink obj | obj == default_NotifyNotiCenterEvent_args = []
              | P.otherwise = M.catMaybes
@@ -1062,15 +1062,15 @@ default_NotifyNotiCenterEvent_args = NotifyNotiCenterEvent_args{
 data NotifyNotiCenterEvent_result = NotifyNotiCenterEvent_result  { notifyNotiCenterEvent_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyNotiCenterEvent_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyNotiCenterEvent_result_e record  
-instance QC.Arbitrary NotifyNotiCenterEvent_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyNotiCenterEvent_result_e record
+instance QC.Arbitrary NotifyNotiCenterEvent_result where
   arbitrary = M.liftM NotifyNotiCenterEvent_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyNotiCenterEvent_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyNotiCenterEvent_result{notifyNotiCenterEvent_result_e = notifyNotiCenterEvent_result_e obj} then P.Nothing else P.Just $ default_NotifyNotiCenterEvent_result{notifyNotiCenterEvent_result_e = notifyNotiCenterEvent_result_e obj}
     ]
 from_NotifyNotiCenterEvent_result :: NotifyNotiCenterEvent_result -> T.ThriftVal
-from_NotifyNotiCenterEvent_result record = T.TStruct $ Map.fromList 
+from_NotifyNotiCenterEvent_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10339 -> (1, ("e",from_TalkException _v10339))) <$> notifyNotiCenterEvent_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10339 -> (1, ("e",from_TalkException _v10339))) <$> notifyNotiCenterEvent_result_e record
@@ -1097,8 +1097,8 @@ default_NotifyNotiCenterEvent_result = NotifyNotiCenterEvent_result{
 data IsInContact_args = IsInContact_args  { isInContact_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsInContact_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isInContact_args_mid record  
-instance QC.Arbitrary IsInContact_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isInContact_args_mid record
+instance QC.Arbitrary IsInContact_args where
   arbitrary = M.liftM IsInContact_args (QC.arbitrary)
   shrink obj | obj == default_IsInContact_args = []
              | P.otherwise = M.catMaybes
@@ -1130,8 +1130,8 @@ data IsInContact_result = IsInContact_result  { isInContact_result_success :: P.
   , isInContact_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsInContact_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isInContact_result_success record   `H.hashWithSalt` isInContact_result_e record  
-instance QC.Arbitrary IsInContact_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isInContact_result_success record   `H.hashWithSalt` isInContact_result_e record
+instance QC.Arbitrary IsInContact_result where
   arbitrary = M.liftM IsInContact_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IsInContact_result = []
@@ -1140,7 +1140,7 @@ instance QC.Arbitrary IsInContact_result where
     , if obj == default_IsInContact_result{isInContact_result_e = isInContact_result_e obj} then P.Nothing else P.Just $ default_IsInContact_result{isInContact_result_e = isInContact_result_e obj}
     ]
 from_IsInContact_result :: IsInContact_result -> T.ThriftVal
-from_IsInContact_result record = T.TStruct $ Map.fromList 
+from_IsInContact_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10351 -> (1, ("e",from_TalkException _v10351))) <$> isInContact_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10351 -> P.Just (0, ("success",T.TBool _v10351))) $ isInContact_result_success record
@@ -1171,8 +1171,8 @@ data LookupGroupMembers_args = LookupGroupMembers_args  { lookupGroupMembers_arg
   , lookupGroupMembers_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupGroupMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupGroupMembers_args_groupId record   `H.hashWithSalt` lookupGroupMembers_args_mids record  
-instance QC.Arbitrary LookupGroupMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupGroupMembers_args_groupId record   `H.hashWithSalt` lookupGroupMembers_args_mids record
+instance QC.Arbitrary LookupGroupMembers_args where
   arbitrary = M.liftM LookupGroupMembers_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_LookupGroupMembers_args = []
@@ -1209,8 +1209,8 @@ data LookupGroupMembers_result = LookupGroupMembers_result  { lookupGroupMembers
   , lookupGroupMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupGroupMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupGroupMembers_result_success record   `H.hashWithSalt` lookupGroupMembers_result_e record  
-instance QC.Arbitrary LookupGroupMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupGroupMembers_result_success record   `H.hashWithSalt` lookupGroupMembers_result_e record
+instance QC.Arbitrary LookupGroupMembers_result where
   arbitrary = M.liftM LookupGroupMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LookupGroupMembers_result = []
@@ -1219,7 +1219,7 @@ instance QC.Arbitrary LookupGroupMembers_result where
     , if obj == default_LookupGroupMembers_result{lookupGroupMembers_result_e = lookupGroupMembers_result_e obj} then P.Nothing else P.Just $ default_LookupGroupMembers_result{lookupGroupMembers_result_e = lookupGroupMembers_result_e obj}
     ]
 from_LookupGroupMembers_result :: LookupGroupMembers_result -> T.ThriftVal
-from_LookupGroupMembers_result record = T.TStruct $ Map.fromList 
+from_LookupGroupMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10369 -> (1, ("e",from_TalkException _v10369))) <$> lookupGroupMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10369 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SimpleChannelContact) $ P.map (\_v10371 -> from_SimpleChannelContact _v10371) $ Vector.toList _v10369))) $ lookupGroupMembers_result_success record
@@ -1249,8 +1249,8 @@ default_LookupGroupMembers_result = LookupGroupMembers_result{
 data GetRoomInformation_args = GetRoomInformation_args  { getRoomInformation_args_roomMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRoomInformation_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomInformation_args_roomMid record  
-instance QC.Arbitrary GetRoomInformation_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomInformation_args_roomMid record
+instance QC.Arbitrary GetRoomInformation_args where
   arbitrary = M.liftM GetRoomInformation_args (QC.arbitrary)
   shrink obj | obj == default_GetRoomInformation_args = []
              | P.otherwise = M.catMaybes
@@ -1282,8 +1282,8 @@ data GetRoomInformation_result = GetRoomInformation_result  { getRoomInformation
   , getRoomInformation_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRoomInformation_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomInformation_result_success record   `H.hashWithSalt` getRoomInformation_result_e record  
-instance QC.Arbitrary GetRoomInformation_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomInformation_result_success record   `H.hashWithSalt` getRoomInformation_result_e record
+instance QC.Arbitrary GetRoomInformation_result where
   arbitrary = M.liftM GetRoomInformation_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetRoomInformation_result = []
@@ -1292,7 +1292,7 @@ instance QC.Arbitrary GetRoomInformation_result where
     , if obj == default_GetRoomInformation_result{getRoomInformation_result_e = getRoomInformation_result_e obj} then P.Nothing else P.Just $ default_GetRoomInformation_result{getRoomInformation_result_e = getRoomInformation_result_e obj}
     ]
 from_GetRoomInformation_result :: GetRoomInformation_result -> T.ThriftVal
-from_GetRoomInformation_result record = T.TStruct $ Map.fromList 
+from_GetRoomInformation_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10386 -> (1, ("e",from_TalkException _v10386))) <$> getRoomInformation_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10386 -> P.Just (0, ("success",from_Room _v10386))) $ getRoomInformation_result_success record
@@ -1322,8 +1322,8 @@ default_GetRoomInformation_result = GetRoomInformation_result{
 data GetGroupCall_args = GetGroupCall_args  { getGroupCall_args_chatMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupCall_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupCall_args_chatMid record  
-instance QC.Arbitrary GetGroupCall_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupCall_args_chatMid record
+instance QC.Arbitrary GetGroupCall_args where
   arbitrary = M.liftM GetGroupCall_args (QC.arbitrary)
   shrink obj | obj == default_GetGroupCall_args = []
              | P.otherwise = M.catMaybes
@@ -1355,8 +1355,8 @@ data GetGroupCall_result = GetGroupCall_result  { getGroupCall_result_success ::
   , getGroupCall_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupCall_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupCall_result_success record   `H.hashWithSalt` getGroupCall_result_e record  
-instance QC.Arbitrary GetGroupCall_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupCall_result_success record   `H.hashWithSalt` getGroupCall_result_e record
+instance QC.Arbitrary GetGroupCall_result where
   arbitrary = M.liftM GetGroupCall_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetGroupCall_result = []
@@ -1365,7 +1365,7 @@ instance QC.Arbitrary GetGroupCall_result where
     , if obj == default_GetGroupCall_result{getGroupCall_result_e = getGroupCall_result_e obj} then P.Nothing else P.Just $ default_GetGroupCall_result{getGroupCall_result_e = getGroupCall_result_e obj}
     ]
 from_GetGroupCall_result :: GetGroupCall_result -> T.ThriftVal
-from_GetGroupCall_result record = T.TStruct $ Map.fromList 
+from_GetGroupCall_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10399 -> (1, ("e",from_TalkException _v10399))) <$> getGroupCall_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10399 -> P.Just (0, ("success",from_GroupCall _v10399))) $ getGroupCall_result_success record
@@ -1394,8 +1394,8 @@ default_GetGroupCall_result = GetGroupCall_result{
   getGroupCall_result_e = P.Nothing}
 data IsAllowSecondaryDeviceLogin_args = IsAllowSecondaryDeviceLogin_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsAllowSecondaryDeviceLogin_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary IsAllowSecondaryDeviceLogin_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary IsAllowSecondaryDeviceLogin_args where
   arbitrary = QC.elements [IsAllowSecondaryDeviceLogin_args]
 from_IsAllowSecondaryDeviceLogin_args :: IsAllowSecondaryDeviceLogin_args -> T.ThriftVal
 from_IsAllowSecondaryDeviceLogin_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1422,8 +1422,8 @@ data IsAllowSecondaryDeviceLogin_result = IsAllowSecondaryDeviceLogin_result  { 
   , isAllowSecondaryDeviceLogin_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsAllowSecondaryDeviceLogin_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isAllowSecondaryDeviceLogin_result_success record   `H.hashWithSalt` isAllowSecondaryDeviceLogin_result_e record  
-instance QC.Arbitrary IsAllowSecondaryDeviceLogin_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isAllowSecondaryDeviceLogin_result_success record   `H.hashWithSalt` isAllowSecondaryDeviceLogin_result_e record
+instance QC.Arbitrary IsAllowSecondaryDeviceLogin_result where
   arbitrary = M.liftM IsAllowSecondaryDeviceLogin_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IsAllowSecondaryDeviceLogin_result = []
@@ -1432,7 +1432,7 @@ instance QC.Arbitrary IsAllowSecondaryDeviceLogin_result where
     , if obj == default_IsAllowSecondaryDeviceLogin_result{isAllowSecondaryDeviceLogin_result_e = isAllowSecondaryDeviceLogin_result_e obj} then P.Nothing else P.Just $ default_IsAllowSecondaryDeviceLogin_result{isAllowSecondaryDeviceLogin_result_e = isAllowSecondaryDeviceLogin_result_e obj}
     ]
 from_IsAllowSecondaryDeviceLogin_result :: IsAllowSecondaryDeviceLogin_result -> T.ThriftVal
-from_IsAllowSecondaryDeviceLogin_result record = T.TStruct $ Map.fromList 
+from_IsAllowSecondaryDeviceLogin_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10411 -> (1, ("e",from_TalkException _v10411))) <$> isAllowSecondaryDeviceLogin_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10411 -> P.Just (0, ("success",T.TBool _v10411))) $ isAllowSecondaryDeviceLogin_result_success record
@@ -1461,8 +1461,8 @@ default_IsAllowSecondaryDeviceLogin_result = IsAllowSecondaryDeviceLogin_result{
   isAllowSecondaryDeviceLogin_result_e = P.Nothing}
 data GetPrimaryClientForChannel_args = GetPrimaryClientForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPrimaryClientForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetPrimaryClientForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetPrimaryClientForChannel_args where
   arbitrary = QC.elements [GetPrimaryClientForChannel_args]
 from_GetPrimaryClientForChannel_args :: GetPrimaryClientForChannel_args -> T.ThriftVal
 from_GetPrimaryClientForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1489,8 +1489,8 @@ data GetPrimaryClientForChannel_result = GetPrimaryClientForChannel_result  { ge
   , getPrimaryClientForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPrimaryClientForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientForChannel_result_success record   `H.hashWithSalt` getPrimaryClientForChannel_result_e record  
-instance QC.Arbitrary GetPrimaryClientForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientForChannel_result_success record   `H.hashWithSalt` getPrimaryClientForChannel_result_e record
+instance QC.Arbitrary GetPrimaryClientForChannel_result where
   arbitrary = M.liftM GetPrimaryClientForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPrimaryClientForChannel_result = []
@@ -1499,7 +1499,7 @@ instance QC.Arbitrary GetPrimaryClientForChannel_result where
     , if obj == default_GetPrimaryClientForChannel_result{getPrimaryClientForChannel_result_e = getPrimaryClientForChannel_result_e obj} then P.Nothing else P.Just $ default_GetPrimaryClientForChannel_result{getPrimaryClientForChannel_result_e = getPrimaryClientForChannel_result_e obj}
     ]
 from_GetPrimaryClientForChannel_result :: GetPrimaryClientForChannel_result -> T.ThriftVal
-from_GetPrimaryClientForChannel_result record = T.TStruct $ Map.fromList 
+from_GetPrimaryClientForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10423 -> (1, ("e",from_TalkException _v10423))) <$> getPrimaryClientForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10423 -> P.Just (0, ("success",from_SimpleChannelClient _v10423))) $ getPrimaryClientForChannel_result_success record
@@ -1531,8 +1531,8 @@ data CreateRoomWithBuddy_args = CreateRoomWithBuddy_args  { createRoomWithBuddy_
   , createRoomWithBuddy_args_contactIds :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateRoomWithBuddy_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createRoomWithBuddy_args_reqSeq record   `H.hashWithSalt` createRoomWithBuddy_args_buddyMid record   `H.hashWithSalt` createRoomWithBuddy_args_contactIds record  
-instance QC.Arbitrary CreateRoomWithBuddy_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createRoomWithBuddy_args_reqSeq record   `H.hashWithSalt` createRoomWithBuddy_args_buddyMid record   `H.hashWithSalt` createRoomWithBuddy_args_contactIds record
+instance QC.Arbitrary CreateRoomWithBuddy_args where
   arbitrary = M.liftM CreateRoomWithBuddy_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -1574,8 +1574,8 @@ data CreateRoomWithBuddy_result = CreateRoomWithBuddy_result  { createRoomWithBu
   , createRoomWithBuddy_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateRoomWithBuddy_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createRoomWithBuddy_result_success record   `H.hashWithSalt` createRoomWithBuddy_result_e record  
-instance QC.Arbitrary CreateRoomWithBuddy_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createRoomWithBuddy_result_success record   `H.hashWithSalt` createRoomWithBuddy_result_e record
+instance QC.Arbitrary CreateRoomWithBuddy_result where
   arbitrary = M.liftM CreateRoomWithBuddy_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CreateRoomWithBuddy_result = []
@@ -1584,7 +1584,7 @@ instance QC.Arbitrary CreateRoomWithBuddy_result where
     , if obj == default_CreateRoomWithBuddy_result{createRoomWithBuddy_result_e = createRoomWithBuddy_result_e obj} then P.Nothing else P.Just $ default_CreateRoomWithBuddy_result{createRoomWithBuddy_result_e = createRoomWithBuddy_result_e obj}
     ]
 from_CreateRoomWithBuddy_result :: CreateRoomWithBuddy_result -> T.ThriftVal
-from_CreateRoomWithBuddy_result record = T.TStruct $ Map.fromList 
+from_CreateRoomWithBuddy_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10442 -> (1, ("e",from_TalkException _v10442))) <$> createRoomWithBuddy_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10442 -> P.Just (0, ("success",from_Room _v10442))) $ createRoomWithBuddy_result_success record
@@ -1614,8 +1614,8 @@ default_CreateRoomWithBuddy_result = CreateRoomWithBuddy_result{
 data GetDisplayName_args = GetDisplayName_args  { getDisplayName_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDisplayName_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDisplayName_args_mid record  
-instance QC.Arbitrary GetDisplayName_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDisplayName_args_mid record
+instance QC.Arbitrary GetDisplayName_args where
   arbitrary = M.liftM GetDisplayName_args (QC.arbitrary)
   shrink obj | obj == default_GetDisplayName_args = []
              | P.otherwise = M.catMaybes
@@ -1647,8 +1647,8 @@ data GetDisplayName_result = GetDisplayName_result  { getDisplayName_result_succ
   , getDisplayName_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetDisplayName_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getDisplayName_result_success record   `H.hashWithSalt` getDisplayName_result_e record  
-instance QC.Arbitrary GetDisplayName_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getDisplayName_result_success record   `H.hashWithSalt` getDisplayName_result_e record
+instance QC.Arbitrary GetDisplayName_result where
   arbitrary = M.liftM GetDisplayName_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetDisplayName_result = []
@@ -1657,7 +1657,7 @@ instance QC.Arbitrary GetDisplayName_result where
     , if obj == default_GetDisplayName_result{getDisplayName_result_e = getDisplayName_result_e obj} then P.Nothing else P.Just $ default_GetDisplayName_result{getDisplayName_result_e = getDisplayName_result_e obj}
     ]
 from_GetDisplayName_result :: GetDisplayName_result -> T.ThriftVal
-from_GetDisplayName_result record = T.TStruct $ Map.fromList 
+from_GetDisplayName_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10455 -> (1, ("e",from_TalkException _v10455))) <$> getDisplayName_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10455 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v10455))) $ getDisplayName_result_success record
@@ -1687,8 +1687,8 @@ default_GetDisplayName_result = GetDisplayName_result{
 data GetPaidCallMetadata_args = GetPaidCallMetadata_args  { getPaidCallMetadata_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallMetadata_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallMetadata_args_language record  
-instance QC.Arbitrary GetPaidCallMetadata_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallMetadata_args_language record
+instance QC.Arbitrary GetPaidCallMetadata_args where
   arbitrary = M.liftM GetPaidCallMetadata_args (QC.arbitrary)
   shrink obj | obj == default_GetPaidCallMetadata_args = []
              | P.otherwise = M.catMaybes
@@ -1720,8 +1720,8 @@ data GetPaidCallMetadata_result = GetPaidCallMetadata_result  { getPaidCallMetad
   , getPaidCallMetadata_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallMetadata_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallMetadata_result_success record   `H.hashWithSalt` getPaidCallMetadata_result_e record  
-instance QC.Arbitrary GetPaidCallMetadata_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallMetadata_result_success record   `H.hashWithSalt` getPaidCallMetadata_result_e record
+instance QC.Arbitrary GetPaidCallMetadata_result where
   arbitrary = M.liftM GetPaidCallMetadata_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPaidCallMetadata_result = []
@@ -1730,7 +1730,7 @@ instance QC.Arbitrary GetPaidCallMetadata_result where
     , if obj == default_GetPaidCallMetadata_result{getPaidCallMetadata_result_e = getPaidCallMetadata_result_e obj} then P.Nothing else P.Just $ default_GetPaidCallMetadata_result{getPaidCallMetadata_result_e = getPaidCallMetadata_result_e obj}
     ]
 from_GetPaidCallMetadata_result :: GetPaidCallMetadata_result -> T.ThriftVal
-from_GetPaidCallMetadata_result record = T.TStruct $ Map.fromList 
+from_GetPaidCallMetadata_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10468 -> (1, ("e",from_TalkException _v10468))) <$> getPaidCallMetadata_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10468 -> P.Just (0, ("success",from_PaidCallMetadataResult _v10468))) $ getPaidCallMetadata_result_success record
@@ -1759,8 +1759,8 @@ default_GetPaidCallMetadata_result = GetPaidCallMetadata_result{
   getPaidCallMetadata_result_e = P.Nothing}
 data GetMid_args = GetMid_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMid_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetMid_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetMid_args where
   arbitrary = QC.elements [GetMid_args]
 from_GetMid_args :: GetMid_args -> T.ThriftVal
 from_GetMid_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1787,8 +1787,8 @@ data GetMid_result = GetMid_result  { getMid_result_success :: LT.Text
   , getMid_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMid_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getMid_result_success record   `H.hashWithSalt` getMid_result_e record  
-instance QC.Arbitrary GetMid_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getMid_result_success record   `H.hashWithSalt` getMid_result_e record
+instance QC.Arbitrary GetMid_result where
   arbitrary = M.liftM GetMid_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetMid_result = []
@@ -1797,7 +1797,7 @@ instance QC.Arbitrary GetMid_result where
     , if obj == default_GetMid_result{getMid_result_e = getMid_result_e obj} then P.Nothing else P.Just $ default_GetMid_result{getMid_result_e = getMid_result_e obj}
     ]
 from_GetMid_result :: GetMid_result -> T.ThriftVal
-from_GetMid_result record = T.TStruct $ Map.fromList 
+from_GetMid_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10480 -> (1, ("e",from_TalkException _v10480))) <$> getMid_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10480 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v10480))) $ getMid_result_success record
@@ -1828,8 +1828,8 @@ data GetUserCountryForBilling_args = GetUserCountryForBilling_args  { getUserCou
   , getUserCountryForBilling_args_remoteIp :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserCountryForBilling_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCountryForBilling_args_country record   `H.hashWithSalt` getUserCountryForBilling_args_remoteIp record  
-instance QC.Arbitrary GetUserCountryForBilling_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCountryForBilling_args_country record   `H.hashWithSalt` getUserCountryForBilling_args_remoteIp record
+instance QC.Arbitrary GetUserCountryForBilling_args where
   arbitrary = M.liftM GetUserCountryForBilling_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetUserCountryForBilling_args = []
@@ -1866,8 +1866,8 @@ data GetUserCountryForBilling_result = GetUserCountryForBilling_result  { getUse
   , getUserCountryForBilling_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserCountryForBilling_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCountryForBilling_result_success record   `H.hashWithSalt` getUserCountryForBilling_result_e record  
-instance QC.Arbitrary GetUserCountryForBilling_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCountryForBilling_result_success record   `H.hashWithSalt` getUserCountryForBilling_result_e record
+instance QC.Arbitrary GetUserCountryForBilling_result where
   arbitrary = M.liftM GetUserCountryForBilling_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserCountryForBilling_result = []
@@ -1876,7 +1876,7 @@ instance QC.Arbitrary GetUserCountryForBilling_result where
     , if obj == default_GetUserCountryForBilling_result{getUserCountryForBilling_result_e = getUserCountryForBilling_result_e obj} then P.Nothing else P.Just $ default_GetUserCountryForBilling_result{getUserCountryForBilling_result_e = getUserCountryForBilling_result_e obj}
     ]
 from_GetUserCountryForBilling_result :: GetUserCountryForBilling_result -> T.ThriftVal
-from_GetUserCountryForBilling_result record = T.TStruct $ Map.fromList 
+from_GetUserCountryForBilling_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10494 -> (1, ("e",from_TalkException _v10494))) <$> getUserCountryForBilling_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10494 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v10494))) $ getUserCountryForBilling_result_success record
@@ -1905,8 +1905,8 @@ default_GetUserCountryForBilling_result = GetUserCountryForBilling_result{
   getUserCountryForBilling_result_e = P.Nothing}
 data GetFavoriteGroupIdsForChannel_args = GetFavoriteGroupIdsForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFavoriteGroupIdsForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetFavoriteGroupIdsForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetFavoriteGroupIdsForChannel_args where
   arbitrary = QC.elements [GetFavoriteGroupIdsForChannel_args]
 from_GetFavoriteGroupIdsForChannel_args :: GetFavoriteGroupIdsForChannel_args -> T.ThriftVal
 from_GetFavoriteGroupIdsForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -1933,8 +1933,8 @@ data GetFavoriteGroupIdsForChannel_result = GetFavoriteGroupIdsForChannel_result
   , getFavoriteGroupIdsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFavoriteGroupIdsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getFavoriteGroupIdsForChannel_result_success record   `H.hashWithSalt` getFavoriteGroupIdsForChannel_result_e record  
-instance QC.Arbitrary GetFavoriteGroupIdsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getFavoriteGroupIdsForChannel_result_success record   `H.hashWithSalt` getFavoriteGroupIdsForChannel_result_e record
+instance QC.Arbitrary GetFavoriteGroupIdsForChannel_result where
   arbitrary = M.liftM GetFavoriteGroupIdsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetFavoriteGroupIdsForChannel_result = []
@@ -1943,7 +1943,7 @@ instance QC.Arbitrary GetFavoriteGroupIdsForChannel_result where
     , if obj == default_GetFavoriteGroupIdsForChannel_result{getFavoriteGroupIdsForChannel_result_e = getFavoriteGroupIdsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetFavoriteGroupIdsForChannel_result{getFavoriteGroupIdsForChannel_result_e = getFavoriteGroupIdsForChannel_result_e obj}
     ]
 from_GetFavoriteGroupIdsForChannel_result :: GetFavoriteGroupIdsForChannel_result -> T.ThriftVal
-from_GetFavoriteGroupIdsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetFavoriteGroupIdsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10506 -> (1, ("e",from_TalkException _v10506))) <$> getFavoriteGroupIdsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10506 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v10508 -> T.TString $ E.encodeUtf8 _v10508) $ Vector.toList _v10506))) $ getFavoriteGroupIdsForChannel_result_success record
@@ -1975,8 +1975,8 @@ data GetPaidCallHistory_args = GetPaidCallHistory_args  { getPaidCallHistory_arg
   , getPaidCallHistory_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallHistory_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallHistory_args_start record   `H.hashWithSalt` getPaidCallHistory_args_size record   `H.hashWithSalt` getPaidCallHistory_args_language record  
-instance QC.Arbitrary GetPaidCallHistory_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallHistory_args_start record   `H.hashWithSalt` getPaidCallHistory_args_size record   `H.hashWithSalt` getPaidCallHistory_args_language record
+instance QC.Arbitrary GetPaidCallHistory_args where
   arbitrary = M.liftM GetPaidCallHistory_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2018,8 +2018,8 @@ data GetPaidCallHistory_result = GetPaidCallHistory_result  { getPaidCallHistory
   , getPaidCallHistory_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallHistory_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallHistory_result_success record   `H.hashWithSalt` getPaidCallHistory_result_e record  
-instance QC.Arbitrary GetPaidCallHistory_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallHistory_result_success record   `H.hashWithSalt` getPaidCallHistory_result_e record
+instance QC.Arbitrary GetPaidCallHistory_result where
   arbitrary = M.liftM GetPaidCallHistory_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPaidCallHistory_result = []
@@ -2028,7 +2028,7 @@ instance QC.Arbitrary GetPaidCallHistory_result where
     , if obj == default_GetPaidCallHistory_result{getPaidCallHistory_result_e = getPaidCallHistory_result_e obj} then P.Nothing else P.Just $ default_GetPaidCallHistory_result{getPaidCallHistory_result_e = getPaidCallHistory_result_e obj}
     ]
 from_GetPaidCallHistory_result :: GetPaidCallHistory_result -> T.ThriftVal
-from_GetPaidCallHistory_result record = T.TStruct $ Map.fromList 
+from_GetPaidCallHistory_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10525 -> (1, ("e",from_TalkException _v10525))) <$> getPaidCallHistory_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10525 -> P.Just (0, ("success",from_PaidCallHistoryResult _v10525))) $ getPaidCallHistory_result_success record
@@ -2058,8 +2058,8 @@ default_GetPaidCallHistory_result = GetPaidCallHistory_result{
 data SendPinCodeOperation_args = SendPinCodeOperation_args  { sendPinCodeOperation_args_verifier :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendPinCodeOperation_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendPinCodeOperation_args_verifier record  
-instance QC.Arbitrary SendPinCodeOperation_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendPinCodeOperation_args_verifier record
+instance QC.Arbitrary SendPinCodeOperation_args where
   arbitrary = M.liftM SendPinCodeOperation_args (QC.arbitrary)
   shrink obj | obj == default_SendPinCodeOperation_args = []
              | P.otherwise = M.catMaybes
@@ -2090,15 +2090,15 @@ default_SendPinCodeOperation_args = SendPinCodeOperation_args{
 data SendPinCodeOperation_result = SendPinCodeOperation_result  { sendPinCodeOperation_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendPinCodeOperation_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendPinCodeOperation_result_e record  
-instance QC.Arbitrary SendPinCodeOperation_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendPinCodeOperation_result_e record
+instance QC.Arbitrary SendPinCodeOperation_result where
   arbitrary = M.liftM SendPinCodeOperation_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendPinCodeOperation_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_SendPinCodeOperation_result{sendPinCodeOperation_result_e = sendPinCodeOperation_result_e obj} then P.Nothing else P.Just $ default_SendPinCodeOperation_result{sendPinCodeOperation_result_e = sendPinCodeOperation_result_e obj}
     ]
 from_SendPinCodeOperation_result :: SendPinCodeOperation_result -> T.ThriftVal
-from_SendPinCodeOperation_result record = T.TStruct $ Map.fromList 
+from_SendPinCodeOperation_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10538 -> (1, ("e",from_TalkException _v10538))) <$> sendPinCodeOperation_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10538 -> (1, ("e",from_TalkException _v10538))) <$> sendPinCodeOperation_result_e record
@@ -2127,8 +2127,8 @@ data InviteIntoGroupCall_args = InviteIntoGroupCall_args  { inviteIntoGroupCall_
   , inviteIntoGroupCall_args_mediaType :: GroupCallMediaType
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteIntoGroupCall_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteIntoGroupCall_args_chatMid record   `H.hashWithSalt` inviteIntoGroupCall_args_memberMids record   `H.hashWithSalt` inviteIntoGroupCall_args_mediaType record  
-instance QC.Arbitrary InviteIntoGroupCall_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteIntoGroupCall_args_chatMid record   `H.hashWithSalt` inviteIntoGroupCall_args_memberMids record   `H.hashWithSalt` inviteIntoGroupCall_args_mediaType record
+instance QC.Arbitrary InviteIntoGroupCall_args where
   arbitrary = M.liftM InviteIntoGroupCall_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2169,15 +2169,15 @@ default_InviteIntoGroupCall_args = InviteIntoGroupCall_args{
 data InviteIntoGroupCall_result = InviteIntoGroupCall_result  { inviteIntoGroupCall_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteIntoGroupCall_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteIntoGroupCall_result_e record  
-instance QC.Arbitrary InviteIntoGroupCall_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteIntoGroupCall_result_e record
+instance QC.Arbitrary InviteIntoGroupCall_result where
   arbitrary = M.liftM InviteIntoGroupCall_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_InviteIntoGroupCall_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_InviteIntoGroupCall_result{inviteIntoGroupCall_result_e = inviteIntoGroupCall_result_e obj} then P.Nothing else P.Just $ default_InviteIntoGroupCall_result{inviteIntoGroupCall_result_e = inviteIntoGroupCall_result_e obj}
     ]
 from_InviteIntoGroupCall_result :: InviteIntoGroupCall_result -> T.ThriftVal
-from_InviteIntoGroupCall_result record = T.TStruct $ Map.fromList 
+from_InviteIntoGroupCall_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10556 -> (1, ("e",from_TalkException _v10556))) <$> inviteIntoGroupCall_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10556 -> (1, ("e",from_TalkException _v10556))) <$> inviteIntoGroupCall_result_e record
@@ -2203,8 +2203,8 @@ default_InviteIntoGroupCall_result = InviteIntoGroupCall_result{
   inviteIntoGroupCall_result_e = P.Nothing}
 data GetFriendMids_args = GetFriendMids_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFriendMids_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetFriendMids_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetFriendMids_args where
   arbitrary = QC.elements [GetFriendMids_args]
 from_GetFriendMids_args :: GetFriendMids_args -> T.ThriftVal
 from_GetFriendMids_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -2231,8 +2231,8 @@ data GetFriendMids_result = GetFriendMids_result  { getFriendMids_result_success
   , getFriendMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFriendMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendMids_result_success record   `H.hashWithSalt` getFriendMids_result_e record  
-instance QC.Arbitrary GetFriendMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getFriendMids_result_success record   `H.hashWithSalt` getFriendMids_result_e record
+instance QC.Arbitrary GetFriendMids_result where
   arbitrary = M.liftM GetFriendMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetFriendMids_result = []
@@ -2241,7 +2241,7 @@ instance QC.Arbitrary GetFriendMids_result where
     , if obj == default_GetFriendMids_result{getFriendMids_result_e = getFriendMids_result_e obj} then P.Nothing else P.Just $ default_GetFriendMids_result{getFriendMids_result_e = getFriendMids_result_e obj}
     ]
 from_GetFriendMids_result :: GetFriendMids_result -> T.ThriftVal
-from_GetFriendMids_result record = T.TStruct $ Map.fromList 
+from_GetFriendMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10567 -> (1, ("e",from_TalkException _v10567))) <$> getFriendMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10567 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v10569 -> T.TString $ E.encodeUtf8 _v10569) $ Vector.toList _v10567))) $ getFriendMids_result_success record
@@ -2270,8 +2270,8 @@ default_GetFriendMids_result = GetFriendMids_result{
   getFriendMids_result_e = P.Nothing}
 data GetMetaProfile_args = GetMetaProfile_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMetaProfile_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetMetaProfile_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetMetaProfile_args where
   arbitrary = QC.elements [GetMetaProfile_args]
 from_GetMetaProfile_args :: GetMetaProfile_args -> T.ThriftVal
 from_GetMetaProfile_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -2298,8 +2298,8 @@ data GetMetaProfile_result = GetMetaProfile_result  { getMetaProfile_result_succ
   , getMetaProfile_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetMetaProfile_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getMetaProfile_result_success record   `H.hashWithSalt` getMetaProfile_result_e record  
-instance QC.Arbitrary GetMetaProfile_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getMetaProfile_result_success record   `H.hashWithSalt` getMetaProfile_result_e record
+instance QC.Arbitrary GetMetaProfile_result where
   arbitrary = M.liftM GetMetaProfile_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetMetaProfile_result = []
@@ -2308,7 +2308,7 @@ instance QC.Arbitrary GetMetaProfile_result where
     , if obj == default_GetMetaProfile_result{getMetaProfile_result_e = getMetaProfile_result_e obj} then P.Nothing else P.Just $ default_GetMetaProfile_result{getMetaProfile_result_e = getMetaProfile_result_e obj}
     ]
 from_GetMetaProfile_result :: GetMetaProfile_result -> T.ThriftVal
-from_GetMetaProfile_result record = T.TStruct $ Map.fromList 
+from_GetMetaProfile_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10583 -> (1, ("e",from_TalkException _v10583))) <$> getMetaProfile_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10583 -> P.Just (0, ("success",from_MetaProfile _v10583))) $ getMetaProfile_result_success record
@@ -2338,8 +2338,8 @@ default_GetMetaProfile_result = GetMetaProfile_result{
 data SendMessageForChannel_args = SendMessageForChannel_args  { sendMessageForChannel_args_message :: Message
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessageForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageForChannel_args_message record  
-instance QC.Arbitrary SendMessageForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageForChannel_args_message record
+instance QC.Arbitrary SendMessageForChannel_args where
   arbitrary = M.liftM SendMessageForChannel_args (QC.arbitrary)
   shrink obj | obj == default_SendMessageForChannel_args = []
              | P.otherwise = M.catMaybes
@@ -2371,8 +2371,8 @@ data SendMessageForChannel_result = SendMessageForChannel_result  { sendMessageF
   , sendMessageForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessageForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageForChannel_result_success record   `H.hashWithSalt` sendMessageForChannel_result_e record  
-instance QC.Arbitrary SendMessageForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageForChannel_result_success record   `H.hashWithSalt` sendMessageForChannel_result_e record
+instance QC.Arbitrary SendMessageForChannel_result where
   arbitrary = M.liftM SendMessageForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendMessageForChannel_result = []
@@ -2381,7 +2381,7 @@ instance QC.Arbitrary SendMessageForChannel_result where
     , if obj == default_SendMessageForChannel_result{sendMessageForChannel_result_e = sendMessageForChannel_result_e obj} then P.Nothing else P.Just $ default_SendMessageForChannel_result{sendMessageForChannel_result_e = sendMessageForChannel_result_e obj}
     ]
 from_SendMessageForChannel_result :: SendMessageForChannel_result -> T.ThriftVal
-from_SendMessageForChannel_result record = T.TStruct $ Map.fromList 
+from_SendMessageForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10596 -> (1, ("e",from_TalkException _v10596))) <$> sendMessageForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10596 -> P.Just (0, ("success",from_Message _v10596))) $ sendMessageForChannel_result_success record
@@ -2410,8 +2410,8 @@ default_SendMessageForChannel_result = SendMessageForChannel_result{
   sendMessageForChannel_result_e = P.Nothing}
 data ActiveBuddySubscriberCount_args = ActiveBuddySubscriberCount_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ActiveBuddySubscriberCount_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary ActiveBuddySubscriberCount_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary ActiveBuddySubscriberCount_args where
   arbitrary = QC.elements [ActiveBuddySubscriberCount_args]
 from_ActiveBuddySubscriberCount_args :: ActiveBuddySubscriberCount_args -> T.ThriftVal
 from_ActiveBuddySubscriberCount_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -2438,8 +2438,8 @@ data ActiveBuddySubscriberCount_result = ActiveBuddySubscriberCount_result  { ac
   , activeBuddySubscriberCount_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ActiveBuddySubscriberCount_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` activeBuddySubscriberCount_result_success record   `H.hashWithSalt` activeBuddySubscriberCount_result_e record  
-instance QC.Arbitrary ActiveBuddySubscriberCount_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` activeBuddySubscriberCount_result_success record   `H.hashWithSalt` activeBuddySubscriberCount_result_e record
+instance QC.Arbitrary ActiveBuddySubscriberCount_result where
   arbitrary = M.liftM ActiveBuddySubscriberCount_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ActiveBuddySubscriberCount_result = []
@@ -2448,7 +2448,7 @@ instance QC.Arbitrary ActiveBuddySubscriberCount_result where
     , if obj == default_ActiveBuddySubscriberCount_result{activeBuddySubscriberCount_result_e = activeBuddySubscriberCount_result_e obj} then P.Nothing else P.Just $ default_ActiveBuddySubscriberCount_result{activeBuddySubscriberCount_result_e = activeBuddySubscriberCount_result_e obj}
     ]
 from_ActiveBuddySubscriberCount_result :: ActiveBuddySubscriberCount_result -> T.ThriftVal
-from_ActiveBuddySubscriberCount_result record = T.TStruct $ Map.fromList 
+from_ActiveBuddySubscriberCount_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10608 -> (1, ("e",from_TalkException _v10608))) <$> activeBuddySubscriberCount_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10608 -> P.Just (0, ("success",T.TI64 _v10608))) $ activeBuddySubscriberCount_result_success record
@@ -2478,8 +2478,8 @@ default_ActiveBuddySubscriberCount_result = ActiveBuddySubscriberCount_result{
 data GetCallCreditPurchaseHistory_args = GetCallCreditPurchaseHistory_args  { getCallCreditPurchaseHistory_args_request :: CoinHistoryCondition
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCallCreditPurchaseHistory_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditPurchaseHistory_args_request record  
-instance QC.Arbitrary GetCallCreditPurchaseHistory_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditPurchaseHistory_args_request record
+instance QC.Arbitrary GetCallCreditPurchaseHistory_args where
   arbitrary = M.liftM GetCallCreditPurchaseHistory_args (QC.arbitrary)
   shrink obj | obj == default_GetCallCreditPurchaseHistory_args = []
              | P.otherwise = M.catMaybes
@@ -2511,8 +2511,8 @@ data GetCallCreditPurchaseHistory_result = GetCallCreditPurchaseHistory_result  
   , getCallCreditPurchaseHistory_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCallCreditPurchaseHistory_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditPurchaseHistory_result_success record   `H.hashWithSalt` getCallCreditPurchaseHistory_result_e record  
-instance QC.Arbitrary GetCallCreditPurchaseHistory_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCallCreditPurchaseHistory_result_success record   `H.hashWithSalt` getCallCreditPurchaseHistory_result_e record
+instance QC.Arbitrary GetCallCreditPurchaseHistory_result where
   arbitrary = M.liftM GetCallCreditPurchaseHistory_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCallCreditPurchaseHistory_result = []
@@ -2521,7 +2521,7 @@ instance QC.Arbitrary GetCallCreditPurchaseHistory_result where
     , if obj == default_GetCallCreditPurchaseHistory_result{getCallCreditPurchaseHistory_result_e = getCallCreditPurchaseHistory_result_e obj} then P.Nothing else P.Just $ default_GetCallCreditPurchaseHistory_result{getCallCreditPurchaseHistory_result_e = getCallCreditPurchaseHistory_result_e obj}
     ]
 from_GetCallCreditPurchaseHistory_result :: GetCallCreditPurchaseHistory_result -> T.ThriftVal
-from_GetCallCreditPurchaseHistory_result record = T.TStruct $ Map.fromList 
+from_GetCallCreditPurchaseHistory_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10621 -> (1, ("e",from_TalkException _v10621))) <$> getCallCreditPurchaseHistory_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10621 -> P.Just (0, ("success",from_CoinHistoryResult _v10621))) $ getCallCreditPurchaseHistory_result_success record
@@ -2551,8 +2551,8 @@ default_GetCallCreditPurchaseHistory_result = GetCallCreditPurchaseHistory_resul
 data IsRoomMember_args = IsRoomMember_args  { isRoomMember_args_roomId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsRoomMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isRoomMember_args_roomId record  
-instance QC.Arbitrary IsRoomMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isRoomMember_args_roomId record
+instance QC.Arbitrary IsRoomMember_args where
   arbitrary = M.liftM IsRoomMember_args (QC.arbitrary)
   shrink obj | obj == default_IsRoomMember_args = []
              | P.otherwise = M.catMaybes
@@ -2584,8 +2584,8 @@ data IsRoomMember_result = IsRoomMember_result  { isRoomMember_result_success ::
   , isRoomMember_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IsRoomMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` isRoomMember_result_success record   `H.hashWithSalt` isRoomMember_result_e record  
-instance QC.Arbitrary IsRoomMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` isRoomMember_result_success record   `H.hashWithSalt` isRoomMember_result_e record
+instance QC.Arbitrary IsRoomMember_result where
   arbitrary = M.liftM IsRoomMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IsRoomMember_result = []
@@ -2594,7 +2594,7 @@ instance QC.Arbitrary IsRoomMember_result where
     , if obj == default_IsRoomMember_result{isRoomMember_result_e = isRoomMember_result_e obj} then P.Nothing else P.Just $ default_IsRoomMember_result{isRoomMember_result_e = isRoomMember_result_e obj}
     ]
 from_IsRoomMember_result :: IsRoomMember_result -> T.ThriftVal
-from_IsRoomMember_result record = T.TStruct $ Map.fromList 
+from_IsRoomMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10634 -> (1, ("e",from_TalkException _v10634))) <$> isRoomMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10634 -> P.Just (0, ("success",T.TBool _v10634))) $ isRoomMember_result_success record
@@ -2624,8 +2624,8 @@ default_IsRoomMember_result = IsRoomMember_result{
 data SendSystemOAMessage_args = SendSystemOAMessage_args  { sendSystemOAMessage_args_message :: Message
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendSystemOAMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendSystemOAMessage_args_message record  
-instance QC.Arbitrary SendSystemOAMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendSystemOAMessage_args_message record
+instance QC.Arbitrary SendSystemOAMessage_args where
   arbitrary = M.liftM SendSystemOAMessage_args (QC.arbitrary)
   shrink obj | obj == default_SendSystemOAMessage_args = []
              | P.otherwise = M.catMaybes
@@ -2657,8 +2657,8 @@ data SendSystemOAMessage_result = SendSystemOAMessage_result  { sendSystemOAMess
   , sendSystemOAMessage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendSystemOAMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendSystemOAMessage_result_success record   `H.hashWithSalt` sendSystemOAMessage_result_e record  
-instance QC.Arbitrary SendSystemOAMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendSystemOAMessage_result_success record   `H.hashWithSalt` sendSystemOAMessage_result_e record
+instance QC.Arbitrary SendSystemOAMessage_result where
   arbitrary = M.liftM SendSystemOAMessage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendSystemOAMessage_result = []
@@ -2667,7 +2667,7 @@ instance QC.Arbitrary SendSystemOAMessage_result where
     , if obj == default_SendSystemOAMessage_result{sendSystemOAMessage_result_e = sendSystemOAMessage_result_e obj} then P.Nothing else P.Just $ default_SendSystemOAMessage_result{sendSystemOAMessage_result_e = sendSystemOAMessage_result_e obj}
     ]
 from_SendSystemOAMessage_result :: SendSystemOAMessage_result -> T.ThriftVal
-from_SendSystemOAMessage_result record = T.TStruct $ Map.fromList 
+from_SendSystemOAMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10647 -> (1, ("e",from_TalkException _v10647))) <$> sendSystemOAMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10647 -> P.Just (0, ("success",from_Message _v10647))) $ sendSystemOAMessage_result_success record
@@ -2703,8 +2703,8 @@ data AcquirePaidCallRoute_args = AcquirePaidCallRoute_args  { acquirePaidCallRou
   , acquirePaidCallRoute_args_adSessionId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquirePaidCallRoute_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallRoute_args_paidCallType record   `H.hashWithSalt` acquirePaidCallRoute_args_dialedNumber record   `H.hashWithSalt` acquirePaidCallRoute_args_language record   `H.hashWithSalt` acquirePaidCallRoute_args_networkCode record   `H.hashWithSalt` acquirePaidCallRoute_args_disableCallerId record   `H.hashWithSalt` acquirePaidCallRoute_args_referer record   `H.hashWithSalt` acquirePaidCallRoute_args_adSessionId record  
-instance QC.Arbitrary AcquirePaidCallRoute_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallRoute_args_paidCallType record   `H.hashWithSalt` acquirePaidCallRoute_args_dialedNumber record   `H.hashWithSalt` acquirePaidCallRoute_args_language record   `H.hashWithSalt` acquirePaidCallRoute_args_networkCode record   `H.hashWithSalt` acquirePaidCallRoute_args_disableCallerId record   `H.hashWithSalt` acquirePaidCallRoute_args_referer record   `H.hashWithSalt` acquirePaidCallRoute_args_adSessionId record
+instance QC.Arbitrary AcquirePaidCallRoute_args where
   arbitrary = M.liftM AcquirePaidCallRoute_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -2766,8 +2766,8 @@ data AcquirePaidCallRoute_result = AcquirePaidCallRoute_result  { acquirePaidCal
   , acquirePaidCallRoute_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquirePaidCallRoute_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallRoute_result_success record   `H.hashWithSalt` acquirePaidCallRoute_result_e record  
-instance QC.Arbitrary AcquirePaidCallRoute_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallRoute_result_success record   `H.hashWithSalt` acquirePaidCallRoute_result_e record
+instance QC.Arbitrary AcquirePaidCallRoute_result where
   arbitrary = M.liftM AcquirePaidCallRoute_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AcquirePaidCallRoute_result = []
@@ -2776,7 +2776,7 @@ instance QC.Arbitrary AcquirePaidCallRoute_result where
     , if obj == default_AcquirePaidCallRoute_result{acquirePaidCallRoute_result_e = acquirePaidCallRoute_result_e obj} then P.Nothing else P.Just $ default_AcquirePaidCallRoute_result{acquirePaidCallRoute_result_e = acquirePaidCallRoute_result_e obj}
     ]
 from_AcquirePaidCallRoute_result :: AcquirePaidCallRoute_result -> T.ThriftVal
-from_AcquirePaidCallRoute_result record = T.TStruct $ Map.fromList 
+from_AcquirePaidCallRoute_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10666 -> (1, ("e",from_TalkException _v10666))) <$> acquirePaidCallRoute_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10666 -> P.Just (0, ("success",from_PaidCallResponse _v10666))) $ acquirePaidCallRoute_result_success record
@@ -2806,8 +2806,8 @@ default_AcquirePaidCallRoute_result = AcquirePaidCallRoute_result{
 data GetGroupsForChannel_args = GetGroupsForChannel_args  { getGroupsForChannel_args_groupIds :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupsForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupsForChannel_args_groupIds record  
-instance QC.Arbitrary GetGroupsForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupsForChannel_args_groupIds record
+instance QC.Arbitrary GetGroupsForChannel_args where
   arbitrary = M.liftM GetGroupsForChannel_args (QC.arbitrary)
   shrink obj | obj == default_GetGroupsForChannel_args = []
              | P.otherwise = M.catMaybes
@@ -2839,8 +2839,8 @@ data GetGroupsForChannel_result = GetGroupsForChannel_result  { getGroupsForChan
   , getGroupsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupsForChannel_result_success record   `H.hashWithSalt` getGroupsForChannel_result_e record  
-instance QC.Arbitrary GetGroupsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupsForChannel_result_success record   `H.hashWithSalt` getGroupsForChannel_result_e record
+instance QC.Arbitrary GetGroupsForChannel_result where
   arbitrary = M.liftM GetGroupsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetGroupsForChannel_result = []
@@ -2849,7 +2849,7 @@ instance QC.Arbitrary GetGroupsForChannel_result where
     , if obj == default_GetGroupsForChannel_result{getGroupsForChannel_result_e = getGroupsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetGroupsForChannel_result{getGroupsForChannel_result_e = getGroupsForChannel_result_e obj}
     ]
 from_GetGroupsForChannel_result :: GetGroupsForChannel_result -> T.ThriftVal
-from_GetGroupsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetGroupsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10683 -> (1, ("e",from_TalkException _v10683))) <$> getGroupsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10683 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_Group) $ P.map (\_v10685 -> from_Group _v10685) $ Vector.toList _v10683))) $ getGroupsForChannel_result_success record
@@ -2878,8 +2878,8 @@ default_GetGroupsForChannel_result = GetGroupsForChannel_result{
   getGroupsForChannel_result_e = P.Nothing}
 data GetUserCreateTime_args = GetUserCreateTime_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserCreateTime_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetUserCreateTime_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetUserCreateTime_args where
   arbitrary = QC.elements [GetUserCreateTime_args]
 from_GetUserCreateTime_args :: GetUserCreateTime_args -> T.ThriftVal
 from_GetUserCreateTime_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -2906,8 +2906,8 @@ data GetUserCreateTime_result = GetUserCreateTime_result  { getUserCreateTime_re
   , getUserCreateTime_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserCreateTime_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCreateTime_result_success record   `H.hashWithSalt` getUserCreateTime_result_e record  
-instance QC.Arbitrary GetUserCreateTime_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserCreateTime_result_success record   `H.hashWithSalt` getUserCreateTime_result_e record
+instance QC.Arbitrary GetUserCreateTime_result where
   arbitrary = M.liftM GetUserCreateTime_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserCreateTime_result = []
@@ -2916,7 +2916,7 @@ instance QC.Arbitrary GetUserCreateTime_result where
     , if obj == default_GetUserCreateTime_result{getUserCreateTime_result_e = getUserCreateTime_result_e obj} then P.Nothing else P.Just $ default_GetUserCreateTime_result{getUserCreateTime_result_e = getUserCreateTime_result_e obj}
     ]
 from_GetUserCreateTime_result :: GetUserCreateTime_result -> T.ThriftVal
-from_GetUserCreateTime_result record = T.TStruct $ Map.fromList 
+from_GetUserCreateTime_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10699 -> (1, ("e",from_TalkException _v10699))) <$> getUserCreateTime_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10699 -> P.Just (0, ("success",T.TI64 _v10699))) $ getUserCreateTime_result_success record
@@ -2947,8 +2947,8 @@ data RegisterChannelCP_args = RegisterChannelCP_args  { registerChannelCP_args_c
   , registerChannelCP_args_registerPassword :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterChannelCP_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerChannelCP_args_cpId record   `H.hashWithSalt` registerChannelCP_args_registerPassword record  
-instance QC.Arbitrary RegisterChannelCP_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerChannelCP_args_cpId record   `H.hashWithSalt` registerChannelCP_args_registerPassword record
+instance QC.Arbitrary RegisterChannelCP_args where
   arbitrary = M.liftM RegisterChannelCP_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_RegisterChannelCP_args = []
@@ -2985,8 +2985,8 @@ data RegisterChannelCP_result = RegisterChannelCP_result  { registerChannelCP_re
   , registerChannelCP_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterChannelCP_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerChannelCP_result_success record   `H.hashWithSalt` registerChannelCP_result_e record  
-instance QC.Arbitrary RegisterChannelCP_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerChannelCP_result_success record   `H.hashWithSalt` registerChannelCP_result_e record
+instance QC.Arbitrary RegisterChannelCP_result where
   arbitrary = M.liftM RegisterChannelCP_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RegisterChannelCP_result = []
@@ -2995,7 +2995,7 @@ instance QC.Arbitrary RegisterChannelCP_result where
     , if obj == default_RegisterChannelCP_result{registerChannelCP_result_e = registerChannelCP_result_e obj} then P.Nothing else P.Just $ default_RegisterChannelCP_result{registerChannelCP_result_e = registerChannelCP_result_e obj}
     ]
 from_RegisterChannelCP_result :: RegisterChannelCP_result -> T.ThriftVal
-from_RegisterChannelCP_result record = T.TStruct $ Map.fromList 
+from_RegisterChannelCP_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10713 -> (1, ("e",from_TalkException _v10713))) <$> registerChannelCP_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10713 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v10713))) $ registerChannelCP_result_success record
@@ -3025,8 +3025,8 @@ default_RegisterChannelCP_result = RegisterChannelCP_result{
 data ReserveCallCreditPurchase_args = ReserveCallCreditPurchase_args  { reserveCallCreditPurchase_args_request :: CoinPurchaseReservation
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCallCreditPurchase_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCallCreditPurchase_args_request record  
-instance QC.Arbitrary ReserveCallCreditPurchase_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCallCreditPurchase_args_request record
+instance QC.Arbitrary ReserveCallCreditPurchase_args where
   arbitrary = M.liftM ReserveCallCreditPurchase_args (QC.arbitrary)
   shrink obj | obj == default_ReserveCallCreditPurchase_args = []
              | P.otherwise = M.catMaybes
@@ -3058,8 +3058,8 @@ data ReserveCallCreditPurchase_result = ReserveCallCreditPurchase_result  { rese
   , reserveCallCreditPurchase_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReserveCallCreditPurchase_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCallCreditPurchase_result_success record   `H.hashWithSalt` reserveCallCreditPurchase_result_e record  
-instance QC.Arbitrary ReserveCallCreditPurchase_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reserveCallCreditPurchase_result_success record   `H.hashWithSalt` reserveCallCreditPurchase_result_e record
+instance QC.Arbitrary ReserveCallCreditPurchase_result where
   arbitrary = M.liftM ReserveCallCreditPurchase_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReserveCallCreditPurchase_result = []
@@ -3068,7 +3068,7 @@ instance QC.Arbitrary ReserveCallCreditPurchase_result where
     , if obj == default_ReserveCallCreditPurchase_result{reserveCallCreditPurchase_result_e = reserveCallCreditPurchase_result_e obj} then P.Nothing else P.Just $ default_ReserveCallCreditPurchase_result{reserveCallCreditPurchase_result_e = reserveCallCreditPurchase_result_e obj}
     ]
 from_ReserveCallCreditPurchase_result :: ReserveCallCreditPurchase_result -> T.ThriftVal
-from_ReserveCallCreditPurchase_result record = T.TStruct $ Map.fromList 
+from_ReserveCallCreditPurchase_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10726 -> (1, ("e",from_TalkException _v10726))) <$> reserveCallCreditPurchase_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10726 -> P.Just (0, ("success",from_PaymentReservationResult _v10726))) $ reserveCallCreditPurchase_result_success record
@@ -3098,8 +3098,8 @@ default_ReserveCallCreditPurchase_result = ReserveCallCreditPurchase_result{
 data AcquirePaidCallCurrencyExchangeRate_args = AcquirePaidCallCurrencyExchangeRate_args  { acquirePaidCallCurrencyExchangeRate_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquirePaidCallCurrencyExchangeRate_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_args_language record  
-instance QC.Arbitrary AcquirePaidCallCurrencyExchangeRate_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_args_language record
+instance QC.Arbitrary AcquirePaidCallCurrencyExchangeRate_args where
   arbitrary = M.liftM AcquirePaidCallCurrencyExchangeRate_args (QC.arbitrary)
   shrink obj | obj == default_AcquirePaidCallCurrencyExchangeRate_args = []
              | P.otherwise = M.catMaybes
@@ -3131,8 +3131,8 @@ data AcquirePaidCallCurrencyExchangeRate_result = AcquirePaidCallCurrencyExchang
   , acquirePaidCallCurrencyExchangeRate_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquirePaidCallCurrencyExchangeRate_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_result_success record   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_result_e record  
-instance QC.Arbitrary AcquirePaidCallCurrencyExchangeRate_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_result_success record   `H.hashWithSalt` acquirePaidCallCurrencyExchangeRate_result_e record
+instance QC.Arbitrary AcquirePaidCallCurrencyExchangeRate_result where
   arbitrary = M.liftM AcquirePaidCallCurrencyExchangeRate_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AcquirePaidCallCurrencyExchangeRate_result = []
@@ -3141,7 +3141,7 @@ instance QC.Arbitrary AcquirePaidCallCurrencyExchangeRate_result where
     , if obj == default_AcquirePaidCallCurrencyExchangeRate_result{acquirePaidCallCurrencyExchangeRate_result_e = acquirePaidCallCurrencyExchangeRate_result_e obj} then P.Nothing else P.Just $ default_AcquirePaidCallCurrencyExchangeRate_result{acquirePaidCallCurrencyExchangeRate_result_e = acquirePaidCallCurrencyExchangeRate_result_e obj}
     ]
 from_AcquirePaidCallCurrencyExchangeRate_result :: AcquirePaidCallCurrencyExchangeRate_result -> T.ThriftVal
-from_AcquirePaidCallCurrencyExchangeRate_result record = T.TStruct $ Map.fromList 
+from_AcquirePaidCallCurrencyExchangeRate_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10739 -> (1, ("e",from_TalkException _v10739))) <$> acquirePaidCallCurrencyExchangeRate_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10739 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_PaidCallCurrencyExchangeRate) $ P.map (\_v10741 -> from_PaidCallCurrencyExchangeRate _v10741) $ Vector.toList _v10739))) $ acquirePaidCallCurrencyExchangeRate_result_success record
@@ -3171,8 +3171,8 @@ default_AcquirePaidCallCurrencyExchangeRate_result = AcquirePaidCallCurrencyExch
 data GetRoomMemberMidsForAppPlatform_args = GetRoomMemberMidsForAppPlatform_args  { getRoomMemberMidsForAppPlatform_args_roomId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRoomMemberMidsForAppPlatform_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_args_roomId record  
-instance QC.Arbitrary GetRoomMemberMidsForAppPlatform_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_args_roomId record
+instance QC.Arbitrary GetRoomMemberMidsForAppPlatform_args where
   arbitrary = M.liftM GetRoomMemberMidsForAppPlatform_args (QC.arbitrary)
   shrink obj | obj == default_GetRoomMemberMidsForAppPlatform_args = []
              | P.otherwise = M.catMaybes
@@ -3204,8 +3204,8 @@ data GetRoomMemberMidsForAppPlatform_result = GetRoomMemberMidsForAppPlatform_re
   , getRoomMemberMidsForAppPlatform_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRoomMemberMidsForAppPlatform_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_result_success record   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_result_e record  
-instance QC.Arbitrary GetRoomMemberMidsForAppPlatform_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_result_success record   `H.hashWithSalt` getRoomMemberMidsForAppPlatform_result_e record
+instance QC.Arbitrary GetRoomMemberMidsForAppPlatform_result where
   arbitrary = M.liftM GetRoomMemberMidsForAppPlatform_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetRoomMemberMidsForAppPlatform_result = []
@@ -3214,7 +3214,7 @@ instance QC.Arbitrary GetRoomMemberMidsForAppPlatform_result where
     , if obj == default_GetRoomMemberMidsForAppPlatform_result{getRoomMemberMidsForAppPlatform_result_e = getRoomMemberMidsForAppPlatform_result_e obj} then P.Nothing else P.Just $ default_GetRoomMemberMidsForAppPlatform_result{getRoomMemberMidsForAppPlatform_result_e = getRoomMemberMidsForAppPlatform_result_e obj}
     ]
 from_GetRoomMemberMidsForAppPlatform_result :: GetRoomMemberMidsForAppPlatform_result -> T.ThriftVal
-from_GetRoomMemberMidsForAppPlatform_result record = T.TStruct $ Map.fromList 
+from_GetRoomMemberMidsForAppPlatform_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10756 -> (1, ("e",from_TalkException _v10756))) <$> getRoomMemberMidsForAppPlatform_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10756 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v10758 -> T.TString $ E.encodeUtf8 _v10758) $ Vector.toList _v10756))) $ getRoomMemberMidsForAppPlatform_result_success record
@@ -3244,8 +3244,8 @@ default_GetRoomMemberMidsForAppPlatform_result = GetRoomMemberMidsForAppPlatform
 data GetPaidCallBalanceList_args = GetPaidCallBalanceList_args  { getPaidCallBalanceList_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallBalanceList_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallBalanceList_args_language record  
-instance QC.Arbitrary GetPaidCallBalanceList_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallBalanceList_args_language record
+instance QC.Arbitrary GetPaidCallBalanceList_args where
   arbitrary = M.liftM GetPaidCallBalanceList_args (QC.arbitrary)
   shrink obj | obj == default_GetPaidCallBalanceList_args = []
              | P.otherwise = M.catMaybes
@@ -3277,8 +3277,8 @@ data GetPaidCallBalanceList_result = GetPaidCallBalanceList_result  { getPaidCal
   , getPaidCallBalanceList_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallBalanceList_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallBalanceList_result_success record   `H.hashWithSalt` getPaidCallBalanceList_result_e record  
-instance QC.Arbitrary GetPaidCallBalanceList_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallBalanceList_result_success record   `H.hashWithSalt` getPaidCallBalanceList_result_e record
+instance QC.Arbitrary GetPaidCallBalanceList_result where
   arbitrary = M.liftM GetPaidCallBalanceList_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPaidCallBalanceList_result = []
@@ -3287,7 +3287,7 @@ instance QC.Arbitrary GetPaidCallBalanceList_result where
     , if obj == default_GetPaidCallBalanceList_result{getPaidCallBalanceList_result_e = getPaidCallBalanceList_result_e obj} then P.Nothing else P.Just $ default_GetPaidCallBalanceList_result{getPaidCallBalanceList_result_e = getPaidCallBalanceList_result_e obj}
     ]
 from_GetPaidCallBalanceList_result :: GetPaidCallBalanceList_result -> T.ThriftVal
-from_GetPaidCallBalanceList_result record = T.TStruct $ Map.fromList 
+from_GetPaidCallBalanceList_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10773 -> (1, ("e",from_TalkException _v10773))) <$> getPaidCallBalanceList_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10773 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_PaidCallBalance) $ P.map (\_v10775 -> from_PaidCallBalance _v10775) $ Vector.toList _v10773))) $ getPaidCallBalanceList_result_success record
@@ -3317,8 +3317,8 @@ default_GetPaidCallBalanceList_result = GetPaidCallBalanceList_result{
 data GetPersonalInfos_args = GetPersonalInfos_args  { getPersonalInfos_args_requiredPersonalInfos :: (Set.HashSet PersonalInfo)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPersonalInfos_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPersonalInfos_args_requiredPersonalInfos record  
-instance QC.Arbitrary GetPersonalInfos_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPersonalInfos_args_requiredPersonalInfos record
+instance QC.Arbitrary GetPersonalInfos_args where
   arbitrary = M.liftM GetPersonalInfos_args (QC.arbitrary)
   shrink obj | obj == default_GetPersonalInfos_args = []
              | P.otherwise = M.catMaybes
@@ -3350,8 +3350,8 @@ data GetPersonalInfos_result = GetPersonalInfos_result  { getPersonalInfos_resul
   , getPersonalInfos_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPersonalInfos_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPersonalInfos_result_success record   `H.hashWithSalt` getPersonalInfos_result_e record  
-instance QC.Arbitrary GetPersonalInfos_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPersonalInfos_result_success record   `H.hashWithSalt` getPersonalInfos_result_e record
+instance QC.Arbitrary GetPersonalInfos_result where
   arbitrary = M.liftM GetPersonalInfos_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPersonalInfos_result = []
@@ -3360,7 +3360,7 @@ instance QC.Arbitrary GetPersonalInfos_result where
     , if obj == default_GetPersonalInfos_result{getPersonalInfos_result_e = getPersonalInfos_result_e obj} then P.Nothing else P.Just $ default_GetPersonalInfos_result{getPersonalInfos_result_e = getPersonalInfos_result_e obj}
     ]
 from_GetPersonalInfos_result :: GetPersonalInfos_result -> T.ThriftVal
-from_GetPersonalInfos_result record = T.TStruct $ Map.fromList 
+from_GetPersonalInfos_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10794 -> (1, ("e",from_TalkException _v10794))) <$> getPersonalInfos_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10794 -> P.Just (0, ("success",T.TMap T.T_I32 T.T_STRING $ P.map (\(_k10795,_v10796) -> (T.TI32 $ P.fromIntegral $ P.fromEnum _k10795, T.TString $ E.encodeUtf8 _v10796)) $ Map.toList _v10794))) $ getPersonalInfos_result_success record
@@ -3390,8 +3390,8 @@ default_GetPersonalInfos_result = GetPersonalInfos_result{
 data GetPrimaryClientsForChannel_args = GetPrimaryClientsForChannel_args  { getPrimaryClientsForChannel_args_userMids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPrimaryClientsForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientsForChannel_args_userMids record  
-instance QC.Arbitrary GetPrimaryClientsForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientsForChannel_args_userMids record
+instance QC.Arbitrary GetPrimaryClientsForChannel_args where
   arbitrary = M.liftM GetPrimaryClientsForChannel_args (QC.arbitrary)
   shrink obj | obj == default_GetPrimaryClientsForChannel_args = []
              | P.otherwise = M.catMaybes
@@ -3423,8 +3423,8 @@ data GetPrimaryClientsForChannel_result = GetPrimaryClientsForChannel_result  { 
   , getPrimaryClientsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPrimaryClientsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientsForChannel_result_success record   `H.hashWithSalt` getPrimaryClientsForChannel_result_e record  
-instance QC.Arbitrary GetPrimaryClientsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPrimaryClientsForChannel_result_success record   `H.hashWithSalt` getPrimaryClientsForChannel_result_e record
+instance QC.Arbitrary GetPrimaryClientsForChannel_result where
   arbitrary = M.liftM GetPrimaryClientsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPrimaryClientsForChannel_result = []
@@ -3433,7 +3433,7 @@ instance QC.Arbitrary GetPrimaryClientsForChannel_result where
     , if obj == default_GetPrimaryClientsForChannel_result{getPrimaryClientsForChannel_result_e = getPrimaryClientsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetPrimaryClientsForChannel_result{getPrimaryClientsForChannel_result_e = getPrimaryClientsForChannel_result_e obj}
     ]
 from_GetPrimaryClientsForChannel_result :: GetPrimaryClientsForChannel_result -> T.ThriftVal
-from_GetPrimaryClientsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetPrimaryClientsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10817 -> (1, ("e",from_TalkException _v10817))) <$> getPrimaryClientsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10817 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SimpleChannelClient) $ P.map (\_v10819 -> from_SimpleChannelClient _v10819) $ Vector.toList _v10817))) $ getPrimaryClientsForChannel_result_success record
@@ -3463,8 +3463,8 @@ default_GetPrimaryClientsForChannel_result = GetPrimaryClientsForChannel_result{
 data AddBuddyToContact_args = AddBuddyToContact_args  { addBuddyToContact_args_buddyMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyToContact_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyToContact_args_buddyMid record  
-instance QC.Arbitrary AddBuddyToContact_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyToContact_args_buddyMid record
+instance QC.Arbitrary AddBuddyToContact_args where
   arbitrary = M.liftM AddBuddyToContact_args (QC.arbitrary)
   shrink obj | obj == default_AddBuddyToContact_args = []
              | P.otherwise = M.catMaybes
@@ -3496,8 +3496,8 @@ data AddBuddyToContact_result = AddBuddyToContact_result  { addBuddyToContact_re
   , addBuddyToContact_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddBuddyToContact_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyToContact_result_success record   `H.hashWithSalt` addBuddyToContact_result_e record  
-instance QC.Arbitrary AddBuddyToContact_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addBuddyToContact_result_success record   `H.hashWithSalt` addBuddyToContact_result_e record
+instance QC.Arbitrary AddBuddyToContact_result where
   arbitrary = M.liftM AddBuddyToContact_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AddBuddyToContact_result = []
@@ -3506,7 +3506,7 @@ instance QC.Arbitrary AddBuddyToContact_result where
     , if obj == default_AddBuddyToContact_result{addBuddyToContact_result_e = addBuddyToContact_result_e obj} then P.Nothing else P.Just $ default_AddBuddyToContact_result{addBuddyToContact_result_e = addBuddyToContact_result_e obj}
     ]
 from_AddBuddyToContact_result :: AddBuddyToContact_result -> T.ThriftVal
-from_AddBuddyToContact_result record = T.TStruct $ Map.fromList 
+from_AddBuddyToContact_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10834 -> (1, ("e",from_TalkException _v10834))) <$> addBuddyToContact_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10834 -> P.Just (0, ("success",from_ContactTransition _v10834))) $ addBuddyToContact_result_success record
@@ -3536,8 +3536,8 @@ default_AddBuddyToContact_result = AddBuddyToContact_result{
 data GetGroupMemberMidsForAppPlatform_args = GetGroupMemberMidsForAppPlatform_args  { getGroupMemberMidsForAppPlatform_args_groupId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupMemberMidsForAppPlatform_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_args_groupId record  
-instance QC.Arbitrary GetGroupMemberMidsForAppPlatform_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_args_groupId record
+instance QC.Arbitrary GetGroupMemberMidsForAppPlatform_args where
   arbitrary = M.liftM GetGroupMemberMidsForAppPlatform_args (QC.arbitrary)
   shrink obj | obj == default_GetGroupMemberMidsForAppPlatform_args = []
              | P.otherwise = M.catMaybes
@@ -3569,8 +3569,8 @@ data GetGroupMemberMidsForAppPlatform_result = GetGroupMemberMidsForAppPlatform_
   , getGroupMemberMidsForAppPlatform_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupMemberMidsForAppPlatform_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_result_success record   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_result_e record  
-instance QC.Arbitrary GetGroupMemberMidsForAppPlatform_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_result_success record   `H.hashWithSalt` getGroupMemberMidsForAppPlatform_result_e record
+instance QC.Arbitrary GetGroupMemberMidsForAppPlatform_result where
   arbitrary = M.liftM GetGroupMemberMidsForAppPlatform_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetGroupMemberMidsForAppPlatform_result = []
@@ -3579,7 +3579,7 @@ instance QC.Arbitrary GetGroupMemberMidsForAppPlatform_result where
     , if obj == default_GetGroupMemberMidsForAppPlatform_result{getGroupMemberMidsForAppPlatform_result_e = getGroupMemberMidsForAppPlatform_result_e obj} then P.Nothing else P.Just $ default_GetGroupMemberMidsForAppPlatform_result{getGroupMemberMidsForAppPlatform_result_e = getGroupMemberMidsForAppPlatform_result_e obj}
     ]
 from_GetGroupMemberMidsForAppPlatform_result :: GetGroupMemberMidsForAppPlatform_result -> T.ThriftVal
-from_GetGroupMemberMidsForAppPlatform_result record = T.TStruct $ Map.fromList 
+from_GetGroupMemberMidsForAppPlatform_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10847 -> (1, ("e",from_TalkException _v10847))) <$> getGroupMemberMidsForAppPlatform_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10847 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v10849 -> T.TString $ E.encodeUtf8 _v10849) $ Vector.toList _v10847))) $ getGroupMemberMidsForAppPlatform_result_success record
@@ -3608,8 +3608,8 @@ default_GetGroupMemberMidsForAppPlatform_result = GetGroupMemberMidsForAppPlatfo
   getGroupMemberMidsForAppPlatform_result_e = P.Nothing}
 data GetUserLanguage_args = GetUserLanguage_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserLanguage_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetUserLanguage_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetUserLanguage_args where
   arbitrary = QC.elements [GetUserLanguage_args]
 from_GetUserLanguage_args :: GetUserLanguage_args -> T.ThriftVal
 from_GetUserLanguage_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -3636,8 +3636,8 @@ data GetUserLanguage_result = GetUserLanguage_result  { getUserLanguage_result_s
   , getUserLanguage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserLanguage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLanguage_result_success record   `H.hashWithSalt` getUserLanguage_result_e record  
-instance QC.Arbitrary GetUserLanguage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLanguage_result_success record   `H.hashWithSalt` getUserLanguage_result_e record
+instance QC.Arbitrary GetUserLanguage_result where
   arbitrary = M.liftM GetUserLanguage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserLanguage_result = []
@@ -3646,7 +3646,7 @@ instance QC.Arbitrary GetUserLanguage_result where
     , if obj == default_GetUserLanguage_result{getUserLanguage_result_e = getUserLanguage_result_e obj} then P.Nothing else P.Just $ default_GetUserLanguage_result{getUserLanguage_result_e = getUserLanguage_result_e obj}
     ]
 from_GetUserLanguage_result :: GetUserLanguage_result -> T.ThriftVal
-from_GetUserLanguage_result record = T.TStruct $ Map.fromList 
+from_GetUserLanguage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10863 -> (1, ("e",from_TalkException _v10863))) <$> getUserLanguage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10863 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v10863))) $ getUserLanguage_result_success record
@@ -3678,8 +3678,8 @@ data LookupPaidCall_args = LookupPaidCall_args  { lookupPaidCall_args_dialedNumb
   , lookupPaidCall_args_referer :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupPaidCall_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupPaidCall_args_dialedNumber record   `H.hashWithSalt` lookupPaidCall_args_language record   `H.hashWithSalt` lookupPaidCall_args_referer record  
-instance QC.Arbitrary LookupPaidCall_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupPaidCall_args_dialedNumber record   `H.hashWithSalt` lookupPaidCall_args_language record   `H.hashWithSalt` lookupPaidCall_args_referer record
+instance QC.Arbitrary LookupPaidCall_args where
   arbitrary = M.liftM LookupPaidCall_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -3721,8 +3721,8 @@ data LookupPaidCall_result = LookupPaidCall_result  { lookupPaidCall_result_succ
   , lookupPaidCall_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupPaidCall_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupPaidCall_result_success record   `H.hashWithSalt` lookupPaidCall_result_e record  
-instance QC.Arbitrary LookupPaidCall_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupPaidCall_result_success record   `H.hashWithSalt` lookupPaidCall_result_e record
+instance QC.Arbitrary LookupPaidCall_result where
   arbitrary = M.liftM LookupPaidCall_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LookupPaidCall_result = []
@@ -3731,7 +3731,7 @@ instance QC.Arbitrary LookupPaidCall_result where
     , if obj == default_LookupPaidCall_result{lookupPaidCall_result_e = lookupPaidCall_result_e obj} then P.Nothing else P.Just $ default_LookupPaidCall_result{lookupPaidCall_result_e = lookupPaidCall_result_e obj}
     ]
 from_LookupPaidCall_result :: LookupPaidCall_result -> T.ThriftVal
-from_LookupPaidCall_result record = T.TStruct $ Map.fromList 
+from_LookupPaidCall_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10878 -> (1, ("e",from_TalkException _v10878))) <$> lookupPaidCall_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10878 -> P.Just (0, ("success",from_PaidCallResponse _v10878))) $ lookupPaidCall_result_success record
@@ -3760,8 +3760,8 @@ default_LookupPaidCall_result = LookupPaidCall_result{
   lookupPaidCall_result_e = P.Nothing}
 data GetExtendedProfile_args = GetExtendedProfile_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetExtendedProfile_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetExtendedProfile_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetExtendedProfile_args where
   arbitrary = QC.elements [GetExtendedProfile_args]
 from_GetExtendedProfile_args :: GetExtendedProfile_args -> T.ThriftVal
 from_GetExtendedProfile_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -3788,8 +3788,8 @@ data GetExtendedProfile_result = GetExtendedProfile_result  { getExtendedProfile
   , getExtendedProfile_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetExtendedProfile_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getExtendedProfile_result_success record   `H.hashWithSalt` getExtendedProfile_result_e record  
-instance QC.Arbitrary GetExtendedProfile_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getExtendedProfile_result_success record   `H.hashWithSalt` getExtendedProfile_result_e record
+instance QC.Arbitrary GetExtendedProfile_result where
   arbitrary = M.liftM GetExtendedProfile_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetExtendedProfile_result = []
@@ -3798,7 +3798,7 @@ instance QC.Arbitrary GetExtendedProfile_result where
     , if obj == default_GetExtendedProfile_result{getExtendedProfile_result_e = getExtendedProfile_result_e obj} then P.Nothing else P.Just $ default_GetExtendedProfile_result{getExtendedProfile_result_e = getExtendedProfile_result_e obj}
     ]
 from_GetExtendedProfile_result :: GetExtendedProfile_result -> T.ThriftVal
-from_GetExtendedProfile_result record = T.TStruct $ Map.fromList 
+from_GetExtendedProfile_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10890 -> (1, ("e",from_TalkException _v10890))) <$> getExtendedProfile_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10890 -> P.Just (0, ("success",from_ExtendedProfile _v10890))) $ getExtendedProfile_result_success record
@@ -3828,8 +3828,8 @@ default_GetExtendedProfile_result = GetExtendedProfile_result{
 data GetReverseCompactContacts_args = GetReverseCompactContacts_args  { getReverseCompactContacts_args_ids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetReverseCompactContacts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getReverseCompactContacts_args_ids record  
-instance QC.Arbitrary GetReverseCompactContacts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getReverseCompactContacts_args_ids record
+instance QC.Arbitrary GetReverseCompactContacts_args where
   arbitrary = M.liftM GetReverseCompactContacts_args (QC.arbitrary)
   shrink obj | obj == default_GetReverseCompactContacts_args = []
              | P.otherwise = M.catMaybes
@@ -3861,8 +3861,8 @@ data GetReverseCompactContacts_result = GetReverseCompactContacts_result  { getR
   , getReverseCompactContacts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetReverseCompactContacts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getReverseCompactContacts_result_success record   `H.hashWithSalt` getReverseCompactContacts_result_e record  
-instance QC.Arbitrary GetReverseCompactContacts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getReverseCompactContacts_result_success record   `H.hashWithSalt` getReverseCompactContacts_result_e record
+instance QC.Arbitrary GetReverseCompactContacts_result where
   arbitrary = M.liftM GetReverseCompactContacts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetReverseCompactContacts_result = []
@@ -3871,7 +3871,7 @@ instance QC.Arbitrary GetReverseCompactContacts_result where
     , if obj == default_GetReverseCompactContacts_result{getReverseCompactContacts_result_e = getReverseCompactContacts_result_e obj} then P.Nothing else P.Just $ default_GetReverseCompactContacts_result{getReverseCompactContacts_result_e = getReverseCompactContacts_result_e obj}
     ]
 from_GetReverseCompactContacts_result :: GetReverseCompactContacts_result -> T.ThriftVal
-from_GetReverseCompactContacts_result record = T.TStruct $ Map.fromList 
+from_GetReverseCompactContacts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10907 -> (1, ("e",from_TalkException _v10907))) <$> getReverseCompactContacts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10907 -> P.Just (0, ("success",T.TMap T.T_STRING (T.T_STRUCT typemap_CompactContact) $ P.map (\(_k10908,_v10909) -> (T.TString $ E.encodeUtf8 _k10908, from_CompactContact _v10909)) $ Map.toList _v10907))) $ getReverseCompactContacts_result_success record
@@ -3900,8 +3900,8 @@ default_GetReverseCompactContacts_result = GetReverseCompactContacts_result{
   getReverseCompactContacts_result_e = P.Nothing}
 data GetPaidCallAdStatus_args = GetPaidCallAdStatus_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallAdStatus_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetPaidCallAdStatus_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetPaidCallAdStatus_args where
   arbitrary = QC.elements [GetPaidCallAdStatus_args]
 from_GetPaidCallAdStatus_args :: GetPaidCallAdStatus_args -> T.ThriftVal
 from_GetPaidCallAdStatus_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -3928,8 +3928,8 @@ data GetPaidCallAdStatus_result = GetPaidCallAdStatus_result  { getPaidCallAdSta
   , getPaidCallAdStatus_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetPaidCallAdStatus_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallAdStatus_result_success record   `H.hashWithSalt` getPaidCallAdStatus_result_e record  
-instance QC.Arbitrary GetPaidCallAdStatus_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getPaidCallAdStatus_result_success record   `H.hashWithSalt` getPaidCallAdStatus_result_e record
+instance QC.Arbitrary GetPaidCallAdStatus_result where
   arbitrary = M.liftM GetPaidCallAdStatus_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetPaidCallAdStatus_result = []
@@ -3938,7 +3938,7 @@ instance QC.Arbitrary GetPaidCallAdStatus_result where
     , if obj == default_GetPaidCallAdStatus_result{getPaidCallAdStatus_result_e = getPaidCallAdStatus_result_e obj} then P.Nothing else P.Just $ default_GetPaidCallAdStatus_result{getPaidCallAdStatus_result_e = getPaidCallAdStatus_result_e obj}
     ]
 from_GetPaidCallAdStatus_result :: GetPaidCallAdStatus_result -> T.ThriftVal
-from_GetPaidCallAdStatus_result record = T.TStruct $ Map.fromList 
+from_GetPaidCallAdStatus_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10925 -> (1, ("e",from_TalkException _v10925))) <$> getPaidCallAdStatus_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10925 -> P.Just (0, ("success",from_PaidCallAdResult _v10925))) $ getPaidCallAdStatus_result_success record
@@ -3968,8 +3968,8 @@ default_GetPaidCallAdStatus_result = GetPaidCallAdStatus_result{
 data FindContactByUseridWithoutAbuseBlockForChannel_args = FindContactByUseridWithoutAbuseBlockForChannel_args  { findContactByUseridWithoutAbuseBlockForChannel_args_userid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FindContactByUseridWithoutAbuseBlockForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_args_userid record  
-instance QC.Arbitrary FindContactByUseridWithoutAbuseBlockForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_args_userid record
+instance QC.Arbitrary FindContactByUseridWithoutAbuseBlockForChannel_args where
   arbitrary = M.liftM FindContactByUseridWithoutAbuseBlockForChannel_args (QC.arbitrary)
   shrink obj | obj == default_FindContactByUseridWithoutAbuseBlockForChannel_args = []
              | P.otherwise = M.catMaybes
@@ -4001,8 +4001,8 @@ data FindContactByUseridWithoutAbuseBlockForChannel_result = FindContactByUserid
   , findContactByUseridWithoutAbuseBlockForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FindContactByUseridWithoutAbuseBlockForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_result_success record   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_result_e record  
-instance QC.Arbitrary FindContactByUseridWithoutAbuseBlockForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_result_success record   `H.hashWithSalt` findContactByUseridWithoutAbuseBlockForChannel_result_e record
+instance QC.Arbitrary FindContactByUseridWithoutAbuseBlockForChannel_result where
   arbitrary = M.liftM FindContactByUseridWithoutAbuseBlockForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FindContactByUseridWithoutAbuseBlockForChannel_result = []
@@ -4011,7 +4011,7 @@ instance QC.Arbitrary FindContactByUseridWithoutAbuseBlockForChannel_result wher
     , if obj == default_FindContactByUseridWithoutAbuseBlockForChannel_result{findContactByUseridWithoutAbuseBlockForChannel_result_e = findContactByUseridWithoutAbuseBlockForChannel_result_e obj} then P.Nothing else P.Just $ default_FindContactByUseridWithoutAbuseBlockForChannel_result{findContactByUseridWithoutAbuseBlockForChannel_result_e = findContactByUseridWithoutAbuseBlockForChannel_result_e obj}
     ]
 from_FindContactByUseridWithoutAbuseBlockForChannel_result :: FindContactByUseridWithoutAbuseBlockForChannel_result -> T.ThriftVal
-from_FindContactByUseridWithoutAbuseBlockForChannel_result record = T.TStruct $ Map.fromList 
+from_FindContactByUseridWithoutAbuseBlockForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10938 -> (1, ("e",from_TalkException _v10938))) <$> findContactByUseridWithoutAbuseBlockForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10938 -> P.Just (0, ("success",from_Contact _v10938))) $ findContactByUseridWithoutAbuseBlockForChannel_result_success record
@@ -4041,8 +4041,8 @@ default_FindContactByUseridWithoutAbuseBlockForChannel_result = FindContactByUse
 data GetGroupMemberMids_args = GetGroupMemberMids_args  { getGroupMemberMids_args_groupId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupMemberMids_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMids_args_groupId record  
-instance QC.Arbitrary GetGroupMemberMids_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMids_args_groupId record
+instance QC.Arbitrary GetGroupMemberMids_args where
   arbitrary = M.liftM GetGroupMemberMids_args (QC.arbitrary)
   shrink obj | obj == default_GetGroupMemberMids_args = []
              | P.otherwise = M.catMaybes
@@ -4074,8 +4074,8 @@ data GetGroupMemberMids_result = GetGroupMemberMids_result  { getGroupMemberMids
   , getGroupMemberMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetGroupMemberMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMids_result_success record   `H.hashWithSalt` getGroupMemberMids_result_e record  
-instance QC.Arbitrary GetGroupMemberMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getGroupMemberMids_result_success record   `H.hashWithSalt` getGroupMemberMids_result_e record
+instance QC.Arbitrary GetGroupMemberMids_result where
   arbitrary = M.liftM GetGroupMemberMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetGroupMemberMids_result = []
@@ -4084,7 +4084,7 @@ instance QC.Arbitrary GetGroupMemberMids_result where
     , if obj == default_GetGroupMemberMids_result{getGroupMemberMids_result_e = getGroupMemberMids_result_e obj} then P.Nothing else P.Just $ default_GetGroupMemberMids_result{getGroupMemberMids_result_e = getGroupMemberMids_result_e obj}
     ]
 from_GetGroupMemberMids_result :: GetGroupMemberMids_result -> T.ThriftVal
-from_GetGroupMemberMids_result record = T.TStruct $ Map.fromList 
+from_GetGroupMemberMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10951 -> (1, ("e",from_TalkException _v10951))) <$> getGroupMemberMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10951 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v10953 -> T.TString $ E.encodeUtf8 _v10953) $ Vector.toList _v10951))) $ getGroupMemberMids_result_success record
@@ -4114,8 +4114,8 @@ default_GetGroupMemberMids_result = GetGroupMemberMids_result{
 data SendMessageWithoutRelationship_args = SendMessageWithoutRelationship_args  { sendMessageWithoutRelationship_args_message :: Message
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessageWithoutRelationship_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageWithoutRelationship_args_message record  
-instance QC.Arbitrary SendMessageWithoutRelationship_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageWithoutRelationship_args_message record
+instance QC.Arbitrary SendMessageWithoutRelationship_args where
   arbitrary = M.liftM SendMessageWithoutRelationship_args (QC.arbitrary)
   shrink obj | obj == default_SendMessageWithoutRelationship_args = []
              | P.otherwise = M.catMaybes
@@ -4147,8 +4147,8 @@ data SendMessageWithoutRelationship_result = SendMessageWithoutRelationship_resu
   , sendMessageWithoutRelationship_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessageWithoutRelationship_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageWithoutRelationship_result_success record   `H.hashWithSalt` sendMessageWithoutRelationship_result_e record  
-instance QC.Arbitrary SendMessageWithoutRelationship_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessageWithoutRelationship_result_success record   `H.hashWithSalt` sendMessageWithoutRelationship_result_e record
+instance QC.Arbitrary SendMessageWithoutRelationship_result where
   arbitrary = M.liftM SendMessageWithoutRelationship_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendMessageWithoutRelationship_result = []
@@ -4157,7 +4157,7 @@ instance QC.Arbitrary SendMessageWithoutRelationship_result where
     , if obj == default_SendMessageWithoutRelationship_result{sendMessageWithoutRelationship_result_e = sendMessageWithoutRelationship_result_e obj} then P.Nothing else P.Just $ default_SendMessageWithoutRelationship_result{sendMessageWithoutRelationship_result_e = sendMessageWithoutRelationship_result_e obj}
     ]
 from_SendMessageWithoutRelationship_result :: SendMessageWithoutRelationship_result -> T.ThriftVal
-from_SendMessageWithoutRelationship_result record = T.TStruct $ Map.fromList 
+from_SendMessageWithoutRelationship_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10968 -> (1, ("e",from_TalkException _v10968))) <$> sendMessageWithoutRelationship_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10968 -> P.Just (0, ("success",from_Message _v10968))) $ sendMessageWithoutRelationship_result_success record
@@ -4187,8 +4187,8 @@ default_SendMessageWithoutRelationship_result = SendMessageWithoutRelationship_r
 data DisplayBuddySubscriberCountInBulk_args = DisplayBuddySubscriberCountInBulk_args  { displayBuddySubscriberCountInBulk_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DisplayBuddySubscriberCountInBulk_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCountInBulk_args_mids record  
-instance QC.Arbitrary DisplayBuddySubscriberCountInBulk_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCountInBulk_args_mids record
+instance QC.Arbitrary DisplayBuddySubscriberCountInBulk_args where
   arbitrary = M.liftM DisplayBuddySubscriberCountInBulk_args (QC.arbitrary)
   shrink obj | obj == default_DisplayBuddySubscriberCountInBulk_args = []
              | P.otherwise = M.catMaybes
@@ -4220,8 +4220,8 @@ data DisplayBuddySubscriberCountInBulk_result = DisplayBuddySubscriberCountInBul
   , displayBuddySubscriberCountInBulk_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DisplayBuddySubscriberCountInBulk_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCountInBulk_result_success record   `H.hashWithSalt` displayBuddySubscriberCountInBulk_result_e record  
-instance QC.Arbitrary DisplayBuddySubscriberCountInBulk_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCountInBulk_result_success record   `H.hashWithSalt` displayBuddySubscriberCountInBulk_result_e record
+instance QC.Arbitrary DisplayBuddySubscriberCountInBulk_result where
   arbitrary = M.liftM DisplayBuddySubscriberCountInBulk_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DisplayBuddySubscriberCountInBulk_result = []
@@ -4230,7 +4230,7 @@ instance QC.Arbitrary DisplayBuddySubscriberCountInBulk_result where
     , if obj == default_DisplayBuddySubscriberCountInBulk_result{displayBuddySubscriberCountInBulk_result_e = displayBuddySubscriberCountInBulk_result_e obj} then P.Nothing else P.Just $ default_DisplayBuddySubscriberCountInBulk_result{displayBuddySubscriberCountInBulk_result_e = displayBuddySubscriberCountInBulk_result_e obj}
     ]
 from_DisplayBuddySubscriberCountInBulk_result :: DisplayBuddySubscriberCountInBulk_result -> T.ThriftVal
-from_DisplayBuddySubscriberCountInBulk_result record = T.TStruct $ Map.fromList 
+from_DisplayBuddySubscriberCountInBulk_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10985 -> (1, ("e",from_TalkException _v10985))) <$> displayBuddySubscriberCountInBulk_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10985 -> P.Just (0, ("success",T.TMap T.T_STRING T.T_I64 $ P.map (\(_k10986,_v10987) -> (T.TString $ E.encodeUtf8 _k10986, T.TI64 _v10987)) $ Map.toList _v10985))) $ displayBuddySubscriberCountInBulk_result_success record
@@ -4261,8 +4261,8 @@ data LookupRoomMembers_args = LookupRoomMembers_args  { lookupRoomMembers_args_r
   , lookupRoomMembers_args_mids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupRoomMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupRoomMembers_args_roomId record   `H.hashWithSalt` lookupRoomMembers_args_mids record  
-instance QC.Arbitrary LookupRoomMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupRoomMembers_args_roomId record   `H.hashWithSalt` lookupRoomMembers_args_mids record
+instance QC.Arbitrary LookupRoomMembers_args where
   arbitrary = M.liftM LookupRoomMembers_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_LookupRoomMembers_args = []
@@ -4299,8 +4299,8 @@ data LookupRoomMembers_result = LookupRoomMembers_result  { lookupRoomMembers_re
   , lookupRoomMembers_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupRoomMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupRoomMembers_result_success record   `H.hashWithSalt` lookupRoomMembers_result_e record  
-instance QC.Arbitrary LookupRoomMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupRoomMembers_result_success record   `H.hashWithSalt` lookupRoomMembers_result_e record
+instance QC.Arbitrary LookupRoomMembers_result where
   arbitrary = M.liftM LookupRoomMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LookupRoomMembers_result = []
@@ -4309,7 +4309,7 @@ instance QC.Arbitrary LookupRoomMembers_result where
     , if obj == default_LookupRoomMembers_result{lookupRoomMembers_result_e = lookupRoomMembers_result_e obj} then P.Nothing else P.Just $ default_LookupRoomMembers_result{lookupRoomMembers_result_e = lookupRoomMembers_result_e obj}
     ]
 from_LookupRoomMembers_result :: LookupRoomMembers_result -> T.ThriftVal
-from_LookupRoomMembers_result record = T.TStruct $ Map.fromList 
+from_LookupRoomMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11009 -> (1, ("e",from_TalkException _v11009))) <$> lookupRoomMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11009 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SimpleChannelContact) $ P.map (\_v11011 -> from_SimpleChannelContact _v11011) $ Vector.toList _v11009))) $ lookupRoomMembers_result_success record
@@ -4338,8 +4338,8 @@ default_LookupRoomMembers_result = LookupRoomMembers_result{
   lookupRoomMembers_result_e = P.Nothing}
 data GetFavoriteMidsForChannel_args = GetFavoriteMidsForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFavoriteMidsForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetFavoriteMidsForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetFavoriteMidsForChannel_args where
   arbitrary = QC.elements [GetFavoriteMidsForChannel_args]
 from_GetFavoriteMidsForChannel_args :: GetFavoriteMidsForChannel_args -> T.ThriftVal
 from_GetFavoriteMidsForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4366,8 +4366,8 @@ data GetFavoriteMidsForChannel_result = GetFavoriteMidsForChannel_result  { getF
   , getFavoriteMidsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetFavoriteMidsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getFavoriteMidsForChannel_result_success record   `H.hashWithSalt` getFavoriteMidsForChannel_result_e record  
-instance QC.Arbitrary GetFavoriteMidsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getFavoriteMidsForChannel_result_success record   `H.hashWithSalt` getFavoriteMidsForChannel_result_e record
+instance QC.Arbitrary GetFavoriteMidsForChannel_result where
   arbitrary = M.liftM GetFavoriteMidsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetFavoriteMidsForChannel_result = []
@@ -4376,7 +4376,7 @@ instance QC.Arbitrary GetFavoriteMidsForChannel_result where
     , if obj == default_GetFavoriteMidsForChannel_result{getFavoriteMidsForChannel_result_e = getFavoriteMidsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetFavoriteMidsForChannel_result{getFavoriteMidsForChannel_result_e = getFavoriteMidsForChannel_result_e obj}
     ]
 from_GetFavoriteMidsForChannel_result :: GetFavoriteMidsForChannel_result -> T.ThriftVal
-from_GetFavoriteMidsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetFavoriteMidsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11025 -> (1, ("e",from_TalkException _v11025))) <$> getFavoriteMidsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11025 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v11027 -> T.TString $ E.encodeUtf8 _v11027) $ Vector.toList _v11025))) $ getFavoriteMidsForChannel_result_success record
@@ -4405,8 +4405,8 @@ default_GetFavoriteMidsForChannel_result = GetFavoriteMidsForChannel_result{
   getFavoriteMidsForChannel_result_e = P.Nothing}
 data GetAllContactIdsForChannel_args = GetAllContactIdsForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllContactIdsForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetAllContactIdsForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetAllContactIdsForChannel_args where
   arbitrary = QC.elements [GetAllContactIdsForChannel_args]
 from_GetAllContactIdsForChannel_args :: GetAllContactIdsForChannel_args -> T.ThriftVal
 from_GetAllContactIdsForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4433,8 +4433,8 @@ data GetAllContactIdsForChannel_result = GetAllContactIdsForChannel_result  { ge
   , getAllContactIdsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAllContactIdsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAllContactIdsForChannel_result_success record   `H.hashWithSalt` getAllContactIdsForChannel_result_e record  
-instance QC.Arbitrary GetAllContactIdsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAllContactIdsForChannel_result_success record   `H.hashWithSalt` getAllContactIdsForChannel_result_e record
+instance QC.Arbitrary GetAllContactIdsForChannel_result where
   arbitrary = M.liftM GetAllContactIdsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetAllContactIdsForChannel_result = []
@@ -4443,7 +4443,7 @@ instance QC.Arbitrary GetAllContactIdsForChannel_result where
     , if obj == default_GetAllContactIdsForChannel_result{getAllContactIdsForChannel_result_e = getAllContactIdsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetAllContactIdsForChannel_result{getAllContactIdsForChannel_result_e = getAllContactIdsForChannel_result_e obj}
     ]
 from_GetAllContactIdsForChannel_result :: GetAllContactIdsForChannel_result -> T.ThriftVal
-from_GetAllContactIdsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetAllContactIdsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11041 -> (1, ("e",from_TalkException _v11041))) <$> getAllContactIdsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11041 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v11043 -> T.TString $ E.encodeUtf8 _v11043) $ Vector.toList _v11041))) $ getAllContactIdsForChannel_result_success record
@@ -4472,8 +4472,8 @@ default_GetAllContactIdsForChannel_result = GetAllContactIdsForChannel_result{
   getAllContactIdsForChannel_result_e = P.Nothing}
 data DisplayBuddySubscriberCount_args = DisplayBuddySubscriberCount_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DisplayBuddySubscriberCount_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary DisplayBuddySubscriberCount_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary DisplayBuddySubscriberCount_args where
   arbitrary = QC.elements [DisplayBuddySubscriberCount_args]
 from_DisplayBuddySubscriberCount_args :: DisplayBuddySubscriberCount_args -> T.ThriftVal
 from_DisplayBuddySubscriberCount_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4500,8 +4500,8 @@ data DisplayBuddySubscriberCount_result = DisplayBuddySubscriberCount_result  { 
   , displayBuddySubscriberCount_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DisplayBuddySubscriberCount_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCount_result_success record   `H.hashWithSalt` displayBuddySubscriberCount_result_e record  
-instance QC.Arbitrary DisplayBuddySubscriberCount_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` displayBuddySubscriberCount_result_success record   `H.hashWithSalt` displayBuddySubscriberCount_result_e record
+instance QC.Arbitrary DisplayBuddySubscriberCount_result where
   arbitrary = M.liftM DisplayBuddySubscriberCount_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DisplayBuddySubscriberCount_result = []
@@ -4510,7 +4510,7 @@ instance QC.Arbitrary DisplayBuddySubscriberCount_result where
     , if obj == default_DisplayBuddySubscriberCount_result{displayBuddySubscriberCount_result_e = displayBuddySubscriberCount_result_e obj} then P.Nothing else P.Just $ default_DisplayBuddySubscriberCount_result{displayBuddySubscriberCount_result_e = displayBuddySubscriberCount_result_e obj}
     ]
 from_DisplayBuddySubscriberCount_result :: DisplayBuddySubscriberCount_result -> T.ThriftVal
-from_DisplayBuddySubscriberCount_result record = T.TStruct $ Map.fromList 
+from_DisplayBuddySubscriberCount_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11057 -> (1, ("e",from_TalkException _v11057))) <$> displayBuddySubscriberCount_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11057 -> P.Just (0, ("success",T.TI64 _v11057))) $ displayBuddySubscriberCount_result_success record
@@ -4539,8 +4539,8 @@ default_DisplayBuddySubscriberCount_result = DisplayBuddySubscriberCount_result{
   displayBuddySubscriberCount_result_e = P.Nothing}
 data GetProfileForChannel_args = GetProfileForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProfileForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetProfileForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetProfileForChannel_args where
   arbitrary = QC.elements [GetProfileForChannel_args]
 from_GetProfileForChannel_args :: GetProfileForChannel_args -> T.ThriftVal
 from_GetProfileForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4567,8 +4567,8 @@ data GetProfileForChannel_result = GetProfileForChannel_result  { getProfileForC
   , getProfileForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetProfileForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getProfileForChannel_result_success record   `H.hashWithSalt` getProfileForChannel_result_e record  
-instance QC.Arbitrary GetProfileForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getProfileForChannel_result_success record   `H.hashWithSalt` getProfileForChannel_result_e record
+instance QC.Arbitrary GetProfileForChannel_result where
   arbitrary = M.liftM GetProfileForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetProfileForChannel_result = []
@@ -4577,7 +4577,7 @@ instance QC.Arbitrary GetProfileForChannel_result where
     , if obj == default_GetProfileForChannel_result{getProfileForChannel_result_e = getProfileForChannel_result_e obj} then P.Nothing else P.Just $ default_GetProfileForChannel_result{getProfileForChannel_result_e = getProfileForChannel_result_e obj}
     ]
 from_GetProfileForChannel_result :: GetProfileForChannel_result -> T.ThriftVal
-from_GetProfileForChannel_result record = T.TStruct $ Map.fromList 
+from_GetProfileForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11069 -> (1, ("e",from_TalkException _v11069))) <$> getProfileForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11069 -> P.Just (0, ("success",from_Profile _v11069))) $ getProfileForChannel_result_success record
@@ -4607,8 +4607,8 @@ default_GetProfileForChannel_result = GetProfileForChannel_result{
 data GetUserTickets_args = GetUserTickets_args  { getUserTickets_args_userMids :: (Vector.Vector LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserTickets_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserTickets_args_userMids record  
-instance QC.Arbitrary GetUserTickets_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserTickets_args_userMids record
+instance QC.Arbitrary GetUserTickets_args where
   arbitrary = M.liftM GetUserTickets_args (QC.arbitrary)
   shrink obj | obj == default_GetUserTickets_args = []
              | P.otherwise = M.catMaybes
@@ -4640,8 +4640,8 @@ data GetUserTickets_result = GetUserTickets_result  { getUserTickets_result_succ
   , getUserTickets_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserTickets_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserTickets_result_success record   `H.hashWithSalt` getUserTickets_result_e record  
-instance QC.Arbitrary GetUserTickets_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserTickets_result_success record   `H.hashWithSalt` getUserTickets_result_e record
+instance QC.Arbitrary GetUserTickets_result where
   arbitrary = M.liftM GetUserTickets_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserTickets_result = []
@@ -4650,7 +4650,7 @@ instance QC.Arbitrary GetUserTickets_result where
     , if obj == default_GetUserTickets_result{getUserTickets_result_e = getUserTickets_result_e obj} then P.Nothing else P.Just $ default_GetUserTickets_result{getUserTickets_result_e = getUserTickets_result_e obj}
     ]
 from_GetUserTickets_result :: GetUserTickets_result -> T.ThriftVal
-from_GetUserTickets_result record = T.TStruct $ Map.fromList 
+from_GetUserTickets_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11086 -> (1, ("e",from_TalkException _v11086))) <$> getUserTickets_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11086 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_UserTicketResponse) $ P.map (\_v11088 -> from_UserTicketResponse _v11088) $ Vector.toList _v11086))) $ getUserTickets_result_success record
@@ -4679,8 +4679,8 @@ default_GetUserTickets_result = GetUserTickets_result{
   getUserTickets_result_e = P.Nothing}
 data GetOAFriendMids_args = GetOAFriendMids_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetOAFriendMids_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetOAFriendMids_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetOAFriendMids_args where
   arbitrary = QC.elements [GetOAFriendMids_args]
 from_GetOAFriendMids_args :: GetOAFriendMids_args -> T.ThriftVal
 from_GetOAFriendMids_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4707,8 +4707,8 @@ data GetOAFriendMids_result = GetOAFriendMids_result  { getOAFriendMids_result_s
   , getOAFriendMids_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetOAFriendMids_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getOAFriendMids_result_success record   `H.hashWithSalt` getOAFriendMids_result_e record  
-instance QC.Arbitrary GetOAFriendMids_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getOAFriendMids_result_success record   `H.hashWithSalt` getOAFriendMids_result_e record
+instance QC.Arbitrary GetOAFriendMids_result where
   arbitrary = M.liftM GetOAFriendMids_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetOAFriendMids_result = []
@@ -4717,7 +4717,7 @@ instance QC.Arbitrary GetOAFriendMids_result where
     , if obj == default_GetOAFriendMids_result{getOAFriendMids_result_e = getOAFriendMids_result_e obj} then P.Nothing else P.Just $ default_GetOAFriendMids_result{getOAFriendMids_result_e = getOAFriendMids_result_e obj}
     ]
 from_GetOAFriendMids_result :: GetOAFriendMids_result -> T.ThriftVal
-from_GetOAFriendMids_result record = T.TStruct $ Map.fromList 
+from_GetOAFriendMids_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11102 -> (1, ("e",from_TalkException _v11102))) <$> getOAFriendMids_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11102 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v11104 -> T.TString $ E.encodeUtf8 _v11104) $ Vector.toList _v11102))) $ getOAFriendMids_result_success record
@@ -4748,8 +4748,8 @@ data SearchPaidCallUserRate_args = SearchPaidCallUserRate_args  { searchPaidCall
   , searchPaidCallUserRate_args_language :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchPaidCallUserRate_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchPaidCallUserRate_args_countryCode record   `H.hashWithSalt` searchPaidCallUserRate_args_language record  
-instance QC.Arbitrary SearchPaidCallUserRate_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchPaidCallUserRate_args_countryCode record   `H.hashWithSalt` searchPaidCallUserRate_args_language record
+instance QC.Arbitrary SearchPaidCallUserRate_args where
   arbitrary = M.liftM SearchPaidCallUserRate_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_SearchPaidCallUserRate_args = []
@@ -4786,8 +4786,8 @@ data SearchPaidCallUserRate_result = SearchPaidCallUserRate_result  { searchPaid
   , searchPaidCallUserRate_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchPaidCallUserRate_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchPaidCallUserRate_result_success record   `H.hashWithSalt` searchPaidCallUserRate_result_e record  
-instance QC.Arbitrary SearchPaidCallUserRate_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchPaidCallUserRate_result_success record   `H.hashWithSalt` searchPaidCallUserRate_result_e record
+instance QC.Arbitrary SearchPaidCallUserRate_result where
   arbitrary = M.liftM SearchPaidCallUserRate_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SearchPaidCallUserRate_result = []
@@ -4796,7 +4796,7 @@ instance QC.Arbitrary SearchPaidCallUserRate_result where
     , if obj == default_SearchPaidCallUserRate_result{searchPaidCallUserRate_result_e = searchPaidCallUserRate_result_e obj} then P.Nothing else P.Just $ default_SearchPaidCallUserRate_result{searchPaidCallUserRate_result_e = searchPaidCallUserRate_result_e obj}
     ]
 from_SearchPaidCallUserRate_result :: SearchPaidCallUserRate_result -> T.ThriftVal
-from_SearchPaidCallUserRate_result record = T.TStruct $ Map.fromList 
+from_SearchPaidCallUserRate_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11120 -> (1, ("e",from_TalkException _v11120))) <$> searchPaidCallUserRate_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11120 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_PaidCallUserRate) $ P.map (\_v11122 -> from_PaidCallUserRate _v11122) $ Vector.toList _v11120))) $ searchPaidCallUserRate_result_success record
@@ -4825,8 +4825,8 @@ default_SearchPaidCallUserRate_result = SearchPaidCallUserRate_result{
   searchPaidCallUserRate_result_e = P.Nothing}
 data GetJoinedGroupIdsForChannel_args = GetJoinedGroupIdsForChannel_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedGroupIdsForChannel_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetJoinedGroupIdsForChannel_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetJoinedGroupIdsForChannel_args where
   arbitrary = QC.elements [GetJoinedGroupIdsForChannel_args]
 from_GetJoinedGroupIdsForChannel_args :: GetJoinedGroupIdsForChannel_args -> T.ThriftVal
 from_GetJoinedGroupIdsForChannel_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4853,8 +4853,8 @@ data GetJoinedGroupIdsForChannel_result = GetJoinedGroupIdsForChannel_result  { 
   , getJoinedGroupIdsForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedGroupIdsForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedGroupIdsForChannel_result_success record   `H.hashWithSalt` getJoinedGroupIdsForChannel_result_e record  
-instance QC.Arbitrary GetJoinedGroupIdsForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedGroupIdsForChannel_result_success record   `H.hashWithSalt` getJoinedGroupIdsForChannel_result_e record
+instance QC.Arbitrary GetJoinedGroupIdsForChannel_result where
   arbitrary = M.liftM GetJoinedGroupIdsForChannel_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetJoinedGroupIdsForChannel_result = []
@@ -4863,7 +4863,7 @@ instance QC.Arbitrary GetJoinedGroupIdsForChannel_result where
     , if obj == default_GetJoinedGroupIdsForChannel_result{getJoinedGroupIdsForChannel_result_e = getJoinedGroupIdsForChannel_result_e obj} then P.Nothing else P.Just $ default_GetJoinedGroupIdsForChannel_result{getJoinedGroupIdsForChannel_result_e = getJoinedGroupIdsForChannel_result_e obj}
     ]
 from_GetJoinedGroupIdsForChannel_result :: GetJoinedGroupIdsForChannel_result -> T.ThriftVal
-from_GetJoinedGroupIdsForChannel_result record = T.TStruct $ Map.fromList 
+from_GetJoinedGroupIdsForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11136 -> (1, ("e",from_TalkException _v11136))) <$> getJoinedGroupIdsForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11136 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v11138 -> T.TString $ E.encodeUtf8 _v11138) $ Vector.toList _v11136))) $ getJoinedGroupIdsForChannel_result_success record
@@ -4894,8 +4894,8 @@ data AcquireGroupCallRoute_args = AcquireGroupCallRoute_args  { acquireGroupCall
   , acquireGroupCallRoute_args_mediaType :: GroupCallMediaType
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquireGroupCallRoute_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquireGroupCallRoute_args_chatMid record   `H.hashWithSalt` acquireGroupCallRoute_args_mediaType record  
-instance QC.Arbitrary AcquireGroupCallRoute_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquireGroupCallRoute_args_chatMid record   `H.hashWithSalt` acquireGroupCallRoute_args_mediaType record
+instance QC.Arbitrary AcquireGroupCallRoute_args where
   arbitrary = M.liftM AcquireGroupCallRoute_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_AcquireGroupCallRoute_args = []
@@ -4932,8 +4932,8 @@ data AcquireGroupCallRoute_result = AcquireGroupCallRoute_result  { acquireGroup
   , acquireGroupCallRoute_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AcquireGroupCallRoute_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` acquireGroupCallRoute_result_success record   `H.hashWithSalt` acquireGroupCallRoute_result_e record  
-instance QC.Arbitrary AcquireGroupCallRoute_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` acquireGroupCallRoute_result_success record   `H.hashWithSalt` acquireGroupCallRoute_result_e record
+instance QC.Arbitrary AcquireGroupCallRoute_result where
   arbitrary = M.liftM AcquireGroupCallRoute_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AcquireGroupCallRoute_result = []
@@ -4942,7 +4942,7 @@ instance QC.Arbitrary AcquireGroupCallRoute_result where
     , if obj == default_AcquireGroupCallRoute_result{acquireGroupCallRoute_result_e = acquireGroupCallRoute_result_e obj} then P.Nothing else P.Just $ default_AcquireGroupCallRoute_result{acquireGroupCallRoute_result_e = acquireGroupCallRoute_result_e obj}
     ]
 from_AcquireGroupCallRoute_result :: AcquireGroupCallRoute_result -> T.ThriftVal
-from_AcquireGroupCallRoute_result record = T.TStruct $ Map.fromList 
+from_AcquireGroupCallRoute_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11154 -> (1, ("e",from_TalkException _v11154))) <$> acquireGroupCallRoute_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11154 -> P.Just (0, ("success",from_GroupCallRoute _v11154))) $ acquireGroupCallRoute_result_success record
@@ -4971,8 +4971,8 @@ default_AcquireGroupCallRoute_result = AcquireGroupCallRoute_result{
   acquireGroupCallRoute_result_e = P.Nothing}
 data GetUserMidsWhoAddedMe_args = GetUserMidsWhoAddedMe_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserMidsWhoAddedMe_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetUserMidsWhoAddedMe_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetUserMidsWhoAddedMe_args where
   arbitrary = QC.elements [GetUserMidsWhoAddedMe_args]
 from_GetUserMidsWhoAddedMe_args :: GetUserMidsWhoAddedMe_args -> T.ThriftVal
 from_GetUserMidsWhoAddedMe_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -4999,8 +4999,8 @@ data GetUserMidsWhoAddedMe_result = GetUserMidsWhoAddedMe_result  { getUserMidsW
   , getUserMidsWhoAddedMe_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserMidsWhoAddedMe_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserMidsWhoAddedMe_result_success record   `H.hashWithSalt` getUserMidsWhoAddedMe_result_e record  
-instance QC.Arbitrary GetUserMidsWhoAddedMe_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserMidsWhoAddedMe_result_success record   `H.hashWithSalt` getUserMidsWhoAddedMe_result_e record
+instance QC.Arbitrary GetUserMidsWhoAddedMe_result where
   arbitrary = M.liftM GetUserMidsWhoAddedMe_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserMidsWhoAddedMe_result = []
@@ -5009,7 +5009,7 @@ instance QC.Arbitrary GetUserMidsWhoAddedMe_result where
     , if obj == default_GetUserMidsWhoAddedMe_result{getUserMidsWhoAddedMe_result_e = getUserMidsWhoAddedMe_result_e obj} then P.Nothing else P.Just $ default_GetUserMidsWhoAddedMe_result{getUserMidsWhoAddedMe_result_e = getUserMidsWhoAddedMe_result_e obj}
     ]
 from_GetUserMidsWhoAddedMe_result :: GetUserMidsWhoAddedMe_result -> T.ThriftVal
-from_GetUserMidsWhoAddedMe_result record = T.TStruct $ Map.fromList 
+from_GetUserMidsWhoAddedMe_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11166 -> (1, ("e",from_TalkException _v11166))) <$> getUserMidsWhoAddedMe_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11166 -> P.Just (0, ("success",T.TList T.T_STRING $ P.map (\_v11168 -> T.TString $ E.encodeUtf8 _v11168) $ Vector.toList _v11166))) $ getUserMidsWhoAddedMe_result_success record
@@ -5038,8 +5038,8 @@ default_GetUserMidsWhoAddedMe_result = GetUserMidsWhoAddedMe_result{
   getUserMidsWhoAddedMe_result_e = P.Nothing}
 data GetIdentityCredential_args = GetIdentityCredential_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetIdentityCredential_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetIdentityCredential_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetIdentityCredential_args where
   arbitrary = QC.elements [GetIdentityCredential_args]
 from_GetIdentityCredential_args :: GetIdentityCredential_args -> T.ThriftVal
 from_GetIdentityCredential_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -5066,8 +5066,8 @@ data GetIdentityCredential_result = GetIdentityCredential_result  { getIdentityC
   , getIdentityCredential_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetIdentityCredential_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getIdentityCredential_result_success record   `H.hashWithSalt` getIdentityCredential_result_e record  
-instance QC.Arbitrary GetIdentityCredential_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getIdentityCredential_result_success record   `H.hashWithSalt` getIdentityCredential_result_e record
+instance QC.Arbitrary GetIdentityCredential_result where
   arbitrary = M.liftM GetIdentityCredential_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetIdentityCredential_result = []
@@ -5076,7 +5076,7 @@ instance QC.Arbitrary GetIdentityCredential_result where
     , if obj == default_GetIdentityCredential_result{getIdentityCredential_result_e = getIdentityCredential_result_e obj} then P.Nothing else P.Just $ default_GetIdentityCredential_result{getIdentityCredential_result_e = getIdentityCredential_result_e obj}
     ]
 from_GetIdentityCredential_result :: GetIdentityCredential_result -> T.ThriftVal
-from_GetIdentityCredential_result record = T.TStruct $ Map.fromList 
+from_GetIdentityCredential_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11182 -> (1, ("e",from_TalkException _v11182))) <$> getIdentityCredential_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11182 -> P.Just (0, ("success",from_IdentityCredential _v11182))) $ getIdentityCredential_result_success record
@@ -5109,8 +5109,8 @@ data AddOperationForChannel_args = AddOperationForChannel_args  { addOperationFo
   , addOperationForChannel_args_param3 :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddOperationForChannel_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addOperationForChannel_args_opType record   `H.hashWithSalt` addOperationForChannel_args_param1 record   `H.hashWithSalt` addOperationForChannel_args_param2 record   `H.hashWithSalt` addOperationForChannel_args_param3 record  
-instance QC.Arbitrary AddOperationForChannel_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addOperationForChannel_args_opType record   `H.hashWithSalt` addOperationForChannel_args_param1 record   `H.hashWithSalt` addOperationForChannel_args_param2 record   `H.hashWithSalt` addOperationForChannel_args_param3 record
+instance QC.Arbitrary AddOperationForChannel_args where
   arbitrary = M.liftM AddOperationForChannel_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -5156,15 +5156,15 @@ default_AddOperationForChannel_args = AddOperationForChannel_args{
 data AddOperationForChannel_result = AddOperationForChannel_result  { addOperationForChannel_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable AddOperationForChannel_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` addOperationForChannel_result_e record  
-instance QC.Arbitrary AddOperationForChannel_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` addOperationForChannel_result_e record
+instance QC.Arbitrary AddOperationForChannel_result where
   arbitrary = M.liftM AddOperationForChannel_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_AddOperationForChannel_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_AddOperationForChannel_result{addOperationForChannel_result_e = addOperationForChannel_result_e obj} then P.Nothing else P.Just $ default_AddOperationForChannel_result{addOperationForChannel_result_e = addOperationForChannel_result_e obj}
     ]
 from_AddOperationForChannel_result :: AddOperationForChannel_result -> T.ThriftVal
-from_AddOperationForChannel_result record = T.TStruct $ Map.fromList 
+from_AddOperationForChannel_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11198 -> (1, ("e",from_TalkException _v11198))) <$> addOperationForChannel_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11198 -> (1, ("e",from_TalkException _v11198))) <$> addOperationForChannel_result_e record
@@ -5192,8 +5192,8 @@ data GetSimpleChannelContacts_args = GetSimpleChannelContacts_args  { getSimpleC
   , getSimpleChannelContacts_args_statusSticonFallbackDisabled :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSimpleChannelContacts_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSimpleChannelContacts_args_ids record   `H.hashWithSalt` getSimpleChannelContacts_args_statusSticonFallbackDisabled record  
-instance QC.Arbitrary GetSimpleChannelContacts_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSimpleChannelContacts_args_ids record   `H.hashWithSalt` getSimpleChannelContacts_args_statusSticonFallbackDisabled record
+instance QC.Arbitrary GetSimpleChannelContacts_args where
   arbitrary = M.liftM GetSimpleChannelContacts_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetSimpleChannelContacts_args = []
@@ -5230,8 +5230,8 @@ data GetSimpleChannelContacts_result = GetSimpleChannelContacts_result  { getSim
   , getSimpleChannelContacts_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSimpleChannelContacts_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSimpleChannelContacts_result_success record   `H.hashWithSalt` getSimpleChannelContacts_result_e record  
-instance QC.Arbitrary GetSimpleChannelContacts_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSimpleChannelContacts_result_success record   `H.hashWithSalt` getSimpleChannelContacts_result_e record
+instance QC.Arbitrary GetSimpleChannelContacts_result where
   arbitrary = M.liftM GetSimpleChannelContacts_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSimpleChannelContacts_result = []
@@ -5240,7 +5240,7 @@ instance QC.Arbitrary GetSimpleChannelContacts_result where
     , if obj == default_GetSimpleChannelContacts_result{getSimpleChannelContacts_result_e = getSimpleChannelContacts_result_e obj} then P.Nothing else P.Just $ default_GetSimpleChannelContacts_result{getSimpleChannelContacts_result_e = getSimpleChannelContacts_result_e obj}
     ]
 from_GetSimpleChannelContacts_result :: GetSimpleChannelContacts_result -> T.ThriftVal
-from_GetSimpleChannelContacts_result record = T.TStruct $ Map.fromList 
+from_GetSimpleChannelContacts_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11215 -> (1, ("e",from_TalkException _v11215))) <$> getSimpleChannelContacts_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11215 -> P.Just (0, ("success",T.TList (T.T_STRUCT typemap_SimpleChannelContact) $ P.map (\_v11217 -> from_SimpleChannelContact _v11217) $ Vector.toList _v11215))) $ getSimpleChannelContacts_result_success record
@@ -5270,8 +5270,8 @@ default_GetSimpleChannelContacts_result = GetSimpleChannelContacts_result{
 data GetUserLastSentMessageTimeStamp_args = GetUserLastSentMessageTimeStamp_args  { getUserLastSentMessageTimeStamp_args_mid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserLastSentMessageTimeStamp_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLastSentMessageTimeStamp_args_mid record  
-instance QC.Arbitrary GetUserLastSentMessageTimeStamp_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLastSentMessageTimeStamp_args_mid record
+instance QC.Arbitrary GetUserLastSentMessageTimeStamp_args where
   arbitrary = M.liftM GetUserLastSentMessageTimeStamp_args (QC.arbitrary)
   shrink obj | obj == default_GetUserLastSentMessageTimeStamp_args = []
              | P.otherwise = M.catMaybes
@@ -5303,8 +5303,8 @@ data GetUserLastSentMessageTimeStamp_result = GetUserLastSentMessageTimeStamp_re
   , getUserLastSentMessageTimeStamp_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetUserLastSentMessageTimeStamp_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLastSentMessageTimeStamp_result_success record   `H.hashWithSalt` getUserLastSentMessageTimeStamp_result_e record  
-instance QC.Arbitrary GetUserLastSentMessageTimeStamp_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getUserLastSentMessageTimeStamp_result_success record   `H.hashWithSalt` getUserLastSentMessageTimeStamp_result_e record
+instance QC.Arbitrary GetUserLastSentMessageTimeStamp_result where
   arbitrary = M.liftM GetUserLastSentMessageTimeStamp_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetUserLastSentMessageTimeStamp_result = []
@@ -5313,7 +5313,7 @@ instance QC.Arbitrary GetUserLastSentMessageTimeStamp_result where
     , if obj == default_GetUserLastSentMessageTimeStamp_result{getUserLastSentMessageTimeStamp_result_e = getUserLastSentMessageTimeStamp_result_e obj} then P.Nothing else P.Just $ default_GetUserLastSentMessageTimeStamp_result{getUserLastSentMessageTimeStamp_result_e = getUserLastSentMessageTimeStamp_result_e obj}
     ]
 from_GetUserLastSentMessageTimeStamp_result :: GetUserLastSentMessageTimeStamp_result -> T.ThriftVal
-from_GetUserLastSentMessageTimeStamp_result record = T.TStruct $ Map.fromList 
+from_GetUserLastSentMessageTimeStamp_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11232 -> (1, ("e",from_TalkException _v11232))) <$> getUserLastSentMessageTimeStamp_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11232 -> P.Just (0, ("success",T.TI64 _v11232))) $ getUserLastSentMessageTimeStamp_result_success record

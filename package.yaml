@@ -24,6 +24,24 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - bytestring
+    - containers
+    - ghc-prim
+    - attoparsec
+    - binary
+    - bytestring >= 0.10
+    - base64-bytestring
+    - hashable
+    - HTTP
+    - text
+    - hspec-core > 2.4.0
+    - unordered-containers >= 0.2.6
+    - vector >= 0.10.12.2
+    - QuickCheck >= 2.8.2
+    - split
+    - network-uri >= 2.6
+    - network >= 2.6.0.2
 
 executables:
   BOT-Haskell-exe:
@@ -35,6 +53,23 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - BOT-Haskell
+    - bytestring
+    - containers
+    - ghc-prim
+    - attoparsec
+    - binary
+    - bytestring >= 0.10
+    - base64-bytestring
+    - hashable
+    - HTTP
+    - text
+    - hspec-core > 2.4.0
+    - unordered-containers >= 0.2.6
+    - vector >= 0.10.12.2
+    - QuickCheck >= 2.8.2
+    - split
+    - network-uri >= 2.6
+    - network >= 2.6.0.2
 
 tests:
   BOT-Haskell-test:
@@ -46,3 +81,20 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - BOT-Haskell
+    - bytestring
+    - containers
+    - ghc-prim
+    - attoparsec
+    - binary
+    - bytestring >= 0.10
+    - base64-bytestring
+    - hashable
+    - HTTP
+    - text
+    - hspec-core > 2.4.0
+    - unordered-containers >= 0.2.6
+    - vector >= 0.10.12.2
+    - QuickCheck >= 2.8.2
+    - split
+    - network-uri >= 2.6
+    - network <= 2.6.0.2

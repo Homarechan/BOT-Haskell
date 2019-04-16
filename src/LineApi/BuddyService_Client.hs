@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BuddyService_Client(findBuddyContactsByQuery,getBuddyContacts,getBuddyDetail,getBuddyOnAir,getCountriesHavingBuddy,getNewlyReleasedBuddyIds,getPopularBuddyBanner,getPopularBuddyLists,getPromotedBuddyContacts) where
+module LineApi.BuddyService_Client(findBuddyContactsByQuery,getBuddyContacts,getBuddyDetail,getBuddyOnAir,getCountriesHavingBuddy,getNewlyReleasedBuddyIds,getPopularBuddyBanner,getPopularBuddyLists,getPromotedBuddyContacts) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import BuddyService
+import LineApi.Line_Types
+import LineApi.BuddyService
 seqid = R.newIORef 0
 findBuddyContactsByQuery (ip,op) arg_language arg_country arg_query arg_fromIndex arg_count arg_requestSource = do
   send_findBuddyContactsByQuery op arg_language arg_country arg_query arg_fromIndex arg_count arg_requestSource

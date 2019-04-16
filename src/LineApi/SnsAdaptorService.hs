@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SnsAdaptorService where
+module LineApi.SnsAdaptorService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,8 +38,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified SnsAdaptorService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.SnsAdaptorService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data GetSnsFriends_args = GetSnsFriends_args  { getSnsFriends_args_snsIdType :: SnsIdType
@@ -48,8 +48,8 @@ data GetSnsFriends_args = GetSnsFriends_args  { getSnsFriends_args_snsIdType :: 
   , getSnsFriends_args_limit :: I.Int32
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSnsFriends_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsFriends_args_snsIdType record   `H.hashWithSalt` getSnsFriends_args_snsAccessToken record   `H.hashWithSalt` getSnsFriends_args_startIdx record   `H.hashWithSalt` getSnsFriends_args_limit record  
-instance QC.Arbitrary GetSnsFriends_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsFriends_args_snsIdType record   `H.hashWithSalt` getSnsFriends_args_snsAccessToken record   `H.hashWithSalt` getSnsFriends_args_startIdx record   `H.hashWithSalt` getSnsFriends_args_limit record
+instance QC.Arbitrary GetSnsFriends_args where
   arbitrary = M.liftM GetSnsFriends_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -96,8 +96,8 @@ data GetSnsFriends_result = GetSnsFriends_result  { getSnsFriends_result_success
   , getSnsFriends_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSnsFriends_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsFriends_result_success record   `H.hashWithSalt` getSnsFriends_result_e record  
-instance QC.Arbitrary GetSnsFriends_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsFriends_result_success record   `H.hashWithSalt` getSnsFriends_result_e record
+instance QC.Arbitrary GetSnsFriends_result where
   arbitrary = M.liftM GetSnsFriends_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSnsFriends_result = []
@@ -106,7 +106,7 @@ instance QC.Arbitrary GetSnsFriends_result where
     , if obj == default_GetSnsFriends_result{getSnsFriends_result_e = getSnsFriends_result_e obj} then P.Nothing else P.Just $ default_GetSnsFriends_result{getSnsFriends_result_e = getSnsFriends_result_e obj}
     ]
 from_GetSnsFriends_result :: GetSnsFriends_result -> T.ThriftVal
-from_GetSnsFriends_result record = T.TStruct $ Map.fromList 
+from_GetSnsFriends_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6433 -> (1, ("e",from_TalkException _v6433))) <$> getSnsFriends_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6433 -> P.Just (0, ("success",from_SnsFriends _v6433))) $ getSnsFriends_result_success record
@@ -137,8 +137,8 @@ data GetSnsMyProfile_args = GetSnsMyProfile_args  { getSnsMyProfile_args_snsIdTy
   , getSnsMyProfile_args_snsAccessToken :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSnsMyProfile_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsMyProfile_args_snsIdType record   `H.hashWithSalt` getSnsMyProfile_args_snsAccessToken record  
-instance QC.Arbitrary GetSnsMyProfile_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsMyProfile_args_snsIdType record   `H.hashWithSalt` getSnsMyProfile_args_snsAccessToken record
+instance QC.Arbitrary GetSnsMyProfile_args where
   arbitrary = M.liftM GetSnsMyProfile_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetSnsMyProfile_args = []
@@ -175,8 +175,8 @@ data GetSnsMyProfile_result = GetSnsMyProfile_result  { getSnsMyProfile_result_s
   , getSnsMyProfile_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSnsMyProfile_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsMyProfile_result_success record   `H.hashWithSalt` getSnsMyProfile_result_e record  
-instance QC.Arbitrary GetSnsMyProfile_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSnsMyProfile_result_success record   `H.hashWithSalt` getSnsMyProfile_result_e record
+instance QC.Arbitrary GetSnsMyProfile_result where
   arbitrary = M.liftM GetSnsMyProfile_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSnsMyProfile_result = []
@@ -185,7 +185,7 @@ instance QC.Arbitrary GetSnsMyProfile_result where
     , if obj == default_GetSnsMyProfile_result{getSnsMyProfile_result_e = getSnsMyProfile_result_e obj} then P.Nothing else P.Just $ default_GetSnsMyProfile_result{getSnsMyProfile_result_e = getSnsMyProfile_result_e obj}
     ]
 from_GetSnsMyProfile_result :: GetSnsMyProfile_result -> T.ThriftVal
-from_GetSnsMyProfile_result record = T.TStruct $ Map.fromList 
+from_GetSnsMyProfile_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6447 -> (1, ("e",from_TalkException _v6447))) <$> getSnsMyProfile_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6447 -> P.Just (0, ("success",from_SnsProfile _v6447))) $ getSnsMyProfile_result_success record
@@ -217,8 +217,8 @@ data PostSnsInvitationMessage_args = PostSnsInvitationMessage_args  { postSnsInv
   , postSnsInvitationMessage_args_toSnsUserId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable PostSnsInvitationMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` postSnsInvitationMessage_args_snsIdType record   `H.hashWithSalt` postSnsInvitationMessage_args_snsAccessToken record   `H.hashWithSalt` postSnsInvitationMessage_args_toSnsUserId record  
-instance QC.Arbitrary PostSnsInvitationMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` postSnsInvitationMessage_args_snsIdType record   `H.hashWithSalt` postSnsInvitationMessage_args_snsAccessToken record   `H.hashWithSalt` postSnsInvitationMessage_args_toSnsUserId record
+instance QC.Arbitrary PostSnsInvitationMessage_args where
   arbitrary = M.liftM PostSnsInvitationMessage_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -259,15 +259,15 @@ default_PostSnsInvitationMessage_args = PostSnsInvitationMessage_args{
 data PostSnsInvitationMessage_result = PostSnsInvitationMessage_result  { postSnsInvitationMessage_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable PostSnsInvitationMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` postSnsInvitationMessage_result_e record  
-instance QC.Arbitrary PostSnsInvitationMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` postSnsInvitationMessage_result_e record
+instance QC.Arbitrary PostSnsInvitationMessage_result where
   arbitrary = M.liftM PostSnsInvitationMessage_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_PostSnsInvitationMessage_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_PostSnsInvitationMessage_result{postSnsInvitationMessage_result_e = postSnsInvitationMessage_result_e obj} then P.Nothing else P.Just $ default_PostSnsInvitationMessage_result{postSnsInvitationMessage_result_e = postSnsInvitationMessage_result_e obj}
     ]
 from_PostSnsInvitationMessage_result :: PostSnsInvitationMessage_result -> T.ThriftVal
-from_PostSnsInvitationMessage_result record = T.TStruct $ Map.fromList 
+from_PostSnsInvitationMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v6462 -> (1, ("e",from_TalkException _v6462))) <$> postSnsInvitationMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v6462 -> (1, ("e",from_TalkException _v6462))) <$> postSnsInvitationMessage_result_e record

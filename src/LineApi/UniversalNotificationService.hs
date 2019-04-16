@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module UniversalNotificationService where
+module LineApi.UniversalNotificationService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified UniversalNotificationService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.UniversalNotificationService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data Notify_args = Notify_args  { notify_args_event :: GlobalEvent
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable Notify_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notify_args_event record  
-instance QC.Arbitrary Notify_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notify_args_event record
+instance QC.Arbitrary Notify_args where
   arbitrary = M.liftM Notify_args (QC.arbitrary)
   shrink obj | obj == default_Notify_args = []
              | P.otherwise = M.catMaybes
@@ -77,15 +77,15 @@ default_Notify_args = Notify_args{
 data Notify_result = Notify_result  { notify_result_e :: P.Maybe UniversalNotificationServiceException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable Notify_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notify_result_e record  
-instance QC.Arbitrary Notify_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notify_result_e record
+instance QC.Arbitrary Notify_result where
   arbitrary = M.liftM Notify_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_Notify_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_Notify_result{notify_result_e = notify_result_e obj} then P.Nothing else P.Just $ default_Notify_result{notify_result_e = notify_result_e obj}
     ]
 from_Notify_result :: Notify_result -> T.ThriftVal
-from_Notify_result record = T.TStruct $ Map.fromList 
+from_Notify_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v10116 -> (1, ("e",from_UniversalNotificationServiceException _v10116))) <$> notify_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v10116 -> (1, ("e",from_UniversalNotificationServiceException _v10116))) <$> notify_result_e record

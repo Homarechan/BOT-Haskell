@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SnsAdaptorService_Client(getSnsFriends,getSnsMyProfile,postSnsInvitationMessage) where
+module LineApi.SnsAdaptorService_Client(getSnsFriends,getSnsMyProfile,postSnsInvitationMessage) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import SnsAdaptorService
+import LineApi.Line_Types
+import LineApi.SnsAdaptorService
 seqid = R.newIORef 0
 getSnsFriends (ip,op) arg_snsIdType arg_snsAccessToken arg_startIdx arg_limit = do
   send_getSnsFriends op arg_snsIdType arg_snsAccessToken arg_startIdx arg_limit

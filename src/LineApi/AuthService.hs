@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AuthService where
+module LineApi.AuthService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,16 +38,16 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified AuthService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.AuthService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data UpdatePassword_args = UpdatePassword_args  { updatePassword_args_authSessionId :: LT.Text
   , updatePassword_args_request :: IdentityCredentialRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdatePassword_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updatePassword_args_authSessionId record   `H.hashWithSalt` updatePassword_args_request record  
-instance QC.Arbitrary UpdatePassword_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updatePassword_args_authSessionId record   `H.hashWithSalt` updatePassword_args_request record
+instance QC.Arbitrary UpdatePassword_args where
   arbitrary = M.liftM UpdatePassword_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_UpdatePassword_args = []
@@ -84,8 +84,8 @@ data UpdatePassword_result = UpdatePassword_result  { updatePassword_result_succ
   , updatePassword_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdatePassword_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updatePassword_result_success record   `H.hashWithSalt` updatePassword_result_e record  
-instance QC.Arbitrary UpdatePassword_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updatePassword_result_success record   `H.hashWithSalt` updatePassword_result_e record
+instance QC.Arbitrary UpdatePassword_result where
   arbitrary = M.liftM UpdatePassword_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdatePassword_result = []
@@ -94,7 +94,7 @@ instance QC.Arbitrary UpdatePassword_result where
     , if obj == default_UpdatePassword_result{updatePassword_result_e = updatePassword_result_e obj} then P.Nothing else P.Just $ default_UpdatePassword_result{updatePassword_result_e = updatePassword_result_e obj}
     ]
 from_UpdatePassword_result :: UpdatePassword_result -> T.ThriftVal
-from_UpdatePassword_result record = T.TStruct $ Map.fromList 
+from_UpdatePassword_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11246 -> (1, ("e",from_TalkException _v11246))) <$> updatePassword_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11246 -> P.Just (0, ("success",from_IdentityCredentialResponse _v11246))) $ updatePassword_result_success record
@@ -125,8 +125,8 @@ data GetAuthRSAKey_args = GetAuthRSAKey_args  { getAuthRSAKey_args_authSessionId
   , getAuthRSAKey_args_identityProvider :: IdentityProvider
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAuthRSAKey_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAuthRSAKey_args_authSessionId record   `H.hashWithSalt` getAuthRSAKey_args_identityProvider record  
-instance QC.Arbitrary GetAuthRSAKey_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAuthRSAKey_args_authSessionId record   `H.hashWithSalt` getAuthRSAKey_args_identityProvider record
+instance QC.Arbitrary GetAuthRSAKey_args where
   arbitrary = M.liftM GetAuthRSAKey_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_GetAuthRSAKey_args = []
@@ -163,8 +163,8 @@ data GetAuthRSAKey_result = GetAuthRSAKey_result  { getAuthRSAKey_result_success
   , getAuthRSAKey_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetAuthRSAKey_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getAuthRSAKey_result_success record   `H.hashWithSalt` getAuthRSAKey_result_e record  
-instance QC.Arbitrary GetAuthRSAKey_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getAuthRSAKey_result_success record   `H.hashWithSalt` getAuthRSAKey_result_e record
+instance QC.Arbitrary GetAuthRSAKey_result where
   arbitrary = M.liftM GetAuthRSAKey_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetAuthRSAKey_result = []
@@ -173,7 +173,7 @@ instance QC.Arbitrary GetAuthRSAKey_result where
     , if obj == default_GetAuthRSAKey_result{getAuthRSAKey_result_e = getAuthRSAKey_result_e obj} then P.Nothing else P.Just $ default_GetAuthRSAKey_result{getAuthRSAKey_result_e = getAuthRSAKey_result_e obj}
     ]
 from_GetAuthRSAKey_result :: GetAuthRSAKey_result -> T.ThriftVal
-from_GetAuthRSAKey_result record = T.TStruct $ Map.fromList 
+from_GetAuthRSAKey_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11260 -> (1, ("e",from_TalkException _v11260))) <$> getAuthRSAKey_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11260 -> P.Just (0, ("success",from_RSAKey _v11260))) $ getAuthRSAKey_result_success record
@@ -203,8 +203,8 @@ default_GetAuthRSAKey_result = GetAuthRSAKey_result{
 data OpenAuthSession_args = OpenAuthSession_args  { openAuthSession_args_request :: AuthSessionRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable OpenAuthSession_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` openAuthSession_args_request record  
-instance QC.Arbitrary OpenAuthSession_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` openAuthSession_args_request record
+instance QC.Arbitrary OpenAuthSession_args where
   arbitrary = M.liftM OpenAuthSession_args (QC.arbitrary)
   shrink obj | obj == default_OpenAuthSession_args = []
              | P.otherwise = M.catMaybes
@@ -236,8 +236,8 @@ data OpenAuthSession_result = OpenAuthSession_result  { openAuthSession_result_s
   , openAuthSession_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable OpenAuthSession_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` openAuthSession_result_success record   `H.hashWithSalt` openAuthSession_result_e record  
-instance QC.Arbitrary OpenAuthSession_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` openAuthSession_result_success record   `H.hashWithSalt` openAuthSession_result_e record
+instance QC.Arbitrary OpenAuthSession_result where
   arbitrary = M.liftM OpenAuthSession_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_OpenAuthSession_result = []
@@ -246,7 +246,7 @@ instance QC.Arbitrary OpenAuthSession_result where
     , if obj == default_OpenAuthSession_result{openAuthSession_result_e = openAuthSession_result_e obj} then P.Nothing else P.Just $ default_OpenAuthSession_result{openAuthSession_result_e = openAuthSession_result_e obj}
     ]
 from_OpenAuthSession_result :: OpenAuthSession_result -> T.ThriftVal
-from_OpenAuthSession_result record = T.TStruct $ Map.fromList 
+from_OpenAuthSession_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11273 -> (1, ("e",from_TalkException _v11273))) <$> openAuthSession_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11273 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v11273))) $ openAuthSession_result_success record
@@ -278,8 +278,8 @@ data NormalizePhoneNumber_args = NormalizePhoneNumber_args  { normalizePhoneNumb
   , normalizePhoneNumber_args_countryCodeHint :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NormalizePhoneNumber_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` normalizePhoneNumber_args_countryCode record   `H.hashWithSalt` normalizePhoneNumber_args_phoneNumber record   `H.hashWithSalt` normalizePhoneNumber_args_countryCodeHint record  
-instance QC.Arbitrary NormalizePhoneNumber_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` normalizePhoneNumber_args_countryCode record   `H.hashWithSalt` normalizePhoneNumber_args_phoneNumber record   `H.hashWithSalt` normalizePhoneNumber_args_countryCodeHint record
+instance QC.Arbitrary NormalizePhoneNumber_args where
   arbitrary = M.liftM NormalizePhoneNumber_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -321,8 +321,8 @@ data NormalizePhoneNumber_result = NormalizePhoneNumber_result  { normalizePhone
   , normalizePhoneNumber_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NormalizePhoneNumber_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` normalizePhoneNumber_result_success record   `H.hashWithSalt` normalizePhoneNumber_result_e record  
-instance QC.Arbitrary NormalizePhoneNumber_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` normalizePhoneNumber_result_success record   `H.hashWithSalt` normalizePhoneNumber_result_e record
+instance QC.Arbitrary NormalizePhoneNumber_result where
   arbitrary = M.liftM NormalizePhoneNumber_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NormalizePhoneNumber_result = []
@@ -331,7 +331,7 @@ instance QC.Arbitrary NormalizePhoneNumber_result where
     , if obj == default_NormalizePhoneNumber_result{normalizePhoneNumber_result_e = normalizePhoneNumber_result_e obj} then P.Nothing else P.Just $ default_NormalizePhoneNumber_result{normalizePhoneNumber_result_e = normalizePhoneNumber_result_e obj}
     ]
 from_NormalizePhoneNumber_result :: NormalizePhoneNumber_result -> T.ThriftVal
-from_NormalizePhoneNumber_result record = T.TStruct $ Map.fromList 
+from_NormalizePhoneNumber_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11288 -> (1, ("e",from_TalkException _v11288))) <$> normalizePhoneNumber_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11288 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v11288))) $ normalizePhoneNumber_result_success record
@@ -365,8 +365,8 @@ data RespondE2EELoginRequest_args = RespondE2EELoginRequest_args  { respondE2EEL
   , respondE2EELoginRequest_args_errorCode :: ErrorCode
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RespondE2EELoginRequest_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` respondE2EELoginRequest_args_verifier record   `H.hashWithSalt` respondE2EELoginRequest_args_publicKey record   `H.hashWithSalt` respondE2EELoginRequest_args_encryptedKeyChain record   `H.hashWithSalt` respondE2EELoginRequest_args_hashKeyChain record   `H.hashWithSalt` respondE2EELoginRequest_args_errorCode record  
-instance QC.Arbitrary RespondE2EELoginRequest_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` respondE2EELoginRequest_args_verifier record   `H.hashWithSalt` respondE2EELoginRequest_args_publicKey record   `H.hashWithSalt` respondE2EELoginRequest_args_encryptedKeyChain record   `H.hashWithSalt` respondE2EELoginRequest_args_hashKeyChain record   `H.hashWithSalt` respondE2EELoginRequest_args_errorCode record
+instance QC.Arbitrary RespondE2EELoginRequest_args where
   arbitrary = M.liftM RespondE2EELoginRequest_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -417,15 +417,15 @@ default_RespondE2EELoginRequest_args = RespondE2EELoginRequest_args{
 data RespondE2EELoginRequest_result = RespondE2EELoginRequest_result  { respondE2EELoginRequest_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RespondE2EELoginRequest_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` respondE2EELoginRequest_result_e record  
-instance QC.Arbitrary RespondE2EELoginRequest_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` respondE2EELoginRequest_result_e record
+instance QC.Arbitrary RespondE2EELoginRequest_result where
   arbitrary = M.liftM RespondE2EELoginRequest_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RespondE2EELoginRequest_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RespondE2EELoginRequest_result{respondE2EELoginRequest_result_e = respondE2EELoginRequest_result_e obj} then P.Nothing else P.Just $ default_RespondE2EELoginRequest_result{respondE2EELoginRequest_result_e = respondE2EELoginRequest_result_e obj}
     ]
 from_RespondE2EELoginRequest_result :: RespondE2EELoginRequest_result -> T.ThriftVal
-from_RespondE2EELoginRequest_result record = T.TStruct $ Map.fromList 
+from_RespondE2EELoginRequest_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11305 -> (1, ("e",from_TalkException _v11305))) <$> respondE2EELoginRequest_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11305 -> (1, ("e",from_TalkException _v11305))) <$> respondE2EELoginRequest_result_e record
@@ -453,8 +453,8 @@ data ConfirmE2EELogin_args = ConfirmE2EELogin_args  { confirmE2EELogin_args_veri
   , confirmE2EELogin_args_deviceSecret :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ConfirmE2EELogin_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` confirmE2EELogin_args_verifier record   `H.hashWithSalt` confirmE2EELogin_args_deviceSecret record  
-instance QC.Arbitrary ConfirmE2EELogin_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` confirmE2EELogin_args_verifier record   `H.hashWithSalt` confirmE2EELogin_args_deviceSecret record
+instance QC.Arbitrary ConfirmE2EELogin_args where
   arbitrary = M.liftM ConfirmE2EELogin_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_ConfirmE2EELogin_args = []
@@ -491,8 +491,8 @@ data ConfirmE2EELogin_result = ConfirmE2EELogin_result  { confirmE2EELogin_resul
   , confirmE2EELogin_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ConfirmE2EELogin_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` confirmE2EELogin_result_success record   `H.hashWithSalt` confirmE2EELogin_result_e record  
-instance QC.Arbitrary ConfirmE2EELogin_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` confirmE2EELogin_result_success record   `H.hashWithSalt` confirmE2EELogin_result_e record
+instance QC.Arbitrary ConfirmE2EELogin_result where
   arbitrary = M.liftM ConfirmE2EELogin_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ConfirmE2EELogin_result = []
@@ -501,7 +501,7 @@ instance QC.Arbitrary ConfirmE2EELogin_result where
     , if obj == default_ConfirmE2EELogin_result{confirmE2EELogin_result_e = confirmE2EELogin_result_e obj} then P.Nothing else P.Just $ default_ConfirmE2EELogin_result{confirmE2EELogin_result_e = confirmE2EELogin_result_e obj}
     ]
 from_ConfirmE2EELogin_result :: ConfirmE2EELogin_result -> T.ThriftVal
-from_ConfirmE2EELogin_result record = T.TStruct $ Map.fromList 
+from_ConfirmE2EELogin_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11318 -> (1, ("e",from_TalkException _v11318))) <$> confirmE2EELogin_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11318 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v11318))) $ confirmE2EELogin_result_success record
@@ -530,8 +530,8 @@ default_ConfirmE2EELogin_result = ConfirmE2EELogin_result{
   confirmE2EELogin_result_e = P.Nothing}
 data LogoutZ_args = LogoutZ_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LogoutZ_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary LogoutZ_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary LogoutZ_args where
   arbitrary = QC.elements [LogoutZ_args]
 from_LogoutZ_args :: LogoutZ_args -> T.ThriftVal
 from_LogoutZ_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -557,15 +557,15 @@ default_LogoutZ_args = LogoutZ_args{
 data LogoutZ_result = LogoutZ_result  { logoutZ_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LogoutZ_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` logoutZ_result_e record  
-instance QC.Arbitrary LogoutZ_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` logoutZ_result_e record
+instance QC.Arbitrary LogoutZ_result where
   arbitrary = M.liftM LogoutZ_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LogoutZ_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_LogoutZ_result{logoutZ_result_e = logoutZ_result_e obj} then P.Nothing else P.Just $ default_LogoutZ_result{logoutZ_result_e = logoutZ_result_e obj}
     ]
 from_LogoutZ_result :: LogoutZ_result -> T.ThriftVal
-from_LogoutZ_result record = T.TStruct $ Map.fromList 
+from_LogoutZ_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11330 -> (1, ("e",from_TalkException _v11330))) <$> logoutZ_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11330 -> (1, ("e",from_TalkException _v11330))) <$> logoutZ_result_e record
@@ -592,8 +592,8 @@ default_LogoutZ_result = LogoutZ_result{
 data LoginZ_args = LoginZ_args  { loginZ_args_loginRequest :: LoginRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LoginZ_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` loginZ_args_loginRequest record  
-instance QC.Arbitrary LoginZ_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` loginZ_args_loginRequest record
+instance QC.Arbitrary LoginZ_args where
   arbitrary = M.liftM LoginZ_args (QC.arbitrary)
   shrink obj | obj == default_LoginZ_args = []
              | P.otherwise = M.catMaybes
@@ -625,8 +625,8 @@ data LoginZ_result = LoginZ_result  { loginZ_result_success :: LoginResult
   , loginZ_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LoginZ_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` loginZ_result_success record   `H.hashWithSalt` loginZ_result_e record  
-instance QC.Arbitrary LoginZ_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` loginZ_result_success record   `H.hashWithSalt` loginZ_result_e record
+instance QC.Arbitrary LoginZ_result where
   arbitrary = M.liftM LoginZ_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LoginZ_result = []
@@ -635,7 +635,7 @@ instance QC.Arbitrary LoginZ_result where
     , if obj == default_LoginZ_result{loginZ_result_e = loginZ_result_e obj} then P.Nothing else P.Just $ default_LoginZ_result{loginZ_result_e = loginZ_result_e obj}
     ]
 from_LoginZ_result :: LoginZ_result -> T.ThriftVal
-from_LoginZ_result record = T.TStruct $ Map.fromList 
+from_LoginZ_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11342 -> (1, ("e",from_TalkException _v11342))) <$> loginZ_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11342 -> P.Just (0, ("success",from_LoginResult _v11342))) $ loginZ_result_success record
@@ -665,8 +665,8 @@ default_LoginZ_result = LoginZ_result{
 data IssueTokenForAccountMigrationSettings_args = IssueTokenForAccountMigrationSettings_args  { issueTokenForAccountMigrationSettings_args_enforce :: P.Bool
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueTokenForAccountMigrationSettings_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigrationSettings_args_enforce record  
-instance QC.Arbitrary IssueTokenForAccountMigrationSettings_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigrationSettings_args_enforce record
+instance QC.Arbitrary IssueTokenForAccountMigrationSettings_args where
   arbitrary = M.liftM IssueTokenForAccountMigrationSettings_args (QC.arbitrary)
   shrink obj | obj == default_IssueTokenForAccountMigrationSettings_args = []
              | P.otherwise = M.catMaybes
@@ -698,8 +698,8 @@ data IssueTokenForAccountMigrationSettings_result = IssueTokenForAccountMigratio
   , issueTokenForAccountMigrationSettings_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueTokenForAccountMigrationSettings_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigrationSettings_result_success record   `H.hashWithSalt` issueTokenForAccountMigrationSettings_result_e record  
-instance QC.Arbitrary IssueTokenForAccountMigrationSettings_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigrationSettings_result_success record   `H.hashWithSalt` issueTokenForAccountMigrationSettings_result_e record
+instance QC.Arbitrary IssueTokenForAccountMigrationSettings_result where
   arbitrary = M.liftM IssueTokenForAccountMigrationSettings_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueTokenForAccountMigrationSettings_result = []
@@ -708,7 +708,7 @@ instance QC.Arbitrary IssueTokenForAccountMigrationSettings_result where
     , if obj == default_IssueTokenForAccountMigrationSettings_result{issueTokenForAccountMigrationSettings_result_e = issueTokenForAccountMigrationSettings_result_e obj} then P.Nothing else P.Just $ default_IssueTokenForAccountMigrationSettings_result{issueTokenForAccountMigrationSettings_result_e = issueTokenForAccountMigrationSettings_result_e obj}
     ]
 from_IssueTokenForAccountMigrationSettings_result :: IssueTokenForAccountMigrationSettings_result -> T.ThriftVal
-from_IssueTokenForAccountMigrationSettings_result record = T.TStruct $ Map.fromList 
+from_IssueTokenForAccountMigrationSettings_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11355 -> (1, ("e",from_TalkException _v11355))) <$> issueTokenForAccountMigrationSettings_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11355 -> P.Just (0, ("success",from_SecurityCenterResult _v11355))) $ issueTokenForAccountMigrationSettings_result_success record
@@ -738,8 +738,8 @@ default_IssueTokenForAccountMigrationSettings_result = IssueTokenForAccountMigra
 data IssueTokenForAccountMigration_args = IssueTokenForAccountMigration_args  { issueTokenForAccountMigration_args_migrationSessionId :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueTokenForAccountMigration_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigration_args_migrationSessionId record  
-instance QC.Arbitrary IssueTokenForAccountMigration_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigration_args_migrationSessionId record
+instance QC.Arbitrary IssueTokenForAccountMigration_args where
   arbitrary = M.liftM IssueTokenForAccountMigration_args (QC.arbitrary)
   shrink obj | obj == default_IssueTokenForAccountMigration_args = []
              | P.otherwise = M.catMaybes
@@ -771,8 +771,8 @@ data IssueTokenForAccountMigration_result = IssueTokenForAccountMigration_result
   , issueTokenForAccountMigration_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable IssueTokenForAccountMigration_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigration_result_success record   `H.hashWithSalt` issueTokenForAccountMigration_result_e record  
-instance QC.Arbitrary IssueTokenForAccountMigration_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` issueTokenForAccountMigration_result_success record   `H.hashWithSalt` issueTokenForAccountMigration_result_e record
+instance QC.Arbitrary IssueTokenForAccountMigration_result where
   arbitrary = M.liftM IssueTokenForAccountMigration_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_IssueTokenForAccountMigration_result = []
@@ -781,7 +781,7 @@ instance QC.Arbitrary IssueTokenForAccountMigration_result where
     , if obj == default_IssueTokenForAccountMigration_result{issueTokenForAccountMigration_result_e = issueTokenForAccountMigration_result_e obj} then P.Nothing else P.Just $ default_IssueTokenForAccountMigration_result{issueTokenForAccountMigration_result_e = issueTokenForAccountMigration_result_e obj}
     ]
 from_IssueTokenForAccountMigration_result :: IssueTokenForAccountMigration_result -> T.ThriftVal
-from_IssueTokenForAccountMigration_result record = T.TStruct $ Map.fromList 
+from_IssueTokenForAccountMigration_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11368 -> (1, ("e",from_TalkException _v11368))) <$> issueTokenForAccountMigration_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11368 -> P.Just (0, ("success",from_SecurityCenterResult _v11368))) $ issueTokenForAccountMigration_result_success record
@@ -816,8 +816,8 @@ data VerifyQrcodeWithE2EE_args = VerifyQrcodeWithE2EE_args  { verifyQrcodeWithE2
   , verifyQrcodeWithE2EE_args_hashKeyChain :: LBS.ByteString
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable VerifyQrcodeWithE2EE_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` verifyQrcodeWithE2EE_args_verifier record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_pinCode record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_errorCode record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_publicKey record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_encryptedKeyChain record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_hashKeyChain record  
-instance QC.Arbitrary VerifyQrcodeWithE2EE_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` verifyQrcodeWithE2EE_args_verifier record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_pinCode record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_errorCode record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_publicKey record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_encryptedKeyChain record   `H.hashWithSalt` verifyQrcodeWithE2EE_args_hashKeyChain record
+instance QC.Arbitrary VerifyQrcodeWithE2EE_args where
   arbitrary = M.liftM VerifyQrcodeWithE2EE_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -874,8 +874,8 @@ data VerifyQrcodeWithE2EE_result = VerifyQrcodeWithE2EE_result  { verifyQrcodeWi
   , verifyQrcodeWithE2EE_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable VerifyQrcodeWithE2EE_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` verifyQrcodeWithE2EE_result_success record   `H.hashWithSalt` verifyQrcodeWithE2EE_result_e record  
-instance QC.Arbitrary VerifyQrcodeWithE2EE_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` verifyQrcodeWithE2EE_result_success record   `H.hashWithSalt` verifyQrcodeWithE2EE_result_e record
+instance QC.Arbitrary VerifyQrcodeWithE2EE_result where
   arbitrary = M.liftM VerifyQrcodeWithE2EE_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_VerifyQrcodeWithE2EE_result = []
@@ -884,7 +884,7 @@ instance QC.Arbitrary VerifyQrcodeWithE2EE_result where
     , if obj == default_VerifyQrcodeWithE2EE_result{verifyQrcodeWithE2EE_result_e = verifyQrcodeWithE2EE_result_e obj} then P.Nothing else P.Just $ default_VerifyQrcodeWithE2EE_result{verifyQrcodeWithE2EE_result_e = verifyQrcodeWithE2EE_result_e obj}
     ]
 from_VerifyQrcodeWithE2EE_result :: VerifyQrcodeWithE2EE_result -> T.ThriftVal
-from_VerifyQrcodeWithE2EE_result record = T.TStruct $ Map.fromList 
+from_VerifyQrcodeWithE2EE_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11386 -> (1, ("e",from_TalkException _v11386))) <$> verifyQrcodeWithE2EE_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11386 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v11386))) $ verifyQrcodeWithE2EE_result_success record

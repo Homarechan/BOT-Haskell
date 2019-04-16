@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SpotService where
+module LineApi.SpotService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,16 +38,16 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified SpotService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.SpotService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data LookupByPhoneNumber_args = LookupByPhoneNumber_args  { lookupByPhoneNumber_args_countryAreaCode :: LT.Text
   , lookupByPhoneNumber_args_phoneNumber :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupByPhoneNumber_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupByPhoneNumber_args_countryAreaCode record   `H.hashWithSalt` lookupByPhoneNumber_args_phoneNumber record  
-instance QC.Arbitrary LookupByPhoneNumber_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupByPhoneNumber_args_countryAreaCode record   `H.hashWithSalt` lookupByPhoneNumber_args_phoneNumber record
+instance QC.Arbitrary LookupByPhoneNumber_args where
   arbitrary = M.liftM LookupByPhoneNumber_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
   shrink obj | obj == default_LookupByPhoneNumber_args = []
@@ -84,8 +84,8 @@ data LookupByPhoneNumber_result = LookupByPhoneNumber_result  { lookupByPhoneNum
   , lookupByPhoneNumber_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupByPhoneNumber_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupByPhoneNumber_result_success record   `H.hashWithSalt` lookupByPhoneNumber_result_e record  
-instance QC.Arbitrary LookupByPhoneNumber_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupByPhoneNumber_result_success record   `H.hashWithSalt` lookupByPhoneNumber_result_e record
+instance QC.Arbitrary LookupByPhoneNumber_result where
   arbitrary = M.liftM LookupByPhoneNumber_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LookupByPhoneNumber_result = []
@@ -94,7 +94,7 @@ instance QC.Arbitrary LookupByPhoneNumber_result where
     , if obj == default_LookupByPhoneNumber_result{lookupByPhoneNumber_result_e = lookupByPhoneNumber_result_e obj} then P.Nothing else P.Just $ default_LookupByPhoneNumber_result{lookupByPhoneNumber_result_e = lookupByPhoneNumber_result_e obj}
     ]
 from_LookupByPhoneNumber_result :: LookupByPhoneNumber_result -> T.ThriftVal
-from_LookupByPhoneNumber_result record = T.TStruct $ Map.fromList 
+from_LookupByPhoneNumber_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4057 -> (1, ("e",from_TalkException _v4057))) <$> lookupByPhoneNumber_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4057 -> P.Just (0, ("success",from_SpotPhoneNumberResponse _v4057))) $ lookupByPhoneNumber_result_success record
@@ -127,8 +127,8 @@ data LookupNearby_args = LookupNearby_args  { lookupNearby_args_location :: Loca
   , lookupNearby_args_countryAreaCode :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupNearby_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupNearby_args_location record   `H.hashWithSalt` lookupNearby_args_category record   `H.hashWithSalt` lookupNearby_args_query record   `H.hashWithSalt` lookupNearby_args_countryAreaCode record  
-instance QC.Arbitrary LookupNearby_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupNearby_args_location record   `H.hashWithSalt` lookupNearby_args_category record   `H.hashWithSalt` lookupNearby_args_query record   `H.hashWithSalt` lookupNearby_args_countryAreaCode record
+instance QC.Arbitrary LookupNearby_args where
   arbitrary = M.liftM LookupNearby_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -175,8 +175,8 @@ data LookupNearby_result = LookupNearby_result  { lookupNearby_result_success ::
   , lookupNearby_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LookupNearby_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` lookupNearby_result_success record   `H.hashWithSalt` lookupNearby_result_e record  
-instance QC.Arbitrary LookupNearby_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` lookupNearby_result_success record   `H.hashWithSalt` lookupNearby_result_e record
+instance QC.Arbitrary LookupNearby_result where
   arbitrary = M.liftM LookupNearby_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LookupNearby_result = []
@@ -185,7 +185,7 @@ instance QC.Arbitrary LookupNearby_result where
     , if obj == default_LookupNearby_result{lookupNearby_result_e = lookupNearby_result_e obj} then P.Nothing else P.Just $ default_LookupNearby_result{lookupNearby_result_e = lookupNearby_result_e obj}
     ]
 from_LookupNearby_result :: LookupNearby_result -> T.ThriftVal
-from_LookupNearby_result record = T.TStruct $ Map.fromList 
+from_LookupNearby_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4073 -> (1, ("e",from_TalkException _v4073))) <$> lookupNearby_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4073 -> P.Just (0, ("success",from_SpotNearbyResponse _v4073))) $ lookupNearby_result_success record

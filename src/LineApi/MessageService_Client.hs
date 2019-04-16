@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module MessageService_Client(fetchMessageOperations,getLastReadMessageIds,multiGetLastReadMessageIds) where
+module LineApi.MessageService_Client(fetchMessageOperations,getLastReadMessageIds,multiGetLastReadMessageIds) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import MessageService
+import LineApi.Line_Types
+import LineApi.MessageService
 seqid = R.newIORef 0
 fetchMessageOperations (ip,op) arg_localRevision arg_lastOpTimestamp arg_count = do
   send_fetchMessageOperations op arg_localRevision arg_lastOpTimestamp arg_count

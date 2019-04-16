@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ChannelApplicationProvidedService_Client(activeBuddySubscriberCount,addOperationForChannel,displayBuddySubscriberCount,findContactByUseridWithoutAbuseBlockForChannel,getAllContactIdsForChannel,getCompactContacts,getContactsForChannel,getDisplayName,getFavoriteMidsForChannel,getFriendMids,getGroupMemberMids,getGroupsForChannel,getIdentityCredential,getJoinedGroupIdsForChannel,getMetaProfile,getMid,getPrimaryClientForChannel,getProfileForChannel,getSimpleChannelContacts,getUserCountryForBilling,getUserCreateTime,getUserIdentities,getUserLanguage,getUserMidsWhoAddedMe,isGroupMember,isInContact,registerChannelCP,removeNotificationStatus,sendMessageForChannel,sendPinCodeOperation,updateProfileAttributeForChannel) where
+module LineApi.ChannelApplicationProvidedService_Client(activeBuddySubscriberCount,addOperationForChannel,displayBuddySubscriberCount,findContactByUseridWithoutAbuseBlockForChannel,getAllContactIdsForChannel,getCompactContacts,getContactsForChannel,getDisplayName,getFavoriteMidsForChannel,getFriendMids,getGroupMemberMids,getGroupsForChannel,getIdentityCredential,getJoinedGroupIdsForChannel,getMetaProfile,getMid,getPrimaryClientForChannel,getProfileForChannel,getSimpleChannelContacts,getUserCountryForBilling,getUserCreateTime,getUserIdentities,getUserLanguage,getUserMidsWhoAddedMe,isGroupMember,isInContact,registerChannelCP,removeNotificationStatus,sendMessageForChannel,sendPinCodeOperation,updateProfileAttributeForChannel) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import ChannelApplicationProvidedService
+import LineApi.Line_Types
+import LineApi.ChannelApplicationProvidedService
 seqid = R.newIORef 0
 activeBuddySubscriberCount (ip,op) = do
   send_activeBuddySubscriberCount op

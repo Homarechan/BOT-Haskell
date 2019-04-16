@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AgeCheckService_Client(checkUserAge,checkUserAgeWithDocomo,retrieveOpenIdAuthUrlWithDocomo,retrieveRequestToken) where
+module LineApi.AgeCheckService_Client(checkUserAge,checkUserAgeWithDocomo,retrieveOpenIdAuthUrlWithDocomo,retrieveRequestToken) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import AgeCheckService
+import LineApi.Line_Types
+import LineApi.AgeCheckService
 seqid = R.newIORef 0
 checkUserAge (ip,op) arg_carrier arg_sessionId arg_verifier arg_standardAge = do
   send_checkUserAge op arg_carrier arg_sessionId arg_verifier arg_standardAge

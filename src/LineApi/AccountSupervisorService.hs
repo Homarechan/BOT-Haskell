@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module AccountSupervisorService where
+module LineApi.AccountSupervisorService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,14 +38,14 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified AccountSupervisorService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.AccountSupervisorService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data GetRSAKey_args = GetRSAKey_args deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRSAKey_args where
-  hashWithSalt salt record = salt  
-instance QC.Arbitrary GetRSAKey_args where 
+  hashWithSalt salt record = salt
+instance QC.Arbitrary GetRSAKey_args where
   arbitrary = QC.elements [GetRSAKey_args]
 from_GetRSAKey_args :: GetRSAKey_args -> T.ThriftVal
 from_GetRSAKey_args record = T.TStruct $ Map.fromList $ M.catMaybes
@@ -72,8 +72,8 @@ data GetRSAKey_result = GetRSAKey_result  { getRSAKey_result_success :: RSAKey
   , getRSAKey_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetRSAKey_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getRSAKey_result_success record   `H.hashWithSalt` getRSAKey_result_e record  
-instance QC.Arbitrary GetRSAKey_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getRSAKey_result_success record   `H.hashWithSalt` getRSAKey_result_e record
+instance QC.Arbitrary GetRSAKey_result where
   arbitrary = M.liftM GetRSAKey_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetRSAKey_result = []
@@ -82,7 +82,7 @@ instance QC.Arbitrary GetRSAKey_result where
     , if obj == default_GetRSAKey_result{getRSAKey_result_e = getRSAKey_result_e obj} then P.Nothing else P.Just $ default_GetRSAKey_result{getRSAKey_result_e = getRSAKey_result_e obj}
     ]
 from_GetRSAKey_result :: GetRSAKey_result -> T.ThriftVal
-from_GetRSAKey_result record = T.TStruct $ Map.fromList 
+from_GetRSAKey_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v3969 -> (1, ("e",from_TalkException _v3969))) <$> getRSAKey_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v3969 -> P.Just (0, ("success",from_RSAKey _v3969))) $ getRSAKey_result_success record
@@ -112,8 +112,8 @@ default_GetRSAKey_result = GetRSAKey_result{
 data NotifyEmailConfirmationResult_args = NotifyEmailConfirmationResult_args  { notifyEmailConfirmationResult_args_parameterMap :: (Map.HashMap LT.Text LT.Text)
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyEmailConfirmationResult_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyEmailConfirmationResult_args_parameterMap record  
-instance QC.Arbitrary NotifyEmailConfirmationResult_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyEmailConfirmationResult_args_parameterMap record
+instance QC.Arbitrary NotifyEmailConfirmationResult_args where
   arbitrary = M.liftM NotifyEmailConfirmationResult_args (QC.arbitrary)
   shrink obj | obj == default_NotifyEmailConfirmationResult_args = []
              | P.otherwise = M.catMaybes
@@ -144,15 +144,15 @@ default_NotifyEmailConfirmationResult_args = NotifyEmailConfirmationResult_args{
 data NotifyEmailConfirmationResult_result = NotifyEmailConfirmationResult_result  { notifyEmailConfirmationResult_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyEmailConfirmationResult_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyEmailConfirmationResult_result_e record  
-instance QC.Arbitrary NotifyEmailConfirmationResult_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyEmailConfirmationResult_result_e record
+instance QC.Arbitrary NotifyEmailConfirmationResult_result where
   arbitrary = M.liftM NotifyEmailConfirmationResult_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyEmailConfirmationResult_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyEmailConfirmationResult_result{notifyEmailConfirmationResult_result_e = notifyEmailConfirmationResult_result_e obj} then P.Nothing else P.Just $ default_NotifyEmailConfirmationResult_result{notifyEmailConfirmationResult_result_e = notifyEmailConfirmationResult_result_e obj}
     ]
 from_NotifyEmailConfirmationResult_result :: NotifyEmailConfirmationResult_result -> T.ThriftVal
-from_NotifyEmailConfirmationResult_result record = T.TStruct $ Map.fromList 
+from_NotifyEmailConfirmationResult_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v3988 -> (1, ("e",from_TalkException _v3988))) <$> notifyEmailConfirmationResult_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v3988 -> (1, ("e",from_TalkException _v3988))) <$> notifyEmailConfirmationResult_result_e record
@@ -181,8 +181,8 @@ data RegisterVirtualAccount_args = RegisterVirtualAccount_args  { registerVirtua
   , registerVirtualAccount_args_encryptedPassword :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterVirtualAccount_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerVirtualAccount_args_locale record   `H.hashWithSalt` registerVirtualAccount_args_encryptedVirtualUserId record   `H.hashWithSalt` registerVirtualAccount_args_encryptedPassword record  
-instance QC.Arbitrary RegisterVirtualAccount_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerVirtualAccount_args_locale record   `H.hashWithSalt` registerVirtualAccount_args_encryptedVirtualUserId record   `H.hashWithSalt` registerVirtualAccount_args_encryptedPassword record
+instance QC.Arbitrary RegisterVirtualAccount_args where
   arbitrary = M.liftM RegisterVirtualAccount_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -224,8 +224,8 @@ data RegisterVirtualAccount_result = RegisterVirtualAccount_result  { registerVi
   , registerVirtualAccount_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RegisterVirtualAccount_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` registerVirtualAccount_result_success record   `H.hashWithSalt` registerVirtualAccount_result_e record  
-instance QC.Arbitrary RegisterVirtualAccount_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` registerVirtualAccount_result_success record   `H.hashWithSalt` registerVirtualAccount_result_e record
+instance QC.Arbitrary RegisterVirtualAccount_result where
   arbitrary = M.liftM RegisterVirtualAccount_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RegisterVirtualAccount_result = []
@@ -234,7 +234,7 @@ instance QC.Arbitrary RegisterVirtualAccount_result where
     , if obj == default_RegisterVirtualAccount_result{registerVirtualAccount_result_e = registerVirtualAccount_result_e obj} then P.Nothing else P.Just $ default_RegisterVirtualAccount_result{registerVirtualAccount_result_e = registerVirtualAccount_result_e obj}
     ]
 from_RegisterVirtualAccount_result :: RegisterVirtualAccount_result -> T.ThriftVal
-from_RegisterVirtualAccount_result record = T.TStruct $ Map.fromList 
+from_RegisterVirtualAccount_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4002 -> (1, ("e",from_TalkException _v4002))) <$> registerVirtualAccount_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4002 -> P.Just (0, ("success",T.TString $ E.encodeUtf8 _v4002))) $ registerVirtualAccount_result_success record
@@ -267,8 +267,8 @@ data RequestVirtualAccountPasswordChange_args = RequestVirtualAccountPasswordCha
   , requestVirtualAccountPasswordChange_args_encryptedNewPassword :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RequestVirtualAccountPasswordChange_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_virtualMid record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedVirtualUserId record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedOldPassword record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedNewPassword record  
-instance QC.Arbitrary RequestVirtualAccountPasswordChange_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_virtualMid record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedVirtualUserId record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedOldPassword record   `H.hashWithSalt` requestVirtualAccountPasswordChange_args_encryptedNewPassword record
+instance QC.Arbitrary RequestVirtualAccountPasswordChange_args where
   arbitrary = M.liftM RequestVirtualAccountPasswordChange_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -314,15 +314,15 @@ default_RequestVirtualAccountPasswordChange_args = RequestVirtualAccountPassword
 data RequestVirtualAccountPasswordChange_result = RequestVirtualAccountPasswordChange_result  { requestVirtualAccountPasswordChange_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RequestVirtualAccountPasswordChange_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordChange_result_e record  
-instance QC.Arbitrary RequestVirtualAccountPasswordChange_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordChange_result_e record
+instance QC.Arbitrary RequestVirtualAccountPasswordChange_result where
   arbitrary = M.liftM RequestVirtualAccountPasswordChange_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RequestVirtualAccountPasswordChange_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RequestVirtualAccountPasswordChange_result{requestVirtualAccountPasswordChange_result_e = requestVirtualAccountPasswordChange_result_e obj} then P.Nothing else P.Just $ default_RequestVirtualAccountPasswordChange_result{requestVirtualAccountPasswordChange_result_e = requestVirtualAccountPasswordChange_result_e obj}
     ]
 from_RequestVirtualAccountPasswordChange_result :: RequestVirtualAccountPasswordChange_result -> T.ThriftVal
-from_RequestVirtualAccountPasswordChange_result record = T.TStruct $ Map.fromList 
+from_RequestVirtualAccountPasswordChange_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4018 -> (1, ("e",from_TalkException _v4018))) <$> requestVirtualAccountPasswordChange_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4018 -> (1, ("e",from_TalkException _v4018))) <$> requestVirtualAccountPasswordChange_result_e record
@@ -351,8 +351,8 @@ data RequestVirtualAccountPasswordSet_args = RequestVirtualAccountPasswordSet_ar
   , requestVirtualAccountPasswordSet_args_encryptedNewPassword :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RequestVirtualAccountPasswordSet_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_virtualMid record   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_encryptedVirtualUserId record   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_encryptedNewPassword record  
-instance QC.Arbitrary RequestVirtualAccountPasswordSet_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_virtualMid record   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_encryptedVirtualUserId record   `H.hashWithSalt` requestVirtualAccountPasswordSet_args_encryptedNewPassword record
+instance QC.Arbitrary RequestVirtualAccountPasswordSet_args where
   arbitrary = M.liftM RequestVirtualAccountPasswordSet_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -393,15 +393,15 @@ default_RequestVirtualAccountPasswordSet_args = RequestVirtualAccountPasswordSet
 data RequestVirtualAccountPasswordSet_result = RequestVirtualAccountPasswordSet_result  { requestVirtualAccountPasswordSet_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RequestVirtualAccountPasswordSet_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordSet_result_e record  
-instance QC.Arbitrary RequestVirtualAccountPasswordSet_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` requestVirtualAccountPasswordSet_result_e record
+instance QC.Arbitrary RequestVirtualAccountPasswordSet_result where
   arbitrary = M.liftM RequestVirtualAccountPasswordSet_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RequestVirtualAccountPasswordSet_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_RequestVirtualAccountPasswordSet_result{requestVirtualAccountPasswordSet_result_e = requestVirtualAccountPasswordSet_result_e obj} then P.Nothing else P.Just $ default_RequestVirtualAccountPasswordSet_result{requestVirtualAccountPasswordSet_result_e = requestVirtualAccountPasswordSet_result_e obj}
     ]
 from_RequestVirtualAccountPasswordSet_result :: RequestVirtualAccountPasswordSet_result -> T.ThriftVal
-from_RequestVirtualAccountPasswordSet_result record = T.TStruct $ Map.fromList 
+from_RequestVirtualAccountPasswordSet_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4032 -> (1, ("e",from_TalkException _v4032))) <$> requestVirtualAccountPasswordSet_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4032 -> (1, ("e",from_TalkException _v4032))) <$> requestVirtualAccountPasswordSet_result_e record
@@ -428,8 +428,8 @@ default_RequestVirtualAccountPasswordSet_result = RequestVirtualAccountPasswordS
 data UnregisterVirtualAccount_args = UnregisterVirtualAccount_args  { unregisterVirtualAccount_args_virtualMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterVirtualAccount_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterVirtualAccount_args_virtualMid record  
-instance QC.Arbitrary UnregisterVirtualAccount_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterVirtualAccount_args_virtualMid record
+instance QC.Arbitrary UnregisterVirtualAccount_args where
   arbitrary = M.liftM UnregisterVirtualAccount_args (QC.arbitrary)
   shrink obj | obj == default_UnregisterVirtualAccount_args = []
              | P.otherwise = M.catMaybes
@@ -460,15 +460,15 @@ default_UnregisterVirtualAccount_args = UnregisterVirtualAccount_args{
 data UnregisterVirtualAccount_result = UnregisterVirtualAccount_result  { unregisterVirtualAccount_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UnregisterVirtualAccount_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterVirtualAccount_result_e record  
-instance QC.Arbitrary UnregisterVirtualAccount_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` unregisterVirtualAccount_result_e record
+instance QC.Arbitrary UnregisterVirtualAccount_result where
   arbitrary = M.liftM UnregisterVirtualAccount_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UnregisterVirtualAccount_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_UnregisterVirtualAccount_result{unregisterVirtualAccount_result_e = unregisterVirtualAccount_result_e obj} then P.Nothing else P.Just $ default_UnregisterVirtualAccount_result{unregisterVirtualAccount_result_e = unregisterVirtualAccount_result_e obj}
     ]
 from_UnregisterVirtualAccount_result :: UnregisterVirtualAccount_result -> T.ThriftVal
-from_UnregisterVirtualAccount_result record = T.TStruct $ Map.fromList 
+from_UnregisterVirtualAccount_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4044 -> (1, ("e",from_TalkException _v4044))) <$> unregisterVirtualAccount_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4044 -> (1, ("e",from_TalkException _v4044))) <$> unregisterVirtualAccount_result_e record

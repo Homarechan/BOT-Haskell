@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module UniversalNotificationService_Client(notify) where
+module LineApi.UniversalNotificationService_Client(notify) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import UniversalNotificationService
+import LineApi.Line_Types
+import LineApi.UniversalNotificationService
 seqid = R.newIORef 0
 notify (ip,op) arg_event = do
   send_notify op arg_event

@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module SquareService where
+module LineApi.SquareService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified SquareService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.SquareService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data GetSquareChatAnnouncements_args = GetSquareChatAnnouncements_args  { getSquareChatAnnouncements_args_request :: GetSquareChatAnnouncementsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatAnnouncements_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatAnnouncements_args_request record  
-instance QC.Arbitrary GetSquareChatAnnouncements_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatAnnouncements_args_request record
+instance QC.Arbitrary GetSquareChatAnnouncements_args where
   arbitrary = M.liftM GetSquareChatAnnouncements_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareChatAnnouncements_args = []
              | P.otherwise = M.catMaybes
@@ -78,8 +78,8 @@ data GetSquareChatAnnouncements_result = GetSquareChatAnnouncements_result  { ge
   , getSquareChatAnnouncements_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatAnnouncements_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatAnnouncements_result_success record   `H.hashWithSalt` getSquareChatAnnouncements_result_e record  
-instance QC.Arbitrary GetSquareChatAnnouncements_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatAnnouncements_result_success record   `H.hashWithSalt` getSquareChatAnnouncements_result_e record
+instance QC.Arbitrary GetSquareChatAnnouncements_result where
   arbitrary = M.liftM GetSquareChatAnnouncements_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareChatAnnouncements_result = []
@@ -88,7 +88,7 @@ instance QC.Arbitrary GetSquareChatAnnouncements_result where
     , if obj == default_GetSquareChatAnnouncements_result{getSquareChatAnnouncements_result_e = getSquareChatAnnouncements_result_e obj} then P.Nothing else P.Just $ default_GetSquareChatAnnouncements_result{getSquareChatAnnouncements_result_e = getSquareChatAnnouncements_result_e obj}
     ]
 from_GetSquareChatAnnouncements_result :: GetSquareChatAnnouncements_result -> T.ThriftVal
-from_GetSquareChatAnnouncements_result record = T.TStruct $ Map.fromList 
+from_GetSquareChatAnnouncements_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11399 -> (1, ("e",from_SquareException _v11399))) <$> getSquareChatAnnouncements_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11399 -> P.Just (0, ("success",from_GetSquareChatAnnouncementsResponse _v11399))) $ getSquareChatAnnouncements_result_success record
@@ -118,8 +118,8 @@ default_GetSquareChatAnnouncements_result = GetSquareChatAnnouncements_result{
 data DeleteSquareChatAnnouncement_args = DeleteSquareChatAnnouncement_args  { deleteSquareChatAnnouncement_args_request :: DeleteSquareChatAnnouncementRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquareChatAnnouncement_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChatAnnouncement_args_request record  
-instance QC.Arbitrary DeleteSquareChatAnnouncement_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChatAnnouncement_args_request record
+instance QC.Arbitrary DeleteSquareChatAnnouncement_args where
   arbitrary = M.liftM DeleteSquareChatAnnouncement_args (QC.arbitrary)
   shrink obj | obj == default_DeleteSquareChatAnnouncement_args = []
              | P.otherwise = M.catMaybes
@@ -151,8 +151,8 @@ data DeleteSquareChatAnnouncement_result = DeleteSquareChatAnnouncement_result  
   , deleteSquareChatAnnouncement_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquareChatAnnouncement_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChatAnnouncement_result_success record   `H.hashWithSalt` deleteSquareChatAnnouncement_result_e record  
-instance QC.Arbitrary DeleteSquareChatAnnouncement_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChatAnnouncement_result_success record   `H.hashWithSalt` deleteSquareChatAnnouncement_result_e record
+instance QC.Arbitrary DeleteSquareChatAnnouncement_result where
   arbitrary = M.liftM DeleteSquareChatAnnouncement_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DeleteSquareChatAnnouncement_result = []
@@ -161,7 +161,7 @@ instance QC.Arbitrary DeleteSquareChatAnnouncement_result where
     , if obj == default_DeleteSquareChatAnnouncement_result{deleteSquareChatAnnouncement_result_e = deleteSquareChatAnnouncement_result_e obj} then P.Nothing else P.Just $ default_DeleteSquareChatAnnouncement_result{deleteSquareChatAnnouncement_result_e = deleteSquareChatAnnouncement_result_e obj}
     ]
 from_DeleteSquareChatAnnouncement_result :: DeleteSquareChatAnnouncement_result -> T.ThriftVal
-from_DeleteSquareChatAnnouncement_result record = T.TStruct $ Map.fromList 
+from_DeleteSquareChatAnnouncement_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11412 -> (1, ("e",from_SquareException _v11412))) <$> deleteSquareChatAnnouncement_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11412 -> P.Just (0, ("success",from_DeleteSquareChatAnnouncementResponse _v11412))) $ deleteSquareChatAnnouncement_result_success record
@@ -191,8 +191,8 @@ default_DeleteSquareChatAnnouncement_result = DeleteSquareChatAnnouncement_resul
 data CreateSquareChatAnnouncement_args = CreateSquareChatAnnouncement_args  { createSquareChatAnnouncement_args_request :: CreateSquareChatAnnouncementRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquareChatAnnouncement_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChatAnnouncement_args_request record  
-instance QC.Arbitrary CreateSquareChatAnnouncement_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChatAnnouncement_args_request record
+instance QC.Arbitrary CreateSquareChatAnnouncement_args where
   arbitrary = M.liftM CreateSquareChatAnnouncement_args (QC.arbitrary)
   shrink obj | obj == default_CreateSquareChatAnnouncement_args = []
              | P.otherwise = M.catMaybes
@@ -224,8 +224,8 @@ data CreateSquareChatAnnouncement_result = CreateSquareChatAnnouncement_result  
   , createSquareChatAnnouncement_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquareChatAnnouncement_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChatAnnouncement_result_success record   `H.hashWithSalt` createSquareChatAnnouncement_result_e record  
-instance QC.Arbitrary CreateSquareChatAnnouncement_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChatAnnouncement_result_success record   `H.hashWithSalt` createSquareChatAnnouncement_result_e record
+instance QC.Arbitrary CreateSquareChatAnnouncement_result where
   arbitrary = M.liftM CreateSquareChatAnnouncement_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CreateSquareChatAnnouncement_result = []
@@ -234,7 +234,7 @@ instance QC.Arbitrary CreateSquareChatAnnouncement_result where
     , if obj == default_CreateSquareChatAnnouncement_result{createSquareChatAnnouncement_result_e = createSquareChatAnnouncement_result_e obj} then P.Nothing else P.Just $ default_CreateSquareChatAnnouncement_result{createSquareChatAnnouncement_result_e = createSquareChatAnnouncement_result_e obj}
     ]
 from_CreateSquareChatAnnouncement_result :: CreateSquareChatAnnouncement_result -> T.ThriftVal
-from_CreateSquareChatAnnouncement_result record = T.TStruct $ Map.fromList 
+from_CreateSquareChatAnnouncement_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11425 -> (1, ("e",from_SquareException _v11425))) <$> createSquareChatAnnouncement_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11425 -> P.Just (0, ("success",from_CreateSquareChatAnnouncementResponse _v11425))) $ createSquareChatAnnouncement_result_success record
@@ -264,8 +264,8 @@ default_CreateSquareChatAnnouncement_result = CreateSquareChatAnnouncement_resul
 data GetNoteStatus_args = GetNoteStatus_args  { getNoteStatus_args_request :: GetNoteStatusRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNoteStatus_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNoteStatus_args_request record  
-instance QC.Arbitrary GetNoteStatus_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNoteStatus_args_request record
+instance QC.Arbitrary GetNoteStatus_args where
   arbitrary = M.liftM GetNoteStatus_args (QC.arbitrary)
   shrink obj | obj == default_GetNoteStatus_args = []
              | P.otherwise = M.catMaybes
@@ -297,8 +297,8 @@ data GetNoteStatus_result = GetNoteStatus_result  { getNoteStatus_result_success
   , getNoteStatus_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetNoteStatus_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getNoteStatus_result_success record   `H.hashWithSalt` getNoteStatus_result_e record  
-instance QC.Arbitrary GetNoteStatus_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getNoteStatus_result_success record   `H.hashWithSalt` getNoteStatus_result_e record
+instance QC.Arbitrary GetNoteStatus_result where
   arbitrary = M.liftM GetNoteStatus_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetNoteStatus_result = []
@@ -307,7 +307,7 @@ instance QC.Arbitrary GetNoteStatus_result where
     , if obj == default_GetNoteStatus_result{getNoteStatus_result_e = getNoteStatus_result_e obj} then P.Nothing else P.Just $ default_GetNoteStatus_result{getNoteStatus_result_e = getNoteStatus_result_e obj}
     ]
 from_GetNoteStatus_result :: GetNoteStatus_result -> T.ThriftVal
-from_GetNoteStatus_result record = T.TStruct $ Map.fromList 
+from_GetNoteStatus_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11438 -> (1, ("e",from_SquareException _v11438))) <$> getNoteStatus_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11438 -> P.Just (0, ("success",from_GetNoteStatusResponse _v11438))) $ getNoteStatus_result_success record
@@ -337,8 +337,8 @@ default_GetNoteStatus_result = GetNoteStatus_result{
 data GetSquareStatus_args = GetSquareStatus_args  { getSquareStatus_args_request :: GetSquareStatusRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareStatus_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareStatus_args_request record  
-instance QC.Arbitrary GetSquareStatus_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareStatus_args_request record
+instance QC.Arbitrary GetSquareStatus_args where
   arbitrary = M.liftM GetSquareStatus_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareStatus_args = []
              | P.otherwise = M.catMaybes
@@ -370,8 +370,8 @@ data GetSquareStatus_result = GetSquareStatus_result  { getSquareStatus_result_s
   , getSquareStatus_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareStatus_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareStatus_result_success record   `H.hashWithSalt` getSquareStatus_result_e record  
-instance QC.Arbitrary GetSquareStatus_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareStatus_result_success record   `H.hashWithSalt` getSquareStatus_result_e record
+instance QC.Arbitrary GetSquareStatus_result where
   arbitrary = M.liftM GetSquareStatus_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareStatus_result = []
@@ -380,7 +380,7 @@ instance QC.Arbitrary GetSquareStatus_result where
     , if obj == default_GetSquareStatus_result{getSquareStatus_result_e = getSquareStatus_result_e obj} then P.Nothing else P.Just $ default_GetSquareStatus_result{getSquareStatus_result_e = getSquareStatus_result_e obj}
     ]
 from_GetSquareStatus_result :: GetSquareStatus_result -> T.ThriftVal
-from_GetSquareStatus_result record = T.TStruct $ Map.fromList 
+from_GetSquareStatus_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11451 -> (1, ("e",from_SquareException _v11451))) <$> getSquareStatus_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11451 -> P.Just (0, ("success",from_GetSquareStatusResponse _v11451))) $ getSquareStatus_result_success record
@@ -410,8 +410,8 @@ default_GetSquareStatus_result = GetSquareStatus_result{
 data ReportSquareMember_args = ReportSquareMember_args  { reportSquareMember_args_request :: ReportSquareMemberRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMember_args_request record  
-instance QC.Arbitrary ReportSquareMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMember_args_request record
+instance QC.Arbitrary ReportSquareMember_args where
   arbitrary = M.liftM ReportSquareMember_args (QC.arbitrary)
   shrink obj | obj == default_ReportSquareMember_args = []
              | P.otherwise = M.catMaybes
@@ -443,8 +443,8 @@ data ReportSquareMember_result = ReportSquareMember_result  { reportSquareMember
   , reportSquareMember_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMember_result_success record   `H.hashWithSalt` reportSquareMember_result_e record  
-instance QC.Arbitrary ReportSquareMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMember_result_success record   `H.hashWithSalt` reportSquareMember_result_e record
+instance QC.Arbitrary ReportSquareMember_result where
   arbitrary = M.liftM ReportSquareMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReportSquareMember_result = []
@@ -453,7 +453,7 @@ instance QC.Arbitrary ReportSquareMember_result where
     , if obj == default_ReportSquareMember_result{reportSquareMember_result_e = reportSquareMember_result_e obj} then P.Nothing else P.Just $ default_ReportSquareMember_result{reportSquareMember_result_e = reportSquareMember_result_e obj}
     ]
 from_ReportSquareMember_result :: ReportSquareMember_result -> T.ThriftVal
-from_ReportSquareMember_result record = T.TStruct $ Map.fromList 
+from_ReportSquareMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11464 -> (1, ("e",from_SquareException _v11464))) <$> reportSquareMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11464 -> P.Just (0, ("success",from_ReportSquareMemberResponse _v11464))) $ reportSquareMember_result_success record
@@ -483,8 +483,8 @@ default_ReportSquareMember_result = ReportSquareMember_result{
 data ReportSquareMessage_args = ReportSquareMessage_args  { reportSquareMessage_args_request :: ReportSquareMessageRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMessage_args_request record  
-instance QC.Arbitrary ReportSquareMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMessage_args_request record
+instance QC.Arbitrary ReportSquareMessage_args where
   arbitrary = M.liftM ReportSquareMessage_args (QC.arbitrary)
   shrink obj | obj == default_ReportSquareMessage_args = []
              | P.otherwise = M.catMaybes
@@ -516,8 +516,8 @@ data ReportSquareMessage_result = ReportSquareMessage_result  { reportSquareMess
   , reportSquareMessage_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMessage_result_success record   `H.hashWithSalt` reportSquareMessage_result_e record  
-instance QC.Arbitrary ReportSquareMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareMessage_result_success record   `H.hashWithSalt` reportSquareMessage_result_e record
+instance QC.Arbitrary ReportSquareMessage_result where
   arbitrary = M.liftM ReportSquareMessage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReportSquareMessage_result = []
@@ -526,7 +526,7 @@ instance QC.Arbitrary ReportSquareMessage_result where
     , if obj == default_ReportSquareMessage_result{reportSquareMessage_result_e = reportSquareMessage_result_e obj} then P.Nothing else P.Just $ default_ReportSquareMessage_result{reportSquareMessage_result_e = reportSquareMessage_result_e obj}
     ]
 from_ReportSquareMessage_result :: ReportSquareMessage_result -> T.ThriftVal
-from_ReportSquareMessage_result record = T.TStruct $ Map.fromList 
+from_ReportSquareMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11477 -> (1, ("e",from_SquareException _v11477))) <$> reportSquareMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11477 -> P.Just (0, ("success",from_ReportSquareMessageResponse _v11477))) $ reportSquareMessage_result_success record
@@ -556,8 +556,8 @@ default_ReportSquareMessage_result = ReportSquareMessage_result{
 data ReportSquareChat_args = ReportSquareChat_args  { reportSquareChat_args_request :: ReportSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareChat_args_request record  
-instance QC.Arbitrary ReportSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareChat_args_request record
+instance QC.Arbitrary ReportSquareChat_args where
   arbitrary = M.liftM ReportSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_ReportSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -589,8 +589,8 @@ data ReportSquareChat_result = ReportSquareChat_result  { reportSquareChat_resul
   , reportSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareChat_result_success record   `H.hashWithSalt` reportSquareChat_result_e record  
-instance QC.Arbitrary ReportSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquareChat_result_success record   `H.hashWithSalt` reportSquareChat_result_e record
+instance QC.Arbitrary ReportSquareChat_result where
   arbitrary = M.liftM ReportSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReportSquareChat_result = []
@@ -599,7 +599,7 @@ instance QC.Arbitrary ReportSquareChat_result where
     , if obj == default_ReportSquareChat_result{reportSquareChat_result_e = reportSquareChat_result_e obj} then P.Nothing else P.Just $ default_ReportSquareChat_result{reportSquareChat_result_e = reportSquareChat_result_e obj}
     ]
 from_ReportSquareChat_result :: ReportSquareChat_result -> T.ThriftVal
-from_ReportSquareChat_result record = T.TStruct $ Map.fromList 
+from_ReportSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11490 -> (1, ("e",from_SquareException _v11490))) <$> reportSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11490 -> P.Just (0, ("success",from_ReportSquareChatResponse _v11490))) $ reportSquareChat_result_success record
@@ -629,8 +629,8 @@ default_ReportSquareChat_result = ReportSquareChat_result{
 data ReportSquare_args = ReportSquare_args  { reportSquare_args_request :: ReportSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquare_args_request record  
-instance QC.Arbitrary ReportSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquare_args_request record
+instance QC.Arbitrary ReportSquare_args where
   arbitrary = M.liftM ReportSquare_args (QC.arbitrary)
   shrink obj | obj == default_ReportSquare_args = []
              | P.otherwise = M.catMaybes
@@ -662,8 +662,8 @@ data ReportSquare_result = ReportSquare_result  { reportSquare_result_success ::
   , reportSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ReportSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquare_result_success record   `H.hashWithSalt` reportSquare_result_e record  
-instance QC.Arbitrary ReportSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` reportSquare_result_success record   `H.hashWithSalt` reportSquare_result_e record
+instance QC.Arbitrary ReportSquare_result where
   arbitrary = M.liftM ReportSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ReportSquare_result = []
@@ -672,7 +672,7 @@ instance QC.Arbitrary ReportSquare_result where
     , if obj == default_ReportSquare_result{reportSquare_result_e = reportSquare_result_e obj} then P.Nothing else P.Just $ default_ReportSquare_result{reportSquare_result_e = reportSquare_result_e obj}
     ]
 from_ReportSquare_result :: ReportSquare_result -> T.ThriftVal
-from_ReportSquare_result record = T.TStruct $ Map.fromList 
+from_ReportSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11503 -> (1, ("e",from_SquareException _v11503))) <$> reportSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11503 -> P.Just (0, ("success",from_ReportSquareResponse _v11503))) $ reportSquare_result_success record
@@ -702,8 +702,8 @@ default_ReportSquare_result = ReportSquare_result{
 data UpdateSquareMemberRelation_args = UpdateSquareMemberRelation_args  { updateSquareMemberRelation_args_request :: UpdateSquareMemberRelationRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMemberRelation_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMemberRelation_args_request record  
-instance QC.Arbitrary UpdateSquareMemberRelation_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMemberRelation_args_request record
+instance QC.Arbitrary UpdateSquareMemberRelation_args where
   arbitrary = M.liftM UpdateSquareMemberRelation_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMemberRelation_args = []
              | P.otherwise = M.catMaybes
@@ -735,8 +735,8 @@ data UpdateSquareMemberRelation_result = UpdateSquareMemberRelation_result  { up
   , updateSquareMemberRelation_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMemberRelation_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMemberRelation_result_success record   `H.hashWithSalt` updateSquareMemberRelation_result_e record  
-instance QC.Arbitrary UpdateSquareMemberRelation_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMemberRelation_result_success record   `H.hashWithSalt` updateSquareMemberRelation_result_e record
+instance QC.Arbitrary UpdateSquareMemberRelation_result where
   arbitrary = M.liftM UpdateSquareMemberRelation_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMemberRelation_result = []
@@ -745,7 +745,7 @@ instance QC.Arbitrary UpdateSquareMemberRelation_result where
     , if obj == default_UpdateSquareMemberRelation_result{updateSquareMemberRelation_result_e = updateSquareMemberRelation_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareMemberRelation_result{updateSquareMemberRelation_result_e = updateSquareMemberRelation_result_e obj}
     ]
 from_UpdateSquareMemberRelation_result :: UpdateSquareMemberRelation_result -> T.ThriftVal
-from_UpdateSquareMemberRelation_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareMemberRelation_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11516 -> (1, ("e",from_SquareException _v11516))) <$> updateSquareMemberRelation_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11516 -> P.Just (0, ("success",from_UpdateSquareMemberRelationResponse _v11516))) $ updateSquareMemberRelation_result_success record
@@ -775,8 +775,8 @@ default_UpdateSquareMemberRelation_result = UpdateSquareMemberRelation_result{
 data UpdateSquareAuthority_args = UpdateSquareAuthority_args  { updateSquareAuthority_args_request :: UpdateSquareAuthorityRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareAuthority_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareAuthority_args_request record  
-instance QC.Arbitrary UpdateSquareAuthority_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareAuthority_args_request record
+instance QC.Arbitrary UpdateSquareAuthority_args where
   arbitrary = M.liftM UpdateSquareAuthority_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareAuthority_args = []
              | P.otherwise = M.catMaybes
@@ -808,8 +808,8 @@ data UpdateSquareAuthority_result = UpdateSquareAuthority_result  { updateSquare
   , updateSquareAuthority_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareAuthority_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareAuthority_result_success record   `H.hashWithSalt` updateSquareAuthority_result_e record  
-instance QC.Arbitrary UpdateSquareAuthority_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareAuthority_result_success record   `H.hashWithSalt` updateSquareAuthority_result_e record
+instance QC.Arbitrary UpdateSquareAuthority_result where
   arbitrary = M.liftM UpdateSquareAuthority_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareAuthority_result = []
@@ -818,7 +818,7 @@ instance QC.Arbitrary UpdateSquareAuthority_result where
     , if obj == default_UpdateSquareAuthority_result{updateSquareAuthority_result_e = updateSquareAuthority_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareAuthority_result{updateSquareAuthority_result_e = updateSquareAuthority_result_e obj}
     ]
 from_UpdateSquareAuthority_result :: UpdateSquareAuthority_result -> T.ThriftVal
-from_UpdateSquareAuthority_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareAuthority_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11529 -> (1, ("e",from_SquareException _v11529))) <$> updateSquareAuthority_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11529 -> P.Just (0, ("success",from_UpdateSquareAuthorityResponse _v11529))) $ updateSquareAuthority_result_success record
@@ -848,8 +848,8 @@ default_UpdateSquareAuthority_result = UpdateSquareAuthority_result{
 data UpdateSquareChatMember_args = UpdateSquareChatMember_args  { updateSquareChatMember_args_request :: UpdateSquareChatMemberRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareChatMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChatMember_args_request record  
-instance QC.Arbitrary UpdateSquareChatMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChatMember_args_request record
+instance QC.Arbitrary UpdateSquareChatMember_args where
   arbitrary = M.liftM UpdateSquareChatMember_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareChatMember_args = []
              | P.otherwise = M.catMaybes
@@ -881,8 +881,8 @@ data UpdateSquareChatMember_result = UpdateSquareChatMember_result  { updateSqua
   , updateSquareChatMember_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareChatMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChatMember_result_success record   `H.hashWithSalt` updateSquareChatMember_result_e record  
-instance QC.Arbitrary UpdateSquareChatMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChatMember_result_success record   `H.hashWithSalt` updateSquareChatMember_result_e record
+instance QC.Arbitrary UpdateSquareChatMember_result where
   arbitrary = M.liftM UpdateSquareChatMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareChatMember_result = []
@@ -891,7 +891,7 @@ instance QC.Arbitrary UpdateSquareChatMember_result where
     , if obj == default_UpdateSquareChatMember_result{updateSquareChatMember_result_e = updateSquareChatMember_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareChatMember_result{updateSquareChatMember_result_e = updateSquareChatMember_result_e obj}
     ]
 from_UpdateSquareChatMember_result :: UpdateSquareChatMember_result -> T.ThriftVal
-from_UpdateSquareChatMember_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareChatMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11542 -> (1, ("e",from_SquareException _v11542))) <$> updateSquareChatMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11542 -> P.Just (0, ("success",from_UpdateSquareChatMemberResponse _v11542))) $ updateSquareChatMember_result_success record
@@ -921,8 +921,8 @@ default_UpdateSquareChatMember_result = UpdateSquareChatMember_result{
 data UpdateSquareChat_args = UpdateSquareChat_args  { updateSquareChat_args_request :: UpdateSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChat_args_request record  
-instance QC.Arbitrary UpdateSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChat_args_request record
+instance QC.Arbitrary UpdateSquareChat_args where
   arbitrary = M.liftM UpdateSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -954,8 +954,8 @@ data UpdateSquareChat_result = UpdateSquareChat_result  { updateSquareChat_resul
   , updateSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChat_result_success record   `H.hashWithSalt` updateSquareChat_result_e record  
-instance QC.Arbitrary UpdateSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareChat_result_success record   `H.hashWithSalt` updateSquareChat_result_e record
+instance QC.Arbitrary UpdateSquareChat_result where
   arbitrary = M.liftM UpdateSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareChat_result = []
@@ -964,7 +964,7 @@ instance QC.Arbitrary UpdateSquareChat_result where
     , if obj == default_UpdateSquareChat_result{updateSquareChat_result_e = updateSquareChat_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareChat_result{updateSquareChat_result_e = updateSquareChat_result_e obj}
     ]
 from_UpdateSquareChat_result :: UpdateSquareChat_result -> T.ThriftVal
-from_UpdateSquareChat_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11555 -> (1, ("e",from_SquareException _v11555))) <$> updateSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11555 -> P.Just (0, ("success",from_UpdateSquareChatResponse _v11555))) $ updateSquareChat_result_success record
@@ -994,8 +994,8 @@ default_UpdateSquareChat_result = UpdateSquareChat_result{
 data RefreshSubscriptions_args = RefreshSubscriptions_args  { refreshSubscriptions_args_request :: RefreshSubscriptionsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RefreshSubscriptions_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` refreshSubscriptions_args_request record  
-instance QC.Arbitrary RefreshSubscriptions_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` refreshSubscriptions_args_request record
+instance QC.Arbitrary RefreshSubscriptions_args where
   arbitrary = M.liftM RefreshSubscriptions_args (QC.arbitrary)
   shrink obj | obj == default_RefreshSubscriptions_args = []
              | P.otherwise = M.catMaybes
@@ -1027,8 +1027,8 @@ data RefreshSubscriptions_result = RefreshSubscriptions_result  { refreshSubscri
   , refreshSubscriptions_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RefreshSubscriptions_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` refreshSubscriptions_result_success record   `H.hashWithSalt` refreshSubscriptions_result_e record  
-instance QC.Arbitrary RefreshSubscriptions_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` refreshSubscriptions_result_success record   `H.hashWithSalt` refreshSubscriptions_result_e record
+instance QC.Arbitrary RefreshSubscriptions_result where
   arbitrary = M.liftM RefreshSubscriptions_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RefreshSubscriptions_result = []
@@ -1037,7 +1037,7 @@ instance QC.Arbitrary RefreshSubscriptions_result where
     , if obj == default_RefreshSubscriptions_result{refreshSubscriptions_result_e = refreshSubscriptions_result_e obj} then P.Nothing else P.Just $ default_RefreshSubscriptions_result{refreshSubscriptions_result_e = refreshSubscriptions_result_e obj}
     ]
 from_RefreshSubscriptions_result :: RefreshSubscriptions_result -> T.ThriftVal
-from_RefreshSubscriptions_result record = T.TStruct $ Map.fromList 
+from_RefreshSubscriptions_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11568 -> (1, ("e",from_SquareException _v11568))) <$> refreshSubscriptions_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11568 -> P.Just (0, ("success",from_RefreshSubscriptionsResponse _v11568))) $ refreshSubscriptions_result_success record
@@ -1067,8 +1067,8 @@ default_RefreshSubscriptions_result = RefreshSubscriptions_result{
 data RemoveSubscriptions_args = RemoveSubscriptions_args  { removeSubscriptions_args_request :: RemoveSubscriptionsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveSubscriptions_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeSubscriptions_args_request record  
-instance QC.Arbitrary RemoveSubscriptions_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeSubscriptions_args_request record
+instance QC.Arbitrary RemoveSubscriptions_args where
   arbitrary = M.liftM RemoveSubscriptions_args (QC.arbitrary)
   shrink obj | obj == default_RemoveSubscriptions_args = []
              | P.otherwise = M.catMaybes
@@ -1100,8 +1100,8 @@ data RemoveSubscriptions_result = RemoveSubscriptions_result  { removeSubscripti
   , removeSubscriptions_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RemoveSubscriptions_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` removeSubscriptions_result_success record   `H.hashWithSalt` removeSubscriptions_result_e record  
-instance QC.Arbitrary RemoveSubscriptions_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` removeSubscriptions_result_success record   `H.hashWithSalt` removeSubscriptions_result_e record
+instance QC.Arbitrary RemoveSubscriptions_result where
   arbitrary = M.liftM RemoveSubscriptions_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RemoveSubscriptions_result = []
@@ -1110,7 +1110,7 @@ instance QC.Arbitrary RemoveSubscriptions_result where
     , if obj == default_RemoveSubscriptions_result{removeSubscriptions_result_e = removeSubscriptions_result_e obj} then P.Nothing else P.Just $ default_RemoveSubscriptions_result{removeSubscriptions_result_e = removeSubscriptions_result_e obj}
     ]
 from_RemoveSubscriptions_result :: RemoveSubscriptions_result -> T.ThriftVal
-from_RemoveSubscriptions_result record = T.TStruct $ Map.fromList 
+from_RemoveSubscriptions_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11581 -> (1, ("e",from_SquareException _v11581))) <$> removeSubscriptions_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11581 -> P.Just (0, ("success",from_RemoveSubscriptionsResponse _v11581))) $ removeSubscriptions_result_success record
@@ -1140,8 +1140,8 @@ default_RemoveSubscriptions_result = RemoveSubscriptions_result{
 data RejectSquareMembers_args = RejectSquareMembers_args  { rejectSquareMembers_args_request :: RejectSquareMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RejectSquareMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` rejectSquareMembers_args_request record  
-instance QC.Arbitrary RejectSquareMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` rejectSquareMembers_args_request record
+instance QC.Arbitrary RejectSquareMembers_args where
   arbitrary = M.liftM RejectSquareMembers_args (QC.arbitrary)
   shrink obj | obj == default_RejectSquareMembers_args = []
              | P.otherwise = M.catMaybes
@@ -1173,8 +1173,8 @@ data RejectSquareMembers_result = RejectSquareMembers_result  { rejectSquareMemb
   , rejectSquareMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable RejectSquareMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` rejectSquareMembers_result_success record   `H.hashWithSalt` rejectSquareMembers_result_e record  
-instance QC.Arbitrary RejectSquareMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` rejectSquareMembers_result_success record   `H.hashWithSalt` rejectSquareMembers_result_e record
+instance QC.Arbitrary RejectSquareMembers_result where
   arbitrary = M.liftM RejectSquareMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_RejectSquareMembers_result = []
@@ -1183,7 +1183,7 @@ instance QC.Arbitrary RejectSquareMembers_result where
     , if obj == default_RejectSquareMembers_result{rejectSquareMembers_result_e = rejectSquareMembers_result_e obj} then P.Nothing else P.Just $ default_RejectSquareMembers_result{rejectSquareMembers_result_e = rejectSquareMembers_result_e obj}
     ]
 from_RejectSquareMembers_result :: RejectSquareMembers_result -> T.ThriftVal
-from_RejectSquareMembers_result record = T.TStruct $ Map.fromList 
+from_RejectSquareMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11594 -> (1, ("e",from_SquareException _v11594))) <$> rejectSquareMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11594 -> P.Just (0, ("success",from_RejectSquareMembersResponse _v11594))) $ rejectSquareMembers_result_success record
@@ -1213,8 +1213,8 @@ default_RejectSquareMembers_result = RejectSquareMembers_result{
 data UpdateSquareMembers_args = UpdateSquareMembers_args  { updateSquareMembers_args_request :: UpdateSquareMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMembers_args_request record  
-instance QC.Arbitrary UpdateSquareMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMembers_args_request record
+instance QC.Arbitrary UpdateSquareMembers_args where
   arbitrary = M.liftM UpdateSquareMembers_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMembers_args = []
              | P.otherwise = M.catMaybes
@@ -1246,8 +1246,8 @@ data UpdateSquareMembers_result = UpdateSquareMembers_result  { updateSquareMemb
   , updateSquareMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMembers_result_success record   `H.hashWithSalt` updateSquareMembers_result_e record  
-instance QC.Arbitrary UpdateSquareMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMembers_result_success record   `H.hashWithSalt` updateSquareMembers_result_e record
+instance QC.Arbitrary UpdateSquareMembers_result where
   arbitrary = M.liftM UpdateSquareMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMembers_result = []
@@ -1256,7 +1256,7 @@ instance QC.Arbitrary UpdateSquareMembers_result where
     , if obj == default_UpdateSquareMembers_result{updateSquareMembers_result_e = updateSquareMembers_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareMembers_result{updateSquareMembers_result_e = updateSquareMembers_result_e obj}
     ]
 from_UpdateSquareMembers_result :: UpdateSquareMembers_result -> T.ThriftVal
-from_UpdateSquareMembers_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11607 -> (1, ("e",from_SquareException _v11607))) <$> updateSquareMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11607 -> P.Just (0, ("success",from_UpdateSquareMembersResponse _v11607))) $ updateSquareMembers_result_success record
@@ -1286,8 +1286,8 @@ default_UpdateSquareMembers_result = UpdateSquareMembers_result{
 data UpdateSquareMember_args = UpdateSquareMember_args  { updateSquareMember_args_request :: UpdateSquareMemberRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMember_args_request record  
-instance QC.Arbitrary UpdateSquareMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMember_args_request record
+instance QC.Arbitrary UpdateSquareMember_args where
   arbitrary = M.liftM UpdateSquareMember_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMember_args = []
              | P.otherwise = M.catMaybes
@@ -1319,8 +1319,8 @@ data UpdateSquareMember_result = UpdateSquareMember_result  { updateSquareMember
   , updateSquareMember_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMember_result_success record   `H.hashWithSalt` updateSquareMember_result_e record  
-instance QC.Arbitrary UpdateSquareMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareMember_result_success record   `H.hashWithSalt` updateSquareMember_result_e record
+instance QC.Arbitrary UpdateSquareMember_result where
   arbitrary = M.liftM UpdateSquareMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareMember_result = []
@@ -1329,7 +1329,7 @@ instance QC.Arbitrary UpdateSquareMember_result where
     , if obj == default_UpdateSquareMember_result{updateSquareMember_result_e = updateSquareMember_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareMember_result{updateSquareMember_result_e = updateSquareMember_result_e obj}
     ]
 from_UpdateSquareMember_result :: UpdateSquareMember_result -> T.ThriftVal
-from_UpdateSquareMember_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11620 -> (1, ("e",from_SquareException _v11620))) <$> updateSquareMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11620 -> P.Just (0, ("success",from_UpdateSquareMemberResponse _v11620))) $ updateSquareMember_result_success record
@@ -1359,8 +1359,8 @@ default_UpdateSquareMember_result = UpdateSquareMember_result{
 data UpdateSquareFeatureSet_args = UpdateSquareFeatureSet_args  { updateSquareFeatureSet_args_request :: UpdateSquareFeatureSetRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareFeatureSet_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareFeatureSet_args_request record  
-instance QC.Arbitrary UpdateSquareFeatureSet_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareFeatureSet_args_request record
+instance QC.Arbitrary UpdateSquareFeatureSet_args where
   arbitrary = M.liftM UpdateSquareFeatureSet_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquareFeatureSet_args = []
              | P.otherwise = M.catMaybes
@@ -1392,8 +1392,8 @@ data UpdateSquareFeatureSet_result = UpdateSquareFeatureSet_result  { updateSqua
   , updateSquareFeatureSet_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquareFeatureSet_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareFeatureSet_result_success record   `H.hashWithSalt` updateSquareFeatureSet_result_e record  
-instance QC.Arbitrary UpdateSquareFeatureSet_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquareFeatureSet_result_success record   `H.hashWithSalt` updateSquareFeatureSet_result_e record
+instance QC.Arbitrary UpdateSquareFeatureSet_result where
   arbitrary = M.liftM UpdateSquareFeatureSet_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquareFeatureSet_result = []
@@ -1402,7 +1402,7 @@ instance QC.Arbitrary UpdateSquareFeatureSet_result where
     , if obj == default_UpdateSquareFeatureSet_result{updateSquareFeatureSet_result_e = updateSquareFeatureSet_result_e obj} then P.Nothing else P.Just $ default_UpdateSquareFeatureSet_result{updateSquareFeatureSet_result_e = updateSquareFeatureSet_result_e obj}
     ]
 from_UpdateSquareFeatureSet_result :: UpdateSquareFeatureSet_result -> T.ThriftVal
-from_UpdateSquareFeatureSet_result record = T.TStruct $ Map.fromList 
+from_UpdateSquareFeatureSet_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11633 -> (1, ("e",from_SquareException _v11633))) <$> updateSquareFeatureSet_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11633 -> P.Just (0, ("success",from_UpdateSquareFeatureSetResponse _v11633))) $ updateSquareFeatureSet_result_success record
@@ -1432,8 +1432,8 @@ default_UpdateSquareFeatureSet_result = UpdateSquareFeatureSet_result{
 data GetSquareFeatureSet_args = GetSquareFeatureSet_args  { getSquareFeatureSet_args_request :: GetSquareFeatureSetRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareFeatureSet_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareFeatureSet_args_request record  
-instance QC.Arbitrary GetSquareFeatureSet_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareFeatureSet_args_request record
+instance QC.Arbitrary GetSquareFeatureSet_args where
   arbitrary = M.liftM GetSquareFeatureSet_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareFeatureSet_args = []
              | P.otherwise = M.catMaybes
@@ -1465,8 +1465,8 @@ data GetSquareFeatureSet_result = GetSquareFeatureSet_result  { getSquareFeature
   , getSquareFeatureSet_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareFeatureSet_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareFeatureSet_result_success record   `H.hashWithSalt` getSquareFeatureSet_result_e record  
-instance QC.Arbitrary GetSquareFeatureSet_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareFeatureSet_result_success record   `H.hashWithSalt` getSquareFeatureSet_result_e record
+instance QC.Arbitrary GetSquareFeatureSet_result where
   arbitrary = M.liftM GetSquareFeatureSet_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareFeatureSet_result = []
@@ -1475,7 +1475,7 @@ instance QC.Arbitrary GetSquareFeatureSet_result where
     , if obj == default_GetSquareFeatureSet_result{getSquareFeatureSet_result_e = getSquareFeatureSet_result_e obj} then P.Nothing else P.Just $ default_GetSquareFeatureSet_result{getSquareFeatureSet_result_e = getSquareFeatureSet_result_e obj}
     ]
 from_GetSquareFeatureSet_result :: GetSquareFeatureSet_result -> T.ThriftVal
-from_GetSquareFeatureSet_result record = T.TStruct $ Map.fromList 
+from_GetSquareFeatureSet_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11646 -> (1, ("e",from_SquareException _v11646))) <$> getSquareFeatureSet_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11646 -> P.Just (0, ("success",from_GetSquareFeatureSetResponse _v11646))) $ getSquareFeatureSet_result_success record
@@ -1505,8 +1505,8 @@ default_GetSquareFeatureSet_result = GetSquareFeatureSet_result{
 data SearchSquares_args = SearchSquares_args  { searchSquares_args_request :: SearchSquaresRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchSquares_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquares_args_request record  
-instance QC.Arbitrary SearchSquares_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquares_args_request record
+instance QC.Arbitrary SearchSquares_args where
   arbitrary = M.liftM SearchSquares_args (QC.arbitrary)
   shrink obj | obj == default_SearchSquares_args = []
              | P.otherwise = M.catMaybes
@@ -1538,8 +1538,8 @@ data SearchSquares_result = SearchSquares_result  { searchSquares_result_success
   , searchSquares_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchSquares_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquares_result_success record   `H.hashWithSalt` searchSquares_result_e record  
-instance QC.Arbitrary SearchSquares_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquares_result_success record   `H.hashWithSalt` searchSquares_result_e record
+instance QC.Arbitrary SearchSquares_result where
   arbitrary = M.liftM SearchSquares_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SearchSquares_result = []
@@ -1548,7 +1548,7 @@ instance QC.Arbitrary SearchSquares_result where
     , if obj == default_SearchSquares_result{searchSquares_result_e = searchSquares_result_e obj} then P.Nothing else P.Just $ default_SearchSquares_result{searchSquares_result_e = searchSquares_result_e obj}
     ]
 from_SearchSquares_result :: SearchSquares_result -> T.ThriftVal
-from_SearchSquares_result record = T.TStruct $ Map.fromList 
+from_SearchSquares_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11659 -> (1, ("e",from_SquareException _v11659))) <$> searchSquares_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11659 -> P.Just (0, ("success",from_SearchSquaresResponse _v11659))) $ searchSquares_result_success record
@@ -1578,8 +1578,8 @@ default_SearchSquares_result = SearchSquares_result{
 data UpdateSquare_args = UpdateSquare_args  { updateSquare_args_request :: UpdateSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquare_args_request record  
-instance QC.Arbitrary UpdateSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquare_args_request record
+instance QC.Arbitrary UpdateSquare_args where
   arbitrary = M.liftM UpdateSquare_args (QC.arbitrary)
   shrink obj | obj == default_UpdateSquare_args = []
              | P.otherwise = M.catMaybes
@@ -1611,8 +1611,8 @@ data UpdateSquare_result = UpdateSquare_result  { updateSquare_result_success ::
   , updateSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable UpdateSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquare_result_success record   `H.hashWithSalt` updateSquare_result_e record  
-instance QC.Arbitrary UpdateSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` updateSquare_result_success record   `H.hashWithSalt` updateSquare_result_e record
+instance QC.Arbitrary UpdateSquare_result where
   arbitrary = M.liftM UpdateSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_UpdateSquare_result = []
@@ -1621,7 +1621,7 @@ instance QC.Arbitrary UpdateSquare_result where
     , if obj == default_UpdateSquare_result{updateSquare_result_e = updateSquare_result_e obj} then P.Nothing else P.Just $ default_UpdateSquare_result{updateSquare_result_e = updateSquare_result_e obj}
     ]
 from_UpdateSquare_result :: UpdateSquare_result -> T.ThriftVal
-from_UpdateSquare_result record = T.TStruct $ Map.fromList 
+from_UpdateSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11672 -> (1, ("e",from_SquareException _v11672))) <$> updateSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11672 -> P.Just (0, ("success",from_UpdateSquareResponse _v11672))) $ updateSquare_result_success record
@@ -1651,8 +1651,8 @@ default_UpdateSquare_result = UpdateSquare_result{
 data GetCategories_args = GetCategories_args  { getCategories_args_request :: GetSquareCategoriesRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCategories_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCategories_args_request record  
-instance QC.Arbitrary GetCategories_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCategories_args_request record
+instance QC.Arbitrary GetCategories_args where
   arbitrary = M.liftM GetCategories_args (QC.arbitrary)
   shrink obj | obj == default_GetCategories_args = []
              | P.otherwise = M.catMaybes
@@ -1684,8 +1684,8 @@ data GetCategories_result = GetCategories_result  { getCategories_result_success
   , getCategories_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetCategories_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getCategories_result_success record   `H.hashWithSalt` getCategories_result_e record  
-instance QC.Arbitrary GetCategories_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getCategories_result_success record   `H.hashWithSalt` getCategories_result_e record
+instance QC.Arbitrary GetCategories_result where
   arbitrary = M.liftM GetCategories_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetCategories_result = []
@@ -1694,7 +1694,7 @@ instance QC.Arbitrary GetCategories_result where
     , if obj == default_GetCategories_result{getCategories_result_e = getCategories_result_e obj} then P.Nothing else P.Just $ default_GetCategories_result{getCategories_result_e = getCategories_result_e obj}
     ]
 from_GetCategories_result :: GetCategories_result -> T.ThriftVal
-from_GetCategories_result record = T.TStruct $ Map.fromList 
+from_GetCategories_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11685 -> (1, ("e",from_SquareException _v11685))) <$> getCategories_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11685 -> P.Just (0, ("success",from_GetSquareCategoriesResponse _v11685))) $ getCategories_result_success record
@@ -1724,8 +1724,8 @@ default_GetCategories_result = GetCategories_result{
 data SearchSquareMembers_args = SearchSquareMembers_args  { searchSquareMembers_args_request :: SearchSquareMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchSquareMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquareMembers_args_request record  
-instance QC.Arbitrary SearchSquareMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquareMembers_args_request record
+instance QC.Arbitrary SearchSquareMembers_args where
   arbitrary = M.liftM SearchSquareMembers_args (QC.arbitrary)
   shrink obj | obj == default_SearchSquareMembers_args = []
              | P.otherwise = M.catMaybes
@@ -1757,8 +1757,8 @@ data SearchSquareMembers_result = SearchSquareMembers_result  { searchSquareMemb
   , searchSquareMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SearchSquareMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquareMembers_result_success record   `H.hashWithSalt` searchSquareMembers_result_e record  
-instance QC.Arbitrary SearchSquareMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` searchSquareMembers_result_success record   `H.hashWithSalt` searchSquareMembers_result_e record
+instance QC.Arbitrary SearchSquareMembers_result where
   arbitrary = M.liftM SearchSquareMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SearchSquareMembers_result = []
@@ -1767,7 +1767,7 @@ instance QC.Arbitrary SearchSquareMembers_result where
     , if obj == default_SearchSquareMembers_result{searchSquareMembers_result_e = searchSquareMembers_result_e obj} then P.Nothing else P.Just $ default_SearchSquareMembers_result{searchSquareMembers_result_e = searchSquareMembers_result_e obj}
     ]
 from_SearchSquareMembers_result :: SearchSquareMembers_result -> T.ThriftVal
-from_SearchSquareMembers_result record = T.TStruct $ Map.fromList 
+from_SearchSquareMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11698 -> (1, ("e",from_SquareException _v11698))) <$> searchSquareMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11698 -> P.Just (0, ("success",from_SearchSquareMembersResponse _v11698))) $ searchSquareMembers_result_success record
@@ -1797,8 +1797,8 @@ default_SearchSquareMembers_result = SearchSquareMembers_result{
 data FetchSquareChatEvents_args = FetchSquareChatEvents_args  { fetchSquareChatEvents_args_request :: FetchSquareChatEventsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchSquareChatEvents_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchSquareChatEvents_args_request record  
-instance QC.Arbitrary FetchSquareChatEvents_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchSquareChatEvents_args_request record
+instance QC.Arbitrary FetchSquareChatEvents_args where
   arbitrary = M.liftM FetchSquareChatEvents_args (QC.arbitrary)
   shrink obj | obj == default_FetchSquareChatEvents_args = []
              | P.otherwise = M.catMaybes
@@ -1830,8 +1830,8 @@ data FetchSquareChatEvents_result = FetchSquareChatEvents_result  { fetchSquareC
   , fetchSquareChatEvents_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchSquareChatEvents_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchSquareChatEvents_result_success record   `H.hashWithSalt` fetchSquareChatEvents_result_e record  
-instance QC.Arbitrary FetchSquareChatEvents_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchSquareChatEvents_result_success record   `H.hashWithSalt` fetchSquareChatEvents_result_e record
+instance QC.Arbitrary FetchSquareChatEvents_result where
   arbitrary = M.liftM FetchSquareChatEvents_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FetchSquareChatEvents_result = []
@@ -1840,7 +1840,7 @@ instance QC.Arbitrary FetchSquareChatEvents_result where
     , if obj == default_FetchSquareChatEvents_result{fetchSquareChatEvents_result_e = fetchSquareChatEvents_result_e obj} then P.Nothing else P.Just $ default_FetchSquareChatEvents_result{fetchSquareChatEvents_result_e = fetchSquareChatEvents_result_e obj}
     ]
 from_FetchSquareChatEvents_result :: FetchSquareChatEvents_result -> T.ThriftVal
-from_FetchSquareChatEvents_result record = T.TStruct $ Map.fromList 
+from_FetchSquareChatEvents_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11711 -> (1, ("e",from_SquareException _v11711))) <$> fetchSquareChatEvents_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11711 -> P.Just (0, ("success",from_FetchSquareChatEventsResponse _v11711))) $ fetchSquareChatEvents_result_success record
@@ -1870,8 +1870,8 @@ default_FetchSquareChatEvents_result = FetchSquareChatEvents_result{
 data FetchMyEvents_args = FetchMyEvents_args  { fetchMyEvents_args_request :: FetchMyEventsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchMyEvents_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMyEvents_args_request record  
-instance QC.Arbitrary FetchMyEvents_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMyEvents_args_request record
+instance QC.Arbitrary FetchMyEvents_args where
   arbitrary = M.liftM FetchMyEvents_args (QC.arbitrary)
   shrink obj | obj == default_FetchMyEvents_args = []
              | P.otherwise = M.catMaybes
@@ -1903,8 +1903,8 @@ data FetchMyEvents_result = FetchMyEvents_result  { fetchMyEvents_result_success
   , fetchMyEvents_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FetchMyEvents_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMyEvents_result_success record   `H.hashWithSalt` fetchMyEvents_result_e record  
-instance QC.Arbitrary FetchMyEvents_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` fetchMyEvents_result_success record   `H.hashWithSalt` fetchMyEvents_result_e record
+instance QC.Arbitrary FetchMyEvents_result where
   arbitrary = M.liftM FetchMyEvents_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FetchMyEvents_result = []
@@ -1913,7 +1913,7 @@ instance QC.Arbitrary FetchMyEvents_result where
     , if obj == default_FetchMyEvents_result{fetchMyEvents_result_e = fetchMyEvents_result_e obj} then P.Nothing else P.Just $ default_FetchMyEvents_result{fetchMyEvents_result_e = fetchMyEvents_result_e obj}
     ]
 from_FetchMyEvents_result :: FetchMyEvents_result -> T.ThriftVal
-from_FetchMyEvents_result record = T.TStruct $ Map.fromList 
+from_FetchMyEvents_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11724 -> (1, ("e",from_SquareException _v11724))) <$> fetchMyEvents_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11724 -> P.Just (0, ("success",from_FetchMyEventsResponse _v11724))) $ fetchMyEvents_result_success record
@@ -1943,8 +1943,8 @@ default_FetchMyEvents_result = FetchMyEvents_result{
 data MarkAsRead_args = MarkAsRead_args  { markAsRead_args_request :: MarkAsReadRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MarkAsRead_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` markAsRead_args_request record  
-instance QC.Arbitrary MarkAsRead_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` markAsRead_args_request record
+instance QC.Arbitrary MarkAsRead_args where
   arbitrary = M.liftM MarkAsRead_args (QC.arbitrary)
   shrink obj | obj == default_MarkAsRead_args = []
              | P.otherwise = M.catMaybes
@@ -1976,8 +1976,8 @@ data MarkAsRead_result = MarkAsRead_result  { markAsRead_result_success :: MarkA
   , markAsRead_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable MarkAsRead_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` markAsRead_result_success record   `H.hashWithSalt` markAsRead_result_e record  
-instance QC.Arbitrary MarkAsRead_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` markAsRead_result_success record   `H.hashWithSalt` markAsRead_result_e record
+instance QC.Arbitrary MarkAsRead_result where
   arbitrary = M.liftM MarkAsRead_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_MarkAsRead_result = []
@@ -1986,7 +1986,7 @@ instance QC.Arbitrary MarkAsRead_result where
     , if obj == default_MarkAsRead_result{markAsRead_result_e = markAsRead_result_e obj} then P.Nothing else P.Just $ default_MarkAsRead_result{markAsRead_result_e = markAsRead_result_e obj}
     ]
 from_MarkAsRead_result :: MarkAsRead_result -> T.ThriftVal
-from_MarkAsRead_result record = T.TStruct $ Map.fromList 
+from_MarkAsRead_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11737 -> (1, ("e",from_SquareException _v11737))) <$> markAsRead_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11737 -> P.Just (0, ("success",from_MarkAsReadResponse _v11737))) $ markAsRead_result_success record
@@ -2016,8 +2016,8 @@ default_MarkAsRead_result = MarkAsRead_result{
 data GetSquareAuthority_args = GetSquareAuthority_args  { getSquareAuthority_args_request :: GetSquareAuthorityRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareAuthority_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareAuthority_args_request record  
-instance QC.Arbitrary GetSquareAuthority_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareAuthority_args_request record
+instance QC.Arbitrary GetSquareAuthority_args where
   arbitrary = M.liftM GetSquareAuthority_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareAuthority_args = []
              | P.otherwise = M.catMaybes
@@ -2049,8 +2049,8 @@ data GetSquareAuthority_result = GetSquareAuthority_result  { getSquareAuthority
   , getSquareAuthority_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareAuthority_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareAuthority_result_success record   `H.hashWithSalt` getSquareAuthority_result_e record  
-instance QC.Arbitrary GetSquareAuthority_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareAuthority_result_success record   `H.hashWithSalt` getSquareAuthority_result_e record
+instance QC.Arbitrary GetSquareAuthority_result where
   arbitrary = M.liftM GetSquareAuthority_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareAuthority_result = []
@@ -2059,7 +2059,7 @@ instance QC.Arbitrary GetSquareAuthority_result where
     , if obj == default_GetSquareAuthority_result{getSquareAuthority_result_e = getSquareAuthority_result_e obj} then P.Nothing else P.Just $ default_GetSquareAuthority_result{getSquareAuthority_result_e = getSquareAuthority_result_e obj}
     ]
 from_GetSquareAuthority_result :: GetSquareAuthority_result -> T.ThriftVal
-from_GetSquareAuthority_result record = T.TStruct $ Map.fromList 
+from_GetSquareAuthority_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11750 -> (1, ("e",from_SquareException _v11750))) <$> getSquareAuthority_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11750 -> P.Just (0, ("success",from_GetSquareAuthorityResponse _v11750))) $ getSquareAuthority_result_success record
@@ -2089,8 +2089,8 @@ default_GetSquareAuthority_result = GetSquareAuthority_result{
 data SendMessage_args = SendMessage_args  { sendMessage_args_request :: SendMessageRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessage_args_request record  
-instance QC.Arbitrary SendMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessage_args_request record
+instance QC.Arbitrary SendMessage_args where
   arbitrary = M.liftM SendMessage_args (QC.arbitrary)
   shrink obj | obj == default_SendMessage_args = []
              | P.otherwise = M.catMaybes
@@ -2122,8 +2122,8 @@ data SendMessage_result = SendMessage_result  { sendMessage_result_success :: Se
   , sendMessage_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessage_result_success record   `H.hashWithSalt` sendMessage_result_e record  
-instance QC.Arbitrary SendMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendMessage_result_success record   `H.hashWithSalt` sendMessage_result_e record
+instance QC.Arbitrary SendMessage_result where
   arbitrary = M.liftM SendMessage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendMessage_result = []
@@ -2132,7 +2132,7 @@ instance QC.Arbitrary SendMessage_result where
     , if obj == default_SendMessage_result{sendMessage_result_e = sendMessage_result_e obj} then P.Nothing else P.Just $ default_SendMessage_result{sendMessage_result_e = sendMessage_result_e obj}
     ]
 from_SendMessage_result :: SendMessage_result -> T.ThriftVal
-from_SendMessage_result record = T.TStruct $ Map.fromList 
+from_SendMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11763 -> (1, ("e",from_SquareException _v11763))) <$> sendMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11763 -> P.Just (0, ("success",from_SendMessageResponse _v11763))) $ sendMessage_result_success record
@@ -2162,8 +2162,8 @@ default_SendMessage_result = SendMessage_result{
 data LeaveSquare_args = LeaveSquare_args  { leaveSquare_args_request :: LeaveSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LeaveSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquare_args_request record  
-instance QC.Arbitrary LeaveSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquare_args_request record
+instance QC.Arbitrary LeaveSquare_args where
   arbitrary = M.liftM LeaveSquare_args (QC.arbitrary)
   shrink obj | obj == default_LeaveSquare_args = []
              | P.otherwise = M.catMaybes
@@ -2195,8 +2195,8 @@ data LeaveSquare_result = LeaveSquare_result  { leaveSquare_result_success :: Le
   , leaveSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LeaveSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquare_result_success record   `H.hashWithSalt` leaveSquare_result_e record  
-instance QC.Arbitrary LeaveSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquare_result_success record   `H.hashWithSalt` leaveSquare_result_e record
+instance QC.Arbitrary LeaveSquare_result where
   arbitrary = M.liftM LeaveSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LeaveSquare_result = []
@@ -2205,7 +2205,7 @@ instance QC.Arbitrary LeaveSquare_result where
     , if obj == default_LeaveSquare_result{leaveSquare_result_e = leaveSquare_result_e obj} then P.Nothing else P.Just $ default_LeaveSquare_result{leaveSquare_result_e = leaveSquare_result_e obj}
     ]
 from_LeaveSquare_result :: LeaveSquare_result -> T.ThriftVal
-from_LeaveSquare_result record = T.TStruct $ Map.fromList 
+from_LeaveSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11776 -> (1, ("e",from_SquareException _v11776))) <$> leaveSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11776 -> P.Just (0, ("success",from_LeaveSquareResponse _v11776))) $ leaveSquare_result_success record
@@ -2235,8 +2235,8 @@ default_LeaveSquare_result = LeaveSquare_result{
 data LeaveSquareChat_args = LeaveSquareChat_args  { leaveSquareChat_args_request :: LeaveSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LeaveSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquareChat_args_request record  
-instance QC.Arbitrary LeaveSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquareChat_args_request record
+instance QC.Arbitrary LeaveSquareChat_args where
   arbitrary = M.liftM LeaveSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_LeaveSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -2268,8 +2268,8 @@ data LeaveSquareChat_result = LeaveSquareChat_result  { leaveSquareChat_result_s
   , leaveSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable LeaveSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquareChat_result_success record   `H.hashWithSalt` leaveSquareChat_result_e record  
-instance QC.Arbitrary LeaveSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` leaveSquareChat_result_success record   `H.hashWithSalt` leaveSquareChat_result_e record
+instance QC.Arbitrary LeaveSquareChat_result where
   arbitrary = M.liftM LeaveSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_LeaveSquareChat_result = []
@@ -2278,7 +2278,7 @@ instance QC.Arbitrary LeaveSquareChat_result where
     , if obj == default_LeaveSquareChat_result{leaveSquareChat_result_e = leaveSquareChat_result_e obj} then P.Nothing else P.Just $ default_LeaveSquareChat_result{leaveSquareChat_result_e = leaveSquareChat_result_e obj}
     ]
 from_LeaveSquareChat_result :: LeaveSquareChat_result -> T.ThriftVal
-from_LeaveSquareChat_result record = T.TStruct $ Map.fromList 
+from_LeaveSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11789 -> (1, ("e",from_SquareException _v11789))) <$> leaveSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11789 -> P.Just (0, ("success",from_LeaveSquareChatResponse _v11789))) $ leaveSquareChat_result_success record
@@ -2308,8 +2308,8 @@ default_LeaveSquareChat_result = LeaveSquareChat_result{
 data JoinSquareChat_args = JoinSquareChat_args  { joinSquareChat_args_request :: JoinSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable JoinSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquareChat_args_request record  
-instance QC.Arbitrary JoinSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquareChat_args_request record
+instance QC.Arbitrary JoinSquareChat_args where
   arbitrary = M.liftM JoinSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_JoinSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -2341,8 +2341,8 @@ data JoinSquareChat_result = JoinSquareChat_result  { joinSquareChat_result_succ
   , joinSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable JoinSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquareChat_result_success record   `H.hashWithSalt` joinSquareChat_result_e record  
-instance QC.Arbitrary JoinSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquareChat_result_success record   `H.hashWithSalt` joinSquareChat_result_e record
+instance QC.Arbitrary JoinSquareChat_result where
   arbitrary = M.liftM JoinSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_JoinSquareChat_result = []
@@ -2351,7 +2351,7 @@ instance QC.Arbitrary JoinSquareChat_result where
     , if obj == default_JoinSquareChat_result{joinSquareChat_result_e = joinSquareChat_result_e obj} then P.Nothing else P.Just $ default_JoinSquareChat_result{joinSquareChat_result_e = joinSquareChat_result_e obj}
     ]
 from_JoinSquareChat_result :: JoinSquareChat_result -> T.ThriftVal
-from_JoinSquareChat_result record = T.TStruct $ Map.fromList 
+from_JoinSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11802 -> (1, ("e",from_SquareException _v11802))) <$> joinSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11802 -> P.Just (0, ("success",from_JoinSquareChatResponse _v11802))) $ joinSquareChat_result_success record
@@ -2381,8 +2381,8 @@ default_JoinSquareChat_result = JoinSquareChat_result{
 data JoinSquare_args = JoinSquare_args  { joinSquare_args_request :: JoinSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable JoinSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquare_args_request record  
-instance QC.Arbitrary JoinSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquare_args_request record
+instance QC.Arbitrary JoinSquare_args where
   arbitrary = M.liftM JoinSquare_args (QC.arbitrary)
   shrink obj | obj == default_JoinSquare_args = []
              | P.otherwise = M.catMaybes
@@ -2414,8 +2414,8 @@ data JoinSquare_result = JoinSquare_result  { joinSquare_result_success :: JoinS
   , joinSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable JoinSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquare_result_success record   `H.hashWithSalt` joinSquare_result_e record  
-instance QC.Arbitrary JoinSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` joinSquare_result_success record   `H.hashWithSalt` joinSquare_result_e record
+instance QC.Arbitrary JoinSquare_result where
   arbitrary = M.liftM JoinSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_JoinSquare_result = []
@@ -2424,7 +2424,7 @@ instance QC.Arbitrary JoinSquare_result where
     , if obj == default_JoinSquare_result{joinSquare_result_e = joinSquare_result_e obj} then P.Nothing else P.Just $ default_JoinSquare_result{joinSquare_result_e = joinSquare_result_e obj}
     ]
 from_JoinSquare_result :: JoinSquare_result -> T.ThriftVal
-from_JoinSquare_result record = T.TStruct $ Map.fromList 
+from_JoinSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11815 -> (1, ("e",from_SquareException _v11815))) <$> joinSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11815 -> P.Just (0, ("success",from_JoinSquareResponse _v11815))) $ joinSquare_result_success record
@@ -2454,8 +2454,8 @@ default_JoinSquare_result = JoinSquare_result{
 data InviteToSquare_args = InviteToSquare_args  { inviteToSquare_args_request :: InviteToSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteToSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquare_args_request record  
-instance QC.Arbitrary InviteToSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquare_args_request record
+instance QC.Arbitrary InviteToSquare_args where
   arbitrary = M.liftM InviteToSquare_args (QC.arbitrary)
   shrink obj | obj == default_InviteToSquare_args = []
              | P.otherwise = M.catMaybes
@@ -2487,8 +2487,8 @@ data InviteToSquare_result = InviteToSquare_result  { inviteToSquare_result_succ
   , inviteToSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteToSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquare_result_success record   `H.hashWithSalt` inviteToSquare_result_e record  
-instance QC.Arbitrary InviteToSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquare_result_success record   `H.hashWithSalt` inviteToSquare_result_e record
+instance QC.Arbitrary InviteToSquare_result where
   arbitrary = M.liftM InviteToSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_InviteToSquare_result = []
@@ -2497,7 +2497,7 @@ instance QC.Arbitrary InviteToSquare_result where
     , if obj == default_InviteToSquare_result{inviteToSquare_result_e = inviteToSquare_result_e obj} then P.Nothing else P.Just $ default_InviteToSquare_result{inviteToSquare_result_e = inviteToSquare_result_e obj}
     ]
 from_InviteToSquare_result :: InviteToSquare_result -> T.ThriftVal
-from_InviteToSquare_result record = T.TStruct $ Map.fromList 
+from_InviteToSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11828 -> (1, ("e",from_SquareException _v11828))) <$> inviteToSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11828 -> P.Just (0, ("success",from_InviteToSquareResponse _v11828))) $ inviteToSquare_result_success record
@@ -2527,8 +2527,8 @@ default_InviteToSquare_result = InviteToSquare_result{
 data InviteToSquareChat_args = InviteToSquareChat_args  { inviteToSquareChat_args_request :: InviteToSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteToSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquareChat_args_request record  
-instance QC.Arbitrary InviteToSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquareChat_args_request record
+instance QC.Arbitrary InviteToSquareChat_args where
   arbitrary = M.liftM InviteToSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_InviteToSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -2560,8 +2560,8 @@ data InviteToSquareChat_result = InviteToSquareChat_result  { inviteToSquareChat
   , inviteToSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable InviteToSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquareChat_result_success record   `H.hashWithSalt` inviteToSquareChat_result_e record  
-instance QC.Arbitrary InviteToSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` inviteToSquareChat_result_success record   `H.hashWithSalt` inviteToSquareChat_result_e record
+instance QC.Arbitrary InviteToSquareChat_result where
   arbitrary = M.liftM InviteToSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_InviteToSquareChat_result = []
@@ -2570,7 +2570,7 @@ instance QC.Arbitrary InviteToSquareChat_result where
     , if obj == default_InviteToSquareChat_result{inviteToSquareChat_result_e = inviteToSquareChat_result_e obj} then P.Nothing else P.Just $ default_InviteToSquareChat_result{inviteToSquareChat_result_e = inviteToSquareChat_result_e obj}
     ]
 from_InviteToSquareChat_result :: InviteToSquareChat_result -> T.ThriftVal
-from_InviteToSquareChat_result record = T.TStruct $ Map.fromList 
+from_InviteToSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11841 -> (1, ("e",from_SquareException _v11841))) <$> inviteToSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11841 -> P.Just (0, ("success",from_InviteToSquareChatResponse _v11841))) $ inviteToSquareChat_result_success record
@@ -2600,8 +2600,8 @@ default_InviteToSquareChat_result = InviteToSquareChat_result{
 data GetSquareMember_args = GetSquareMember_args  { getSquareMember_args_request :: GetSquareMemberRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMember_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMember_args_request record  
-instance QC.Arbitrary GetSquareMember_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMember_args_request record
+instance QC.Arbitrary GetSquareMember_args where
   arbitrary = M.liftM GetSquareMember_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareMember_args = []
              | P.otherwise = M.catMaybes
@@ -2633,8 +2633,8 @@ data GetSquareMember_result = GetSquareMember_result  { getSquareMember_result_s
   , getSquareMember_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMember_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMember_result_success record   `H.hashWithSalt` getSquareMember_result_e record  
-instance QC.Arbitrary GetSquareMember_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMember_result_success record   `H.hashWithSalt` getSquareMember_result_e record
+instance QC.Arbitrary GetSquareMember_result where
   arbitrary = M.liftM GetSquareMember_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareMember_result = []
@@ -2643,7 +2643,7 @@ instance QC.Arbitrary GetSquareMember_result where
     , if obj == default_GetSquareMember_result{getSquareMember_result_e = getSquareMember_result_e obj} then P.Nothing else P.Just $ default_GetSquareMember_result{getSquareMember_result_e = getSquareMember_result_e obj}
     ]
 from_GetSquareMember_result :: GetSquareMember_result -> T.ThriftVal
-from_GetSquareMember_result record = T.TStruct $ Map.fromList 
+from_GetSquareMember_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11854 -> (1, ("e",from_SquareException _v11854))) <$> getSquareMember_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11854 -> P.Just (0, ("success",from_GetSquareMemberResponse _v11854))) $ getSquareMember_result_success record
@@ -2673,8 +2673,8 @@ default_GetSquareMember_result = GetSquareMember_result{
 data GetSquareMembers_args = GetSquareMembers_args  { getSquareMembers_args_request :: GetSquareMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMembers_args_request record  
-instance QC.Arbitrary GetSquareMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMembers_args_request record
+instance QC.Arbitrary GetSquareMembers_args where
   arbitrary = M.liftM GetSquareMembers_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareMembers_args = []
              | P.otherwise = M.catMaybes
@@ -2706,8 +2706,8 @@ data GetSquareMembers_result = GetSquareMembers_result  { getSquareMembers_resul
   , getSquareMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMembers_result_success record   `H.hashWithSalt` getSquareMembers_result_e record  
-instance QC.Arbitrary GetSquareMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMembers_result_success record   `H.hashWithSalt` getSquareMembers_result_e record
+instance QC.Arbitrary GetSquareMembers_result where
   arbitrary = M.liftM GetSquareMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareMembers_result = []
@@ -2716,7 +2716,7 @@ instance QC.Arbitrary GetSquareMembers_result where
     , if obj == default_GetSquareMembers_result{getSquareMembers_result_e = getSquareMembers_result_e obj} then P.Nothing else P.Just $ default_GetSquareMembers_result{getSquareMembers_result_e = getSquareMembers_result_e obj}
     ]
 from_GetSquareMembers_result :: GetSquareMembers_result -> T.ThriftVal
-from_GetSquareMembers_result record = T.TStruct $ Map.fromList 
+from_GetSquareMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11867 -> (1, ("e",from_SquareException _v11867))) <$> getSquareMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11867 -> P.Just (0, ("success",from_GetSquareMembersResponse _v11867))) $ getSquareMembers_result_success record
@@ -2746,8 +2746,8 @@ default_GetSquareMembers_result = GetSquareMembers_result{
 data GetSquareMemberRelation_args = GetSquareMemberRelation_args  { getSquareMemberRelation_args_request :: GetSquareMemberRelationRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMemberRelation_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelation_args_request record  
-instance QC.Arbitrary GetSquareMemberRelation_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelation_args_request record
+instance QC.Arbitrary GetSquareMemberRelation_args where
   arbitrary = M.liftM GetSquareMemberRelation_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareMemberRelation_args = []
              | P.otherwise = M.catMaybes
@@ -2779,8 +2779,8 @@ data GetSquareMemberRelation_result = GetSquareMemberRelation_result  { getSquar
   , getSquareMemberRelation_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMemberRelation_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelation_result_success record   `H.hashWithSalt` getSquareMemberRelation_result_e record  
-instance QC.Arbitrary GetSquareMemberRelation_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelation_result_success record   `H.hashWithSalt` getSquareMemberRelation_result_e record
+instance QC.Arbitrary GetSquareMemberRelation_result where
   arbitrary = M.liftM GetSquareMemberRelation_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareMemberRelation_result = []
@@ -2789,7 +2789,7 @@ instance QC.Arbitrary GetSquareMemberRelation_result where
     , if obj == default_GetSquareMemberRelation_result{getSquareMemberRelation_result_e = getSquareMemberRelation_result_e obj} then P.Nothing else P.Just $ default_GetSquareMemberRelation_result{getSquareMemberRelation_result_e = getSquareMemberRelation_result_e obj}
     ]
 from_GetSquareMemberRelation_result :: GetSquareMemberRelation_result -> T.ThriftVal
-from_GetSquareMemberRelation_result record = T.TStruct $ Map.fromList 
+from_GetSquareMemberRelation_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11880 -> (1, ("e",from_SquareException _v11880))) <$> getSquareMemberRelation_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11880 -> P.Just (0, ("success",from_GetSquareMemberRelationResponse _v11880))) $ getSquareMemberRelation_result_success record
@@ -2819,8 +2819,8 @@ default_GetSquareMemberRelation_result = GetSquareMemberRelation_result{
 data GetSquareMemberRelations_args = GetSquareMemberRelations_args  { getSquareMemberRelations_args_request :: GetSquareMemberRelationsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMemberRelations_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelations_args_request record  
-instance QC.Arbitrary GetSquareMemberRelations_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelations_args_request record
+instance QC.Arbitrary GetSquareMemberRelations_args where
   arbitrary = M.liftM GetSquareMemberRelations_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareMemberRelations_args = []
              | P.otherwise = M.catMaybes
@@ -2852,8 +2852,8 @@ data GetSquareMemberRelations_result = GetSquareMemberRelations_result  { getSqu
   , getSquareMemberRelations_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareMemberRelations_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelations_result_success record   `H.hashWithSalt` getSquareMemberRelations_result_e record  
-instance QC.Arbitrary GetSquareMemberRelations_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareMemberRelations_result_success record   `H.hashWithSalt` getSquareMemberRelations_result_e record
+instance QC.Arbitrary GetSquareMemberRelations_result where
   arbitrary = M.liftM GetSquareMemberRelations_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareMemberRelations_result = []
@@ -2862,7 +2862,7 @@ instance QC.Arbitrary GetSquareMemberRelations_result where
     , if obj == default_GetSquareMemberRelations_result{getSquareMemberRelations_result_e = getSquareMemberRelations_result_e obj} then P.Nothing else P.Just $ default_GetSquareMemberRelations_result{getSquareMemberRelations_result_e = getSquareMemberRelations_result_e obj}
     ]
 from_GetSquareMemberRelations_result :: GetSquareMemberRelations_result -> T.ThriftVal
-from_GetSquareMemberRelations_result record = T.TStruct $ Map.fromList 
+from_GetSquareMemberRelations_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11893 -> (1, ("e",from_SquareException _v11893))) <$> getSquareMemberRelations_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11893 -> P.Just (0, ("success",from_GetSquareMemberRelationsResponse _v11893))) $ getSquareMemberRelations_result_success record
@@ -2892,8 +2892,8 @@ default_GetSquareMemberRelations_result = GetSquareMemberRelations_result{
 data GetSquareChatMembers_args = GetSquareChatMembers_args  { getSquareChatMembers_args_request :: GetSquareChatMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatMembers_args_request record  
-instance QC.Arbitrary GetSquareChatMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatMembers_args_request record
+instance QC.Arbitrary GetSquareChatMembers_args where
   arbitrary = M.liftM GetSquareChatMembers_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareChatMembers_args = []
              | P.otherwise = M.catMaybes
@@ -2925,8 +2925,8 @@ data GetSquareChatMembers_result = GetSquareChatMembers_result  { getSquareChatM
   , getSquareChatMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatMembers_result_success record   `H.hashWithSalt` getSquareChatMembers_result_e record  
-instance QC.Arbitrary GetSquareChatMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatMembers_result_success record   `H.hashWithSalt` getSquareChatMembers_result_e record
+instance QC.Arbitrary GetSquareChatMembers_result where
   arbitrary = M.liftM GetSquareChatMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareChatMembers_result = []
@@ -2935,7 +2935,7 @@ instance QC.Arbitrary GetSquareChatMembers_result where
     , if obj == default_GetSquareChatMembers_result{getSquareChatMembers_result_e = getSquareChatMembers_result_e obj} then P.Nothing else P.Just $ default_GetSquareChatMembers_result{getSquareChatMembers_result_e = getSquareChatMembers_result_e obj}
     ]
 from_GetSquareChatMembers_result :: GetSquareChatMembers_result -> T.ThriftVal
-from_GetSquareChatMembers_result record = T.TStruct $ Map.fromList 
+from_GetSquareChatMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11906 -> (1, ("e",from_SquareException _v11906))) <$> getSquareChatMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11906 -> P.Just (0, ("success",from_GetSquareChatMembersResponse _v11906))) $ getSquareChatMembers_result_success record
@@ -2965,8 +2965,8 @@ default_GetSquareChatMembers_result = GetSquareChatMembers_result{
 data GetSquareChatStatus_args = GetSquareChatStatus_args  { getSquareChatStatus_args_request :: GetSquareChatStatusRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatStatus_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatStatus_args_request record  
-instance QC.Arbitrary GetSquareChatStatus_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatStatus_args_request record
+instance QC.Arbitrary GetSquareChatStatus_args where
   arbitrary = M.liftM GetSquareChatStatus_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareChatStatus_args = []
              | P.otherwise = M.catMaybes
@@ -2998,8 +2998,8 @@ data GetSquareChatStatus_result = GetSquareChatStatus_result  { getSquareChatSta
   , getSquareChatStatus_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChatStatus_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatStatus_result_success record   `H.hashWithSalt` getSquareChatStatus_result_e record  
-instance QC.Arbitrary GetSquareChatStatus_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChatStatus_result_success record   `H.hashWithSalt` getSquareChatStatus_result_e record
+instance QC.Arbitrary GetSquareChatStatus_result where
   arbitrary = M.liftM GetSquareChatStatus_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareChatStatus_result = []
@@ -3008,7 +3008,7 @@ instance QC.Arbitrary GetSquareChatStatus_result where
     , if obj == default_GetSquareChatStatus_result{getSquareChatStatus_result_e = getSquareChatStatus_result_e obj} then P.Nothing else P.Just $ default_GetSquareChatStatus_result{getSquareChatStatus_result_e = getSquareChatStatus_result_e obj}
     ]
 from_GetSquareChatStatus_result :: GetSquareChatStatus_result -> T.ThriftVal
-from_GetSquareChatStatus_result record = T.TStruct $ Map.fromList 
+from_GetSquareChatStatus_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11919 -> (1, ("e",from_SquareException _v11919))) <$> getSquareChatStatus_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11919 -> P.Just (0, ("success",from_GetSquareChatStatusResponse _v11919))) $ getSquareChatStatus_result_success record
@@ -3038,8 +3038,8 @@ default_GetSquareChatStatus_result = GetSquareChatStatus_result{
 data GetSquareChat_args = GetSquareChat_args  { getSquareChat_args_request :: GetSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChat_args_request record  
-instance QC.Arbitrary GetSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChat_args_request record
+instance QC.Arbitrary GetSquareChat_args where
   arbitrary = M.liftM GetSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_GetSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -3071,8 +3071,8 @@ data GetSquareChat_result = GetSquareChat_result  { getSquareChat_result_success
   , getSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChat_result_success record   `H.hashWithSalt` getSquareChat_result_e record  
-instance QC.Arbitrary GetSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquareChat_result_success record   `H.hashWithSalt` getSquareChat_result_e record
+instance QC.Arbitrary GetSquareChat_result where
   arbitrary = M.liftM GetSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquareChat_result = []
@@ -3081,7 +3081,7 @@ instance QC.Arbitrary GetSquareChat_result where
     , if obj == default_GetSquareChat_result{getSquareChat_result_e = getSquareChat_result_e obj} then P.Nothing else P.Just $ default_GetSquareChat_result{getSquareChat_result_e = getSquareChat_result_e obj}
     ]
 from_GetSquareChat_result :: GetSquareChat_result -> T.ThriftVal
-from_GetSquareChat_result record = T.TStruct $ Map.fromList 
+from_GetSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11932 -> (1, ("e",from_SquareException _v11932))) <$> getSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11932 -> P.Just (0, ("success",from_GetSquareChatResponse _v11932))) $ getSquareChat_result_success record
@@ -3111,8 +3111,8 @@ default_GetSquareChat_result = GetSquareChat_result{
 data GetSquare_args = GetSquare_args  { getSquare_args_request :: GetSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquare_args_request record  
-instance QC.Arbitrary GetSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquare_args_request record
+instance QC.Arbitrary GetSquare_args where
   arbitrary = M.liftM GetSquare_args (QC.arbitrary)
   shrink obj | obj == default_GetSquare_args = []
              | P.otherwise = M.catMaybes
@@ -3144,8 +3144,8 @@ data GetSquare_result = GetSquare_result  { getSquare_result_success :: GetSquar
   , getSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getSquare_result_success record   `H.hashWithSalt` getSquare_result_e record  
-instance QC.Arbitrary GetSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getSquare_result_success record   `H.hashWithSalt` getSquare_result_e record
+instance QC.Arbitrary GetSquare_result where
   arbitrary = M.liftM GetSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetSquare_result = []
@@ -3154,7 +3154,7 @@ instance QC.Arbitrary GetSquare_result where
     , if obj == default_GetSquare_result{getSquare_result_e = getSquare_result_e obj} then P.Nothing else P.Just $ default_GetSquare_result{getSquare_result_e = getSquare_result_e obj}
     ]
 from_GetSquare_result :: GetSquare_result -> T.ThriftVal
-from_GetSquare_result record = T.TStruct $ Map.fromList 
+from_GetSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11945 -> (1, ("e",from_SquareException _v11945))) <$> getSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11945 -> P.Just (0, ("success",from_GetSquareResponse _v11945))) $ getSquare_result_success record
@@ -3184,8 +3184,8 @@ default_GetSquare_result = GetSquare_result{
 data GetJoinedSquares_args = GetJoinedSquares_args  { getJoinedSquares_args_request :: GetJoinedSquaresRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedSquares_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquares_args_request record  
-instance QC.Arbitrary GetJoinedSquares_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquares_args_request record
+instance QC.Arbitrary GetJoinedSquares_args where
   arbitrary = M.liftM GetJoinedSquares_args (QC.arbitrary)
   shrink obj | obj == default_GetJoinedSquares_args = []
              | P.otherwise = M.catMaybes
@@ -3217,8 +3217,8 @@ data GetJoinedSquares_result = GetJoinedSquares_result  { getJoinedSquares_resul
   , getJoinedSquares_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedSquares_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquares_result_success record   `H.hashWithSalt` getJoinedSquares_result_e record  
-instance QC.Arbitrary GetJoinedSquares_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquares_result_success record   `H.hashWithSalt` getJoinedSquares_result_e record
+instance QC.Arbitrary GetJoinedSquares_result where
   arbitrary = M.liftM GetJoinedSquares_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetJoinedSquares_result = []
@@ -3227,7 +3227,7 @@ instance QC.Arbitrary GetJoinedSquares_result where
     , if obj == default_GetJoinedSquares_result{getJoinedSquares_result_e = getJoinedSquares_result_e obj} then P.Nothing else P.Just $ default_GetJoinedSquares_result{getJoinedSquares_result_e = getJoinedSquares_result_e obj}
     ]
 from_GetJoinedSquares_result :: GetJoinedSquares_result -> T.ThriftVal
-from_GetJoinedSquares_result record = T.TStruct $ Map.fromList 
+from_GetJoinedSquares_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11958 -> (1, ("e",from_SquareException _v11958))) <$> getJoinedSquares_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11958 -> P.Just (0, ("success",from_GetJoinedSquaresResponse _v11958))) $ getJoinedSquares_result_success record
@@ -3257,8 +3257,8 @@ default_GetJoinedSquares_result = GetJoinedSquares_result{
 data GetJoinedSquareChats_args = GetJoinedSquareChats_args  { getJoinedSquareChats_args_request :: GetJoinedSquareChatsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedSquareChats_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquareChats_args_request record  
-instance QC.Arbitrary GetJoinedSquareChats_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquareChats_args_request record
+instance QC.Arbitrary GetJoinedSquareChats_args where
   arbitrary = M.liftM GetJoinedSquareChats_args (QC.arbitrary)
   shrink obj | obj == default_GetJoinedSquareChats_args = []
              | P.otherwise = M.catMaybes
@@ -3290,8 +3290,8 @@ data GetJoinedSquareChats_result = GetJoinedSquareChats_result  { getJoinedSquar
   , getJoinedSquareChats_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinedSquareChats_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquareChats_result_success record   `H.hashWithSalt` getJoinedSquareChats_result_e record  
-instance QC.Arbitrary GetJoinedSquareChats_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinedSquareChats_result_success record   `H.hashWithSalt` getJoinedSquareChats_result_e record
+instance QC.Arbitrary GetJoinedSquareChats_result where
   arbitrary = M.liftM GetJoinedSquareChats_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetJoinedSquareChats_result = []
@@ -3300,7 +3300,7 @@ instance QC.Arbitrary GetJoinedSquareChats_result where
     , if obj == default_GetJoinedSquareChats_result{getJoinedSquareChats_result_e = getJoinedSquareChats_result_e obj} then P.Nothing else P.Just $ default_GetJoinedSquareChats_result{getJoinedSquareChats_result_e = getJoinedSquareChats_result_e obj}
     ]
 from_GetJoinedSquareChats_result :: GetJoinedSquareChats_result -> T.ThriftVal
-from_GetJoinedSquareChats_result record = T.TStruct $ Map.fromList 
+from_GetJoinedSquareChats_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11971 -> (1, ("e",from_SquareException _v11971))) <$> getJoinedSquareChats_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11971 -> P.Just (0, ("success",from_GetJoinedSquareChatsResponse _v11971))) $ getJoinedSquareChats_result_success record
@@ -3330,8 +3330,8 @@ default_GetJoinedSquareChats_result = GetJoinedSquareChats_result{
 data ApproveSquareMembers_args = ApproveSquareMembers_args  { approveSquareMembers_args_request :: ApproveSquareMembersRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveSquareMembers_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveSquareMembers_args_request record  
-instance QC.Arbitrary ApproveSquareMembers_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveSquareMembers_args_request record
+instance QC.Arbitrary ApproveSquareMembers_args where
   arbitrary = M.liftM ApproveSquareMembers_args (QC.arbitrary)
   shrink obj | obj == default_ApproveSquareMembers_args = []
              | P.otherwise = M.catMaybes
@@ -3363,8 +3363,8 @@ data ApproveSquareMembers_result = ApproveSquareMembers_result  { approveSquareM
   , approveSquareMembers_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable ApproveSquareMembers_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` approveSquareMembers_result_success record   `H.hashWithSalt` approveSquareMembers_result_e record  
-instance QC.Arbitrary ApproveSquareMembers_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` approveSquareMembers_result_success record   `H.hashWithSalt` approveSquareMembers_result_e record
+instance QC.Arbitrary ApproveSquareMembers_result where
   arbitrary = M.liftM ApproveSquareMembers_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_ApproveSquareMembers_result = []
@@ -3373,7 +3373,7 @@ instance QC.Arbitrary ApproveSquareMembers_result where
     , if obj == default_ApproveSquareMembers_result{approveSquareMembers_result_e = approveSquareMembers_result_e obj} then P.Nothing else P.Just $ default_ApproveSquareMembers_result{approveSquareMembers_result_e = approveSquareMembers_result_e obj}
     ]
 from_ApproveSquareMembers_result :: ApproveSquareMembers_result -> T.ThriftVal
-from_ApproveSquareMembers_result record = T.TStruct $ Map.fromList 
+from_ApproveSquareMembers_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11984 -> (1, ("e",from_SquareException _v11984))) <$> approveSquareMembers_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11984 -> P.Just (0, ("success",from_ApproveSquareMembersResponse _v11984))) $ approveSquareMembers_result_success record
@@ -3403,8 +3403,8 @@ default_ApproveSquareMembers_result = ApproveSquareMembers_result{
 data CreateSquareChat_args = CreateSquareChat_args  { createSquareChat_args_request :: CreateSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChat_args_request record  
-instance QC.Arbitrary CreateSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChat_args_request record
+instance QC.Arbitrary CreateSquareChat_args where
   arbitrary = M.liftM CreateSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_CreateSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -3436,8 +3436,8 @@ data CreateSquareChat_result = CreateSquareChat_result  { createSquareChat_resul
   , createSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChat_result_success record   `H.hashWithSalt` createSquareChat_result_e record  
-instance QC.Arbitrary CreateSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquareChat_result_success record   `H.hashWithSalt` createSquareChat_result_e record
+instance QC.Arbitrary CreateSquareChat_result where
   arbitrary = M.liftM CreateSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CreateSquareChat_result = []
@@ -3446,7 +3446,7 @@ instance QC.Arbitrary CreateSquareChat_result where
     , if obj == default_CreateSquareChat_result{createSquareChat_result_e = createSquareChat_result_e obj} then P.Nothing else P.Just $ default_CreateSquareChat_result{createSquareChat_result_e = createSquareChat_result_e obj}
     ]
 from_CreateSquareChat_result :: CreateSquareChat_result -> T.ThriftVal
-from_CreateSquareChat_result record = T.TStruct $ Map.fromList 
+from_CreateSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v11997 -> (1, ("e",from_SquareException _v11997))) <$> createSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v11997 -> P.Just (0, ("success",from_CreateSquareChatResponse _v11997))) $ createSquareChat_result_success record
@@ -3476,8 +3476,8 @@ default_CreateSquareChat_result = CreateSquareChat_result{
 data CreateSquare_args = CreateSquare_args  { createSquare_args_request :: CreateSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquare_args_request record  
-instance QC.Arbitrary CreateSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquare_args_request record
+instance QC.Arbitrary CreateSquare_args where
   arbitrary = M.liftM CreateSquare_args (QC.arbitrary)
   shrink obj | obj == default_CreateSquare_args = []
              | P.otherwise = M.catMaybes
@@ -3509,8 +3509,8 @@ data CreateSquare_result = CreateSquare_result  { createSquare_result_success ::
   , createSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable CreateSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` createSquare_result_success record   `H.hashWithSalt` createSquare_result_e record  
-instance QC.Arbitrary CreateSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` createSquare_result_success record   `H.hashWithSalt` createSquare_result_e record
+instance QC.Arbitrary CreateSquare_result where
   arbitrary = M.liftM CreateSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_CreateSquare_result = []
@@ -3519,7 +3519,7 @@ instance QC.Arbitrary CreateSquare_result where
     , if obj == default_CreateSquare_result{createSquare_result_e = createSquare_result_e obj} then P.Nothing else P.Just $ default_CreateSquare_result{createSquare_result_e = createSquare_result_e obj}
     ]
 from_CreateSquare_result :: CreateSquare_result -> T.ThriftVal
-from_CreateSquare_result record = T.TStruct $ Map.fromList 
+from_CreateSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12010 -> (1, ("e",from_SquareException _v12010))) <$> createSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12010 -> P.Just (0, ("success",from_CreateSquareResponse _v12010))) $ createSquare_result_success record
@@ -3549,8 +3549,8 @@ default_CreateSquare_result = CreateSquare_result{
 data DeleteSquareChat_args = DeleteSquareChat_args  { deleteSquareChat_args_request :: DeleteSquareChatRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquareChat_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChat_args_request record  
-instance QC.Arbitrary DeleteSquareChat_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChat_args_request record
+instance QC.Arbitrary DeleteSquareChat_args where
   arbitrary = M.liftM DeleteSquareChat_args (QC.arbitrary)
   shrink obj | obj == default_DeleteSquareChat_args = []
              | P.otherwise = M.catMaybes
@@ -3582,8 +3582,8 @@ data DeleteSquareChat_result = DeleteSquareChat_result  { deleteSquareChat_resul
   , deleteSquareChat_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquareChat_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChat_result_success record   `H.hashWithSalt` deleteSquareChat_result_e record  
-instance QC.Arbitrary DeleteSquareChat_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquareChat_result_success record   `H.hashWithSalt` deleteSquareChat_result_e record
+instance QC.Arbitrary DeleteSquareChat_result where
   arbitrary = M.liftM DeleteSquareChat_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DeleteSquareChat_result = []
@@ -3592,7 +3592,7 @@ instance QC.Arbitrary DeleteSquareChat_result where
     , if obj == default_DeleteSquareChat_result{deleteSquareChat_result_e = deleteSquareChat_result_e obj} then P.Nothing else P.Just $ default_DeleteSquareChat_result{deleteSquareChat_result_e = deleteSquareChat_result_e obj}
     ]
 from_DeleteSquareChat_result :: DeleteSquareChat_result -> T.ThriftVal
-from_DeleteSquareChat_result record = T.TStruct $ Map.fromList 
+from_DeleteSquareChat_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12023 -> (1, ("e",from_SquareException _v12023))) <$> deleteSquareChat_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12023 -> P.Just (0, ("success",from_DeleteSquareChatResponse _v12023))) $ deleteSquareChat_result_success record
@@ -3622,8 +3622,8 @@ default_DeleteSquareChat_result = DeleteSquareChat_result{
 data DeleteSquare_args = DeleteSquare_args  { deleteSquare_args_request :: DeleteSquareRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquare_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquare_args_request record  
-instance QC.Arbitrary DeleteSquare_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquare_args_request record
+instance QC.Arbitrary DeleteSquare_args where
   arbitrary = M.liftM DeleteSquare_args (QC.arbitrary)
   shrink obj | obj == default_DeleteSquare_args = []
              | P.otherwise = M.catMaybes
@@ -3655,8 +3655,8 @@ data DeleteSquare_result = DeleteSquare_result  { deleteSquare_result_success ::
   , deleteSquare_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DeleteSquare_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquare_result_success record   `H.hashWithSalt` deleteSquare_result_e record  
-instance QC.Arbitrary DeleteSquare_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` deleteSquare_result_success record   `H.hashWithSalt` deleteSquare_result_e record
+instance QC.Arbitrary DeleteSquare_result where
   arbitrary = M.liftM DeleteSquare_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DeleteSquare_result = []
@@ -3665,7 +3665,7 @@ instance QC.Arbitrary DeleteSquare_result where
     , if obj == default_DeleteSquare_result{deleteSquare_result_e = deleteSquare_result_e obj} then P.Nothing else P.Just $ default_DeleteSquare_result{deleteSquare_result_e = deleteSquare_result_e obj}
     ]
 from_DeleteSquare_result :: DeleteSquare_result -> T.ThriftVal
-from_DeleteSquare_result record = T.TStruct $ Map.fromList 
+from_DeleteSquare_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12036 -> (1, ("e",from_SquareException _v12036))) <$> deleteSquare_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12036 -> P.Just (0, ("success",from_DeleteSquareResponse _v12036))) $ deleteSquare_result_success record
@@ -3695,8 +3695,8 @@ default_DeleteSquare_result = DeleteSquare_result{
 data DestroyMessage_args = DestroyMessage_args  { destroyMessage_args_request :: DestroyMessageRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DestroyMessage_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` destroyMessage_args_request record  
-instance QC.Arbitrary DestroyMessage_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` destroyMessage_args_request record
+instance QC.Arbitrary DestroyMessage_args where
   arbitrary = M.liftM DestroyMessage_args (QC.arbitrary)
   shrink obj | obj == default_DestroyMessage_args = []
              | P.otherwise = M.catMaybes
@@ -3728,8 +3728,8 @@ data DestroyMessage_result = DestroyMessage_result  { destroyMessage_result_succ
   , destroyMessage_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable DestroyMessage_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` destroyMessage_result_success record   `H.hashWithSalt` destroyMessage_result_e record  
-instance QC.Arbitrary DestroyMessage_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` destroyMessage_result_success record   `H.hashWithSalt` destroyMessage_result_e record
+instance QC.Arbitrary DestroyMessage_result where
   arbitrary = M.liftM DestroyMessage_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_DestroyMessage_result = []
@@ -3738,7 +3738,7 @@ instance QC.Arbitrary DestroyMessage_result where
     , if obj == default_DestroyMessage_result{destroyMessage_result_e = destroyMessage_result_e obj} then P.Nothing else P.Just $ default_DestroyMessage_result{destroyMessage_result_e = destroyMessage_result_e obj}
     ]
 from_DestroyMessage_result :: DestroyMessage_result -> T.ThriftVal
-from_DestroyMessage_result record = T.TStruct $ Map.fromList 
+from_DestroyMessage_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12049 -> (1, ("e",from_SquareException _v12049))) <$> destroyMessage_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12049 -> P.Just (0, ("success",from_DestroyMessageResponse _v12049))) $ destroyMessage_result_success record
@@ -3768,8 +3768,8 @@ default_DestroyMessage_result = DestroyMessage_result{
 data GetJoinableSquareChats_args = GetJoinableSquareChats_args  { getJoinableSquareChats_args_request :: GetJoinableSquareChatsRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinableSquareChats_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinableSquareChats_args_request record  
-instance QC.Arbitrary GetJoinableSquareChats_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinableSquareChats_args_request record
+instance QC.Arbitrary GetJoinableSquareChats_args where
   arbitrary = M.liftM GetJoinableSquareChats_args (QC.arbitrary)
   shrink obj | obj == default_GetJoinableSquareChats_args = []
              | P.otherwise = M.catMaybes
@@ -3801,8 +3801,8 @@ data GetJoinableSquareChats_result = GetJoinableSquareChats_result  { getJoinabl
   , getJoinableSquareChats_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetJoinableSquareChats_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinableSquareChats_result_success record   `H.hashWithSalt` getJoinableSquareChats_result_e record  
-instance QC.Arbitrary GetJoinableSquareChats_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getJoinableSquareChats_result_success record   `H.hashWithSalt` getJoinableSquareChats_result_e record
+instance QC.Arbitrary GetJoinableSquareChats_result where
   arbitrary = M.liftM GetJoinableSquareChats_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetJoinableSquareChats_result = []
@@ -3811,7 +3811,7 @@ instance QC.Arbitrary GetJoinableSquareChats_result where
     , if obj == default_GetJoinableSquareChats_result{getJoinableSquareChats_result_e = getJoinableSquareChats_result_e obj} then P.Nothing else P.Just $ default_GetJoinableSquareChats_result{getJoinableSquareChats_result_e = getJoinableSquareChats_result_e obj}
     ]
 from_GetJoinableSquareChats_result :: GetJoinableSquareChats_result -> T.ThriftVal
-from_GetJoinableSquareChats_result record = T.TStruct $ Map.fromList 
+from_GetJoinableSquareChats_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12062 -> (1, ("e",from_SquareException _v12062))) <$> getJoinableSquareChats_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12062 -> P.Just (0, ("success",from_GetJoinableSquareChatsResponse _v12062))) $ getJoinableSquareChats_result_success record
@@ -3841,8 +3841,8 @@ default_GetJoinableSquareChats_result = GetJoinableSquareChats_result{
 data GetInvitationTicketUrl_args = GetInvitationTicketUrl_args  { getInvitationTicketUrl_args_request :: GetInvitationTicketUrlRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetInvitationTicketUrl_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getInvitationTicketUrl_args_request record  
-instance QC.Arbitrary GetInvitationTicketUrl_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getInvitationTicketUrl_args_request record
+instance QC.Arbitrary GetInvitationTicketUrl_args where
   arbitrary = M.liftM GetInvitationTicketUrl_args (QC.arbitrary)
   shrink obj | obj == default_GetInvitationTicketUrl_args = []
              | P.otherwise = M.catMaybes
@@ -3874,8 +3874,8 @@ data GetInvitationTicketUrl_result = GetInvitationTicketUrl_result  { getInvitat
   , getInvitationTicketUrl_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetInvitationTicketUrl_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getInvitationTicketUrl_result_success record   `H.hashWithSalt` getInvitationTicketUrl_result_e record  
-instance QC.Arbitrary GetInvitationTicketUrl_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getInvitationTicketUrl_result_success record   `H.hashWithSalt` getInvitationTicketUrl_result_e record
+instance QC.Arbitrary GetInvitationTicketUrl_result where
   arbitrary = M.liftM GetInvitationTicketUrl_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetInvitationTicketUrl_result = []
@@ -3884,7 +3884,7 @@ instance QC.Arbitrary GetInvitationTicketUrl_result where
     , if obj == default_GetInvitationTicketUrl_result{getInvitationTicketUrl_result_e = getInvitationTicketUrl_result_e obj} then P.Nothing else P.Just $ default_GetInvitationTicketUrl_result{getInvitationTicketUrl_result_e = getInvitationTicketUrl_result_e obj}
     ]
 from_GetInvitationTicketUrl_result :: GetInvitationTicketUrl_result -> T.ThriftVal
-from_GetInvitationTicketUrl_result record = T.TStruct $ Map.fromList 
+from_GetInvitationTicketUrl_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12075 -> (1, ("e",from_SquareException _v12075))) <$> getInvitationTicketUrl_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12075 -> P.Just (0, ("success",from_GetInvitationTicketUrlResponse _v12075))) $ getInvitationTicketUrl_result_success record
@@ -3914,8 +3914,8 @@ default_GetInvitationTicketUrl_result = GetInvitationTicketUrl_result{
 data FindSquareByInvitationTicket_args = FindSquareByInvitationTicket_args  { findSquareByInvitationTicket_args_request :: FindSquareByInvitationTicketRequest
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FindSquareByInvitationTicket_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` findSquareByInvitationTicket_args_request record  
-instance QC.Arbitrary FindSquareByInvitationTicket_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` findSquareByInvitationTicket_args_request record
+instance QC.Arbitrary FindSquareByInvitationTicket_args where
   arbitrary = M.liftM FindSquareByInvitationTicket_args (QC.arbitrary)
   shrink obj | obj == default_FindSquareByInvitationTicket_args = []
              | P.otherwise = M.catMaybes
@@ -3947,8 +3947,8 @@ data FindSquareByInvitationTicket_result = FindSquareByInvitationTicket_result  
   , findSquareByInvitationTicket_result_e :: P.Maybe SquareException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable FindSquareByInvitationTicket_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` findSquareByInvitationTicket_result_success record   `H.hashWithSalt` findSquareByInvitationTicket_result_e record  
-instance QC.Arbitrary FindSquareByInvitationTicket_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` findSquareByInvitationTicket_result_success record   `H.hashWithSalt` findSquareByInvitationTicket_result_e record
+instance QC.Arbitrary FindSquareByInvitationTicket_result where
   arbitrary = M.liftM FindSquareByInvitationTicket_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_FindSquareByInvitationTicket_result = []
@@ -3957,7 +3957,7 @@ instance QC.Arbitrary FindSquareByInvitationTicket_result where
     , if obj == default_FindSquareByInvitationTicket_result{findSquareByInvitationTicket_result_e = findSquareByInvitationTicket_result_e obj} then P.Nothing else P.Just $ default_FindSquareByInvitationTicket_result{findSquareByInvitationTicket_result_e = findSquareByInvitationTicket_result_e obj}
     ]
 from_FindSquareByInvitationTicket_result :: FindSquareByInvitationTicket_result -> T.ThriftVal
-from_FindSquareByInvitationTicket_result record = T.TStruct $ Map.fromList 
+from_FindSquareByInvitationTicket_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v12088 -> (1, ("e",from_SquareException _v12088))) <$> findSquareByInvitationTicket_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v12088 -> P.Just (0, ("success",from_FindSquareByInvitationTicketResponse _v12088))) $ findSquareByInvitationTicket_result_success record

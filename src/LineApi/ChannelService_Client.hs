@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module ChannelService_Client(issueOTP,approveChannelAndIssueChannelToken,approveChannelAndIssueRequestToken,fetchNotificationItems,getApprovedChannels,getChannelInfo,getChannelNotificationSetting,getChannelNotificationSettings,getChannels,getDomains,getFriendChannelMatrices,updateChannelSettings,getCommonDomains,getNotificationBadgeCount,issueChannelToken,issueRequestToken,issueRequestTokenWithAuthScheme,issueRequestTokenForAutoLogin,getUpdatedChannelIds,reserveCoinUse,revokeChannel,syncChannelData,updateChannelNotificationSetting) where
+module LineApi.ChannelService_Client(issueOTP,approveChannelAndIssueChannelToken,approveChannelAndIssueRequestToken,fetchNotificationItems,getApprovedChannels,getChannelInfo,getChannelNotificationSetting,getChannelNotificationSettings,getChannels,getDomains,getFriendChannelMatrices,updateChannelSettings,getCommonDomains,getNotificationBadgeCount,issueChannelToken,issueRequestToken,issueRequestTokenWithAuthScheme,issueRequestTokenForAutoLogin,getUpdatedChannelIds,reserveCoinUse,revokeChannel,syncChannelData,updateChannelNotificationSetting) where
 import qualified Data.IORef as R
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
@@ -39,8 +39,8 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import ChannelService
+import LineApi.Line_Types
+import LineApi.ChannelService
 seqid = R.newIORef 0
 issueOTP (ip,op) arg_channelId = do
   send_issueOTP op arg_channelId

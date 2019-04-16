@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module CallService_Iface where
+module LineApi.CallService_Iface where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,12 +38,12 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
+import LineApi.Line_Types
 
 class CallService_Iface a where
   getUserStatus :: a -> LT.Text -> P.IO UserStatus
   updateProfileAttributeForChannel :: a -> ProfileAttribute -> LT.Text -> P.IO ()
-  updateExtendedProfileAttribute :: a -> ExtendedProfileAttribute -> ExtendedProfile -> P.IO ()
+  updateExtendedProfileAttribute :: a -> ProfileAttribute -> ExtendedProfile -> P.IO ()
   getAllSimpleChannelContacts :: a -> P.Bool -> P.IO (Vector.Vector SimpleChannelContact)
   getUserIdentities :: a -> P.IO (Map.HashMap RegistrationType LT.Text)
   markPaidCallAd :: a -> LT.Text -> LT.Text -> P.Bool -> P.IO PaidCallDialing

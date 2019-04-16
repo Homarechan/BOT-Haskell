@@ -13,7 +13,7 @@
 -- DO NOT EDIT UNLESS YOU ARE SURE YOU KNOW WHAT YOU ARE DOING --
 -----------------------------------------------------------------
 
-module BotService where
+module LineApi.BotService where
 import Prelude (($), (.), (>>=), (==), (++))
 import qualified Prelude as P
 import qualified Control.Exception as X
@@ -38,15 +38,15 @@ import qualified Thrift.Types as T
 import qualified Thrift.Arbitraries as T
 
 
-import Line_Types
-import qualified BotService_Iface as Iface
+import LineApi.Line_Types
+import qualified LineApi.BotService_Iface as Iface
 -- HELPER FUNCTIONS AND STRUCTURES --
 
 data NotifyLeaveGroup_args = NotifyLeaveGroup_args  { notifyLeaveGroup_args_groupMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyLeaveGroup_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveGroup_args_groupMid record  
-instance QC.Arbitrary NotifyLeaveGroup_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveGroup_args_groupMid record
+instance QC.Arbitrary NotifyLeaveGroup_args where
   arbitrary = M.liftM NotifyLeaveGroup_args (QC.arbitrary)
   shrink obj | obj == default_NotifyLeaveGroup_args = []
              | P.otherwise = M.catMaybes
@@ -77,15 +77,15 @@ default_NotifyLeaveGroup_args = NotifyLeaveGroup_args{
 data NotifyLeaveGroup_result = NotifyLeaveGroup_result  { notifyLeaveGroup_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyLeaveGroup_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveGroup_result_e record  
-instance QC.Arbitrary NotifyLeaveGroup_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveGroup_result_e record
+instance QC.Arbitrary NotifyLeaveGroup_result where
   arbitrary = M.liftM NotifyLeaveGroup_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyLeaveGroup_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyLeaveGroup_result{notifyLeaveGroup_result_e = notifyLeaveGroup_result_e obj} then P.Nothing else P.Just $ default_NotifyLeaveGroup_result{notifyLeaveGroup_result_e = notifyLeaveGroup_result_e obj}
     ]
 from_NotifyLeaveGroup_result :: NotifyLeaveGroup_result -> T.ThriftVal
-from_NotifyLeaveGroup_result record = T.TStruct $ Map.fromList 
+from_NotifyLeaveGroup_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4086 -> (1, ("e",from_TalkException _v4086))) <$> notifyLeaveGroup_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4086 -> (1, ("e",from_TalkException _v4086))) <$> notifyLeaveGroup_result_e record
@@ -112,8 +112,8 @@ default_NotifyLeaveGroup_result = NotifyLeaveGroup_result{
 data NotifyLeaveRoom_args = NotifyLeaveRoom_args  { notifyLeaveRoom_args_roomMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyLeaveRoom_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveRoom_args_roomMid record  
-instance QC.Arbitrary NotifyLeaveRoom_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveRoom_args_roomMid record
+instance QC.Arbitrary NotifyLeaveRoom_args where
   arbitrary = M.liftM NotifyLeaveRoom_args (QC.arbitrary)
   shrink obj | obj == default_NotifyLeaveRoom_args = []
              | P.otherwise = M.catMaybes
@@ -144,15 +144,15 @@ default_NotifyLeaveRoom_args = NotifyLeaveRoom_args{
 data NotifyLeaveRoom_result = NotifyLeaveRoom_result  { notifyLeaveRoom_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable NotifyLeaveRoom_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveRoom_result_e record  
-instance QC.Arbitrary NotifyLeaveRoom_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` notifyLeaveRoom_result_e record
+instance QC.Arbitrary NotifyLeaveRoom_result where
   arbitrary = M.liftM NotifyLeaveRoom_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_NotifyLeaveRoom_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_NotifyLeaveRoom_result{notifyLeaveRoom_result_e = notifyLeaveRoom_result_e obj} then P.Nothing else P.Just $ default_NotifyLeaveRoom_result{notifyLeaveRoom_result_e = notifyLeaveRoom_result_e obj}
     ]
 from_NotifyLeaveRoom_result :: NotifyLeaveRoom_result -> T.ThriftVal
-from_NotifyLeaveRoom_result record = T.TStruct $ Map.fromList 
+from_NotifyLeaveRoom_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4098 -> (1, ("e",from_TalkException _v4098))) <$> notifyLeaveRoom_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4098 -> (1, ("e",from_TalkException _v4098))) <$> notifyLeaveRoom_result_e record
@@ -179,8 +179,8 @@ default_NotifyLeaveRoom_result = NotifyLeaveRoom_result{
 data GetBotUseInfo_args = GetBotUseInfo_args  { getBotUseInfo_args_botMid :: LT.Text
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBotUseInfo_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBotUseInfo_args_botMid record  
-instance QC.Arbitrary GetBotUseInfo_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBotUseInfo_args_botMid record
+instance QC.Arbitrary GetBotUseInfo_args where
   arbitrary = M.liftM GetBotUseInfo_args (QC.arbitrary)
   shrink obj | obj == default_GetBotUseInfo_args = []
              | P.otherwise = M.catMaybes
@@ -212,8 +212,8 @@ data GetBotUseInfo_result = GetBotUseInfo_result  { getBotUseInfo_result_success
   , getBotUseInfo_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable GetBotUseInfo_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` getBotUseInfo_result_success record   `H.hashWithSalt` getBotUseInfo_result_e record  
-instance QC.Arbitrary GetBotUseInfo_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` getBotUseInfo_result_success record   `H.hashWithSalt` getBotUseInfo_result_e record
+instance QC.Arbitrary GetBotUseInfo_result where
   arbitrary = M.liftM GetBotUseInfo_result (QC.arbitrary)
           `M.ap`(M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_GetBotUseInfo_result = []
@@ -222,7 +222,7 @@ instance QC.Arbitrary GetBotUseInfo_result where
     , if obj == default_GetBotUseInfo_result{getBotUseInfo_result_e = getBotUseInfo_result_e obj} then P.Nothing else P.Just $ default_GetBotUseInfo_result{getBotUseInfo_result_e = getBotUseInfo_result_e obj}
     ]
 from_GetBotUseInfo_result :: GetBotUseInfo_result -> T.ThriftVal
-from_GetBotUseInfo_result record = T.TStruct $ Map.fromList 
+from_GetBotUseInfo_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4110 -> (1, ("e",from_TalkException _v4110))) <$> getBotUseInfo_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4110 -> P.Just (0, ("success",from_BotUseInfo _v4110))) $ getBotUseInfo_result_success record
@@ -255,8 +255,8 @@ data SendChatCheckedByWatermark_args = SendChatCheckedByWatermark_args  { sendCh
   , sendChatCheckedByWatermark_args_sessionId :: I.Int32
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendChatCheckedByWatermark_args where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendChatCheckedByWatermark_args_seq record   `H.hashWithSalt` sendChatCheckedByWatermark_args_mid record   `H.hashWithSalt` sendChatCheckedByWatermark_args_watermark record   `H.hashWithSalt` sendChatCheckedByWatermark_args_sessionId record  
-instance QC.Arbitrary SendChatCheckedByWatermark_args where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendChatCheckedByWatermark_args_seq record   `H.hashWithSalt` sendChatCheckedByWatermark_args_mid record   `H.hashWithSalt` sendChatCheckedByWatermark_args_watermark record   `H.hashWithSalt` sendChatCheckedByWatermark_args_sessionId record
+instance QC.Arbitrary SendChatCheckedByWatermark_args where
   arbitrary = M.liftM SendChatCheckedByWatermark_args (QC.arbitrary)
           `M.ap`(QC.arbitrary)
           `M.ap`(QC.arbitrary)
@@ -302,15 +302,15 @@ default_SendChatCheckedByWatermark_args = SendChatCheckedByWatermark_args{
 data SendChatCheckedByWatermark_result = SendChatCheckedByWatermark_result  { sendChatCheckedByWatermark_result_e :: P.Maybe TalkException
   } deriving (P.Show,P.Eq,G.Generic,TY.Typeable)
 instance H.Hashable SendChatCheckedByWatermark_result where
-  hashWithSalt salt record = salt   `H.hashWithSalt` sendChatCheckedByWatermark_result_e record  
-instance QC.Arbitrary SendChatCheckedByWatermark_result where 
+  hashWithSalt salt record = salt   `H.hashWithSalt` sendChatCheckedByWatermark_result_e record
+instance QC.Arbitrary SendChatCheckedByWatermark_result where
   arbitrary = M.liftM SendChatCheckedByWatermark_result (M.liftM P.Just QC.arbitrary)
   shrink obj | obj == default_SendChatCheckedByWatermark_result = []
              | P.otherwise = M.catMaybes
     [ if obj == default_SendChatCheckedByWatermark_result{sendChatCheckedByWatermark_result_e = sendChatCheckedByWatermark_result_e obj} then P.Nothing else P.Just $ default_SendChatCheckedByWatermark_result{sendChatCheckedByWatermark_result_e = sendChatCheckedByWatermark_result_e obj}
     ]
 from_SendChatCheckedByWatermark_result :: SendChatCheckedByWatermark_result -> T.ThriftVal
-from_SendChatCheckedByWatermark_result record = T.TStruct $ Map.fromList 
+from_SendChatCheckedByWatermark_result record = T.TStruct $ Map.fromList
   (let exns = M.catMaybes [ (\_v4126 -> (1, ("e",from_TalkException _v4126))) <$> sendChatCheckedByWatermark_result_e record]
   in if P.not (P.null exns) then exns else M.catMaybes
     [ (\_v4126 -> (1, ("e",from_TalkException _v4126))) <$> sendChatCheckedByWatermark_result_e record

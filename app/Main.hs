@@ -40,7 +40,7 @@ la :: String
 la = "IOSIPAD\t7.4.7\tHaskell-Proto\t0.1.0.0"
 
 token :: String
-token = "EF65h1YvVtgpgSkLnk2c.Xinf1BllmQ7eMepWcCQLZa.qY009QPA18bx7rqIwSndLDlH+WPMFeKUwsoiqNQMl6E="
+token = "input your token here"
 
 header = Map.fromList [("X-Line-Applicaition", la), ("X-Line-Access", token), ("User-Agent", ua)]
 
